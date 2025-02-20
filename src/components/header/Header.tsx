@@ -28,7 +28,7 @@ const NavLink = styled.a`
 const Header: React.FC = () => {
   return (
     <Nav>
-      <Logo>Nourish Kit</Logo>
+      <Logo>Nova Nit</Logo>
       <NavLink href="/">Home</NavLink>
       <NavLink href="/mission">Mission</NavLink>
       <NavLink href="/how-does-it-work">How It Works</NavLink>
