@@ -1,0 +1,26 @@
+/* src/pages/Mission/Mission.module.css */
+.mission {
+    background: #f5f5f5;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  
+  .title {
+    color: #333333;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    margin-bottom: 1rem;
+  }
+  
+  .content {
+    color: #333333;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 18px;
+    margin-bottom: 2rem;
+  }
+  
+  .image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }

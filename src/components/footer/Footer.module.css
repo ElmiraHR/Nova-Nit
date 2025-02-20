@@ -1,0 +1,17 @@
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+  }
+  
+  .socialLinks a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .socialLinks a:hover {
+    text-decoration: underline;
+  }
+  

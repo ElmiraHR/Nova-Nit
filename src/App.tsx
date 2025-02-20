@@ -1,26 +1,38 @@
+// src/App.tsx
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
+import Landing from './pages/landing/Landing';
+import Mission from './pages/mission/Mission';
+import HowDoesItWork from './pages/howDoesItWork/HowDoesItWork';
+import Partners from './pages/partners/Partners';
+import GetInvolved from './pages/getInvolved/GetInvolved';
+import ContactUs from './pages/contact/Contact';
+import Volunteer from './pages/volunteer/Volunteer';
+import FAQ from './pages/faq/FAQ';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="app">
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/mission" element={<Mission />} />
+            <Route path="/how-does-it-work" element={<HowDoesItWork />} />
+            <Route path="/partners" element={<Partners />} />
+            <Route path="/get-involved" element={<GetInvolved />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/volunteer" element={<Volunteer />} />
+            <Route path="/faq" element={<FAQ />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
