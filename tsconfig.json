@@ -1,26 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "target": "ES6",                          // Целевая версия ECMAScript
+    "lib": ["DOM", "DOM.Iterable", "ES6"],    // Библиотеки для браузера
+    "allowJs": true,                          // Поддержка JS-файлов
+    "skipLibCheck": true,                     // Пропуск проверки типов в node_modules
+    "esModuleInterop": true,                  // Совместимость с CommonJS
+    "allowSyntheticDefaultImports": true,     // Поддержка импорта по умолчанию
+    "strict": true,                           // Строгая проверка типов
+    "forceConsistentCasingInFileNames": true, // Чувствительность к регистру
+    "module": "ESNext",                       // Используемый модуль
+    "moduleResolution": "node",               // Разрешение модулей как в Node.js
+    "resolveJsonModule": true,                // Импорт JSON-файлов
+    "isolatedModules": true,                  // Поддержка изолированных модулей
+    "jsx": "react-jsx",                       // Поддержка JSX (React)
+    "baseUrl": "src",                         // Удобный импорт из src
+    "paths": {
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+      "@services/*": ["services/*"],
+      "@styles/*": ["styles/*"],
+      "@types/*": ["types/*"]
+    }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"],                         // Файлы для компиляции
+  "exclude": ["node_modules", "build"]        // Исключения
 }
