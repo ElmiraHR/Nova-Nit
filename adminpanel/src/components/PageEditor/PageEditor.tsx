@@ -13,12 +13,16 @@ const PageEditor = () => {
   const [content, setContent] = useState('');
   const [image, setImage] = useState<File | null>(null);
 
+  // Загружаем данные страницы
   useEffect(() => {
     if (!page) return;
 
     axios.get<PageContent>(`/api/getPageContent/${page}`)
       .then((res) => {
-        setContent(res.data.content); // ✅ Здесь тип автоматически подтянется
+        setContent(res.data.content);
+        if (res.data.imageUrl) {
+          // Установить изображение, если оно есть
+        }
       })
       .catch(err => console.error('Ошибка при загрузке данных:', err));
   }, [page]);
@@ -28,6 +32,7 @@ const PageEditor = () => {
     formData.append('content', content);
     if (image) formData.append('image', image);
 
+    // Отправка данных на бэк
     axios.post(`/api/savePageContent/${page}`, formData)
       .then(() => alert('Changes saved!'))
       .catch(err => console.error('Ошибка при сохранении:', err));

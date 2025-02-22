@@ -22,3 +22,6 @@ $routes->get('/admin', 'Admin::index');
 $routes->get('/logout', 'Login::logout');
 
 $routes->setAutoRoute(false); // Оставляем false для безопасности
+$routes->get('/api/getPageContent/(:segment)', 'PagesController::getPageContent/$1');
+$routes->post('/api/savePageContent/(:segment)', 'PagesController::savePageContent/$1');
+
