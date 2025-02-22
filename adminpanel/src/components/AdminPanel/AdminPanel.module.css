@@ -1,0 +1,17 @@
+.adminPanel {
+    display: flex; /* Размещение блоков в ряд */
+  }
+  
+  .sidebar {
+    width: 250px; /* Ширина сайдбара */
+    background-color: #f4f4f4;
+    height: 100vh; /* Высота 100% экрана */
+    padding: 20px;
+  }
+  
+  .mainContent {
+    flex-grow: 1; /* Занимает оставшееся место */
+    padding: 20px;
+    background-color: #fff;
+  }
+  

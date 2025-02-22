@@ -1,6 +1,19 @@
-<IfModule authz_core_module>
-	Require all denied
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Перенаправление всех запросов на index.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ /adminpanel/index.html [L]
 </IfModule>
-<IfModule !authz_core_module>
-	Deny from all
+
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
 </IfModule>
+
+# Разрешение предварительных OPTIONS-запросов
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]

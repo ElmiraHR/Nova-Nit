@@ -6,21 +6,15 @@ class Login extends BaseController
 {
     public function index()
     {
-        return view('login'); // Отображает страницу логина
+        return view('login'); // ✅ Загружает страницу логина
     }
 
     public function captcha()
     {
         $session = session();
-        
-        // ✅ Генерируем капчу только если она еще не создана
-        if (!$session->has('captcha')) {
-            $code = rand(1000, 9999);
-            $session->set('captcha', $code);
-        } else {
-            $code = $session->get('captcha');
-        }
-    
+        $code = rand(1000, 9999);
+        $session->set('captcha', $code);
+
         header('Content-Type: image/png');
         $image = imagecreate(100, 40);
         $bgColor = imagecolorallocate($image, 255, 255, 255);
@@ -29,64 +23,52 @@ class Login extends BaseController
         imagepng($image);
         imagedestroy($image);
     }
+
     public function auth()
     {
         $session = session();
         $request = \Config\Services::request();
     
-        $username = $request->getPost('username');
-        $password = md5($request->getPost('password'));
-        $captchaInput = $request->getPost('captcha');
-        $captchaSession = $session->get('captcha');
+        // ✅ Заголовки для CORS
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
     
-        if ((string)$captchaInput !== (string)$captchaSession) {
-            $session->setFlashdata('msg', 'Неверная капча');
-            return redirect()->to('/login');
+        // ✅ Ответ на preflight-запрос OPTIONS
+        if ($request->getMethod() === 'options') {
+            return $this->response->setStatusCode(200);
         }
-        
     
-        $session->remove('captcha'); // Чистим капчу после проверки
+        // ✅ Обработка логина
+        $json = $request->getJSON(true); // Получаем JSON как массив
+        $username = $json['username'] ?? '';
+        $password = md5($json['password'] ?? '');
+        
     
         $db = \Config\Database::connect();
         $query = $db->query("SELECT * FROM users WHERE username = ? AND password = ?", [$username, $password]);
         $user = $query->getRow();
     
         if ($user) {
+            // Устанавливаем сессии
             $session->set('isLoggedIn', true);
             $session->set('username', $user->username);
     
-            // Чистим кеш браузера после логина
-            header("Cache-Control: no-cache, no-store, must-revalidate");
-            header("Pragma: no-cache");
-            header("Expires: 0");
-    
-            return redirect()->to(base_url('admin'));
-
+            // Редирект на админ-панель фронтенда
+            return $this->response
+                ->setStatusCode(200)
+                ->setJSON(['status' => 'success', 'redirect' => 'http://localhost:3000/adminpanel']); // Путь на фронтенде
         } else {
-            $session->setFlashdata('msg', 'Неверный логин или пароль');
-            return redirect()->to('/login');
+            return $this->response
+                ->setStatusCode(401)
+                ->setJSON(['status' => 'error', 'message' => 'Invalid credentials']);
         }
     }
     
-
     public function logout()
     {
         $session = session();
-        $session->destroy(); // Удаление сессии
-    
-        // Очистка кэша браузера
-        header("Cache-Control: no-cache, no-store, must-revalidate");
-        header("Pragma: no-cache");
-        header("Expires: 0");
-    
-        // Принудительный редирект на страницу логина
-        return redirect()->to('/login')->withHeaders([
-            'Cache-Control' => 'no-cache, no-store, must-revalidate',
-            'Pragma' => 'no-cache',
-            'Expires' => '0',
-        ]);
+        $session->destroy();
+        return redirect()->to('/login');
     }
-    
-    
-    
 }

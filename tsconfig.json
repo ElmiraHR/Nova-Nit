@@ -22,6 +22,6 @@
       "@types/*": ["types/*"]
     }
   },
-  "include": ["src"],                         // Файлы для компиляции
+  "include": ["src", "adminpanel"],                         // Файлы для компиляции
   "exclude": ["node_modules", "build"]        // Исключения
 }
