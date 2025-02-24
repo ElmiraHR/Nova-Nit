@@ -10,14 +10,13 @@ class Cors implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        // Заголовки для CORS
-        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Origin: *'); // ✅ Разрешает запросы со всех доменов
         header('Access-Control-Allow-Headers: Content-Type, Authorization');
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 
-        // Прерываем выполнение для preflight-запросов
-        if ($request->getMethod(true) === 'OPTIONS') {
-            exit(0);
+        if ($request->getMethod() === 'OPTIONS') {
+            header('HTTP/1.1 200 OK');
+            exit();
         }
     }
 
@@ -25,4 +24,12 @@ class Cors implements FilterInterface
     {
         return $response;
     }
+    public function options()
+{
+    return $this->response
+        ->setHeader('Access-Control-Allow-Origin', '*')
+        ->setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        ->setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+        ->setStatusCode(200);
+}
 }

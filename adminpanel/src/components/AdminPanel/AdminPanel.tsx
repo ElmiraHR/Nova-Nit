@@ -1,7 +1,9 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from '../Sidebar/Sidebar';
-import PageEditor from '../PageEditor/PageEditor';
+import HeroBanner from '../Landing/HeroBanner';
+import BodyInfo from '../Landing/BodyInfo';
+import Partners from '../Landing/Partners';
 import styles from './AdminPanel.module.css';
 
 const AdminPanel = () => {
@@ -10,7 +12,11 @@ const AdminPanel = () => {
       <Sidebar />
       <div className={styles.mainContent}>
         <Routes>
-          <Route path=":page" element={<PageEditor />} />
+          <Route path="/" element={<h2>Welcome to Admin Panel</h2>} />
+          <Route path="/landing/hero-banner" element={<HeroBanner />} />
+          <Route path="/landing/body-info" element={<BodyInfo />} />
+          <Route path="/landing/partners" element={<Partners />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </div>

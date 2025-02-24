@@ -1,0 +1,88 @@
+/* ✅ Контейнер Hero Banner */
+.heroBannerContainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  /* ✅ Заголовок секции */
+  .sectionTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* ✅ Инпуты для текста */
+  .inputField {
+    width: 98%;
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  /* ✅ Загрузка картинки */
+  .imageUpload {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  
+  .imagePreview {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  /* ✅ Кнопка Сохранить */
+  .saveButton {
+    background-color: #44596e;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .saveButton:hover {
+    background-color: #739dc9;
+    display: flex;
+    flex-direction: column;
+  }
+  .textareaField{
+    display: flex;
+    margin: 20px 0;
+    min-height: 100px;
+    width: 100%;
+  }
+  .notification {
+    background-color: #e7f3fe;
+    border: 1px solid #b3d8ff;
+    color: #31708f;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+  .customFileLabel {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    margin: 10px 0;
+    padding: 8px 12px;
+    background-color: #2980b9;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .imageContainer{
+    display: flex;
+    flex-direction: column;
+  
+  }

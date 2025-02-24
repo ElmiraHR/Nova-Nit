@@ -19,16 +19,50 @@
   .sidebar li {
     margin: 10px 0;
   }
-  
-  .sidebar a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .active {
-    font-weight: bold;
-    color: #3498db;
-  }
+ /* ✅ Ссылки меню */
+.sidebar a {
+  text-decoration: none;
+  color: #e2e2e2;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+/* ✅ Активная ссылка */
+.active {
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* ✅ Наведение */
+.sidebar a:hover {
+  color: #007bff;
+  cursor: pointer;
+}
+
+/* ✅ Подменю с отступом слева */
+.submenu {
+  margin-left: 20px; /* ⬅️ Отступ для подменю */
+  margin-top: 5px;
+}
+
+/* ✅ Пункты подменю */
+.submenu li {
+  margin-bottom: 8px;
+}
+
+/* ✅ Родительский пункт (Landing) */
+.parentMenu {
+  cursor: pointer; /* ⬅️ Курсор pointer */
+  font-weight: bold;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.parentMenu:hover {
+  color: #007bff;
+}
+
   .logoutButton {
     margin-top: 20px;
     padding: 10px 15px;

@@ -1,0 +1,74 @@
+/* ✅ Контейнер Partners */
+.partnersContainer {
+    padding: 20px;
+    background-color: #f0f8ff;
+    border-radius: 8px;
+  }
+  
+  /* ✅ Заголовок */
+  .sectionTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* ✅ Список партнеров */
+  .partnerList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .partnerCard {
+    width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    text-align: center;
+  }
+  
+  .partnerImage {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  /* ✅ Инпуты для редактирования */
+  .inputField {
+    width: 98%;
+    padding: 8px;
+    margin: 20px 0; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  /* ✅ Кнопка Сохранить */
+  .saveButton {
+    background-color: #44596e;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .saveButton:hover {
+    background-color: #739dc9;
+  }
+  .textareaField{
+    display: flex;
+    margin: 20px 0; 
+    width: 100%;
+    min-height: 100px;
+  }
+  .imageUpload{
+    display: flex;
+    margin: 20px 0;  
+  }
+ 
