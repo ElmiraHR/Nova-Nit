@@ -29,4 +29,17 @@
     font-weight: bold;
     color: #3498db;
   }
+  .logoutButton {
+    margin-top: 20px;
+    padding: 10px 15px;
+    width: 100%;
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
   
+  .logoutButton:hover {
+    background-color: #d9363e;
+  }

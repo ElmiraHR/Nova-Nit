@@ -1,9 +1,17 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
   const pages = ['Landing', 'Mission', 'HowDoesItWork', 'Partners', 'GetInvolved', 'Contact', 'Volunteer', 'FAQ'];
+
+  // ✅ Функция для логаута
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn'); // Удаляем токен авторизации
+    navigate('/login'); // Перенаправляем на страницу логина
+  };
 
   return (
     <div className={styles.sidebar}>
@@ -20,6 +28,11 @@ const Sidebar = () => {
           </li>
         ))}
       </ul>
+
+      {/* ✅ Кнопка логаута */}
+      <button className={styles.logoutButton} onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 };

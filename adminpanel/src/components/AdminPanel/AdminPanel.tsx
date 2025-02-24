@@ -1,17 +1,16 @@
 import React from 'react';
-import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import Sidebar from '../Sidebar/Sidebar';  // Ваш компонент сайдбара
-import PageEditor from '../PageEditor/PageEditor';  // Страница для редактирования
-import styles from './AdminPanel.module.css';  // Стили для панели
+import { Routes, Route } from 'react-router-dom';
+import Sidebar from '../Sidebar/Sidebar';
+import PageEditor from '../PageEditor/PageEditor';
+import styles from './AdminPanel.module.css';
 
 const AdminPanel = () => {
   return (
     <div className={styles.adminPanel}>
-      <Sidebar />  {/* Сайдбар слева */}
+      <Sidebar />
       <div className={styles.mainContent}>
         <Routes>
-          {/* Динамический путь для редактирования страниц */}
-          <Route path="/adminpanel/:page" element={<PageEditor />} />
+          <Route path=":page" element={<PageEditor />} />
         </Routes>
       </div>
     </div>

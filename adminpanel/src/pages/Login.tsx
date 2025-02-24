@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
 
 interface LoginResponse {
   status: 'success' | 'error';
@@ -17,23 +17,26 @@ const Login = () => {
     e.preventDefault();
 
     try {
+      // ✅ Отправляем запрос на логин
       const response = await axios.post<LoginResponse>('http://localhost:8080/api/login', {
         username,
         password,
       });
 
-      if (response.data.status === 'success') {
+      const data = response.data;
+
+      if (data.status === 'success') {
+        // ✅ Сохраняем статус логина
+        localStorage.setItem('isLoggedIn', 'true');
+
+        // ✅ Перенаправление в админпанель
         navigate('/adminpanel');
       } else {
-        setError(response.data.message || 'Invalid credentials');
+        setError(data.message || 'Invalid credentials');
       }
-    } catch (err: unknown) {
-      // ✅ Обход без isAxiosError
-      if (err && typeof err === 'object' && 'response' in err) {
-        const axiosError = err as { response?: { data?: { message?: string } } };
-        setError(axiosError.response?.data?.message || 'Server error');
-      } else if (err instanceof Error) {
-        setError(err.message);
+    } catch (err: any) {
+      if (err?.response) {
+        setError(err.response.data?.message || 'Server error');
       } else {
         setError('Unexpected error');
       }
