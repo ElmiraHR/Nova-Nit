@@ -5,14 +5,14 @@ Nova Nit is a platform designed to support people in need in Montenegro. The pro
 
 Technology	     Purpose
 
-React	         Frontend (UI)
-TypeScript	     Strong typing in React
-PHP	Backend      API (CodeIgniter)
-CodeIgniter    	 PHP Framework for Backend
-MySQL	         Database
-Axios	         API Calls in React
-React Router	 Frontend Routing
-CSS Modules	     Scoped styling for React
+React - Frontend (UI)
+TypeScript - Strong typing in React
+PHP	Backend - API (CodeIgniter)
+CodeIgniter - PHP Framework for Backend
+MySQL - Database
+Axios - API Calls in React
+React Router - Frontend Routing
+CSS Modules	- Scoped styling for React
 
 1. Backend Setup (PHP — CodeIgniter)
 
