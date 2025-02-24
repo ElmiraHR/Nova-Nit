@@ -7,16 +7,16 @@ use CodeIgniter\Config\BaseConfig;
 class App extends BaseConfig
 {
     /**
-     * --------------------------------------------------------------------------
      * Base Site URL
-     * --------------------------------------------------------------------------
-     *
-     * URL to your CodeIgniter root. Typically, this will be your base URL,
-     * WITH a trailing slash:
-     *
-     * E.g., http://example.com/
      */
-    public string $baseURL = 'http://localhost:8080/';
+    public string $baseURL;
+
+    public function __construct()
+    {
+        // ✅ Используем API_URL из .env или дефолтный URL
+        $this->baseURL = getenv('API_URL') ?: 'http://localhost:8080/';
+    }
+
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

@@ -51,20 +51,26 @@ const HeroBanner = () => {
       formData.append('image', image);
     }
   
-    // Логируем FormData
+    // Логируем FormData для отладки
     for (let [key, value] of formData.entries()) {
       console.log(`${key}:`, value);
     }
   
     try {
-      await updatePage(slug, {
+      // ✅ Делаем запрос на обновление страницы
+      const response = await updatePage(slug, {
         hero_title_en: titleEN,
         hero_title_me: titleME,
         hero_text_en: textEN,
         hero_text_me: textME,
         hero_image_path: storedImagePath,
-      }, image ?? undefined); // ✅ Заменяет null на undefined
-      
+      }, image ?? undefined); // ✅ null заменяется на undefined
+  
+      // ✅ Если сервер вернул новый путь к картинке — обновляем storedImagePath
+      if (response.hero_image_path) {
+        // Добавляем параметр времени для обхода кеша
+        setStoredImagePath(`http://localhost:8080${response.hero_image_path}?t=${new Date().getTime()}`);
+      }
   
       setNotification('Changes saved successfully!');
       setTimeout(() => setNotification(''), 3000);
@@ -73,7 +79,6 @@ const HeroBanner = () => {
       setNotification('Failed to save changes');
     }
   };
-  
 
   return (
     <div className={styles.heroBannerContainer}>
@@ -111,15 +116,13 @@ const HeroBanner = () => {
 
       <label>Hero Banner Picture:</label>
       <div className={styles.imageContainer}>
-      {storedImagePath && (
-  <img
-    src={storedImagePath}
-    alt="Hero Banner"
-    style={{ width: '150px', height: '150px', objectFit: 'cover' }}
-  />
-)}
-
-
+        {storedImagePath && (
+          <img
+            src={storedImagePath}
+            alt="Hero Banner"
+            style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+          />
+        )}
         {/* Скрытый input для загрузки файла */}
         <input
           id="fileInput"

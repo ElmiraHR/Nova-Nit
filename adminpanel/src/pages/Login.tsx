@@ -17,8 +17,11 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // ✅ Отправляем запрос на логин
-      const response = await axios.post<LoginResponse>('http://localhost:8080/api/login', {
+      // ✅ Используем API_URL из .env
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+
+      // ✅ Отправляем запрос на логин с использованием динамического API_URL
+      const response = await axios.post<LoginResponse>(`${API_URL}/api/login`, {
         username,
         password,
       });
