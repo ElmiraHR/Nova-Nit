@@ -13,14 +13,14 @@ const Partners = () => {
   const [storedLogos, setStoredLogos] = useState<string[]>([]);
   const [notification, setNotification] = useState('');
   const [showReplaceMessage, setShowReplaceMessage] = useState(false);
+  const [mainImageName, setMainImageName] = useState('No file selected');
+  const [logosFileNames, setLogosFileNames] = useState('No files selected'); // Добавляем это состояние
 
-  // ✅ Ссылки на input для сброса значения
   const mainImageInputRef = useRef<HTMLInputElement | null>(null);
   const logosInputRef = useRef<HTMLInputElement | null>(null);
 
   const slug = 'landing';
 
-  // ✅ Загрузка данных из БД при монтировании
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -39,47 +39,44 @@ const Partners = () => {
     loadData();
   }, [slug]);
 
-  // ✅ Обработчик для загрузки основной картинки
   const handleMainImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setMainImage(e.target.files[0]);
+      setMainImageName(e.target.files[0].name);
       setShowReplaceMessage(true);
     }
   };
 
-  // ✅ Отмена выбранной картинки
   const handleCancelMainImage = () => {
     setMainImage(null);
     setShowReplaceMessage(false);
+    setMainImageName('No file selected');
 
-    // Сброс input
     if (mainImageInputRef.current) {
       mainImageInputRef.current.value = '';
     }
   };
 
-  // ✅ Обработчик для логотипов
   const handleLogosChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files ? Array.from(e.target.files) : [];
     setLogos((prev) => [...prev, ...files]);
+
+    const fileNames = files.map(file => file.name).join(', ') || 'No files selected';
+    setLogosFileNames(fileNames);
   };
 
-  // ✅ Удаление логотипа (из сохранённых)
   const handleDeleteStoredLogo = (index: number) => {
     setStoredLogos((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // ✅ Удаление логотипа (из новых, не сохранённых)
   const handleDeleteNewLogo = (index: number) => {
     setLogos((prev) => prev.filter((_, i) => i !== index));
 
-    // Сброс input если все логотипы удалены
     if (logosInputRef.current && logos.length === 1) {
       logosInputRef.current.value = '';
     }
   };
 
-  // ✅ Сохранение данных
   const handleSubmit = async () => {
     const payload = {
       partners_title_en: titleEN,
@@ -96,6 +93,8 @@ const Partners = () => {
       setLogos([]);
       setMainImage(null);
       setShowReplaceMessage(false);
+      setMainImageName('No file selected');
+      setLogosFileNames('No files selected');
 
       if (mainImageInputRef.current) mainImageInputRef.current.value = '';
       if (logosInputRef.current) logosInputRef.current.value = '';
@@ -114,29 +113,31 @@ const Partners = () => {
 
       {notification && <div className={styles.notification}>{notification}</div>}
 
-      {/* ✅ Заголовки */}
       <label>Partners Title (EN):</label>
       <input className={styles.inputField} value={titleEN} onChange={(e) => setTitleEN(e.target.value)} />
 
       <label>Partners Title (ME):</label>
       <input className={styles.inputField} value={titleME} onChange={(e) => setTitleME(e.target.value)} />
 
-      {/* ✅ Тексты */}
       <label>Partners Info (EN):</label>
       <textarea className={styles.textareaField} value={infoEN} onChange={(e) => setInfoEN(e.target.value)} />
 
       <label>Partners Info (ME):</label>
       <textarea className={styles.textareaField} value={infoME} onChange={(e) => setInfoME(e.target.value)} />
 
-      {/* ✅ Основная картинка (левая большая) */}
+      {/* ✅ Main Image Upload */}
       <label>Left Big Picture:</label>
-      <input
-        ref={mainImageInputRef}
-        className={styles.imageUpload}
-        type="file"
-        onChange={handleMainImageChange}
-        aria-label="Choose File"
-      />
+      <div className={styles.fileInputWrapper}>
+        <button className={styles.uploadButton} onClick={() => mainImageInputRef.current?.click()}>Choose File</button>
+        <span>{mainImageName}</span>
+        <input
+          ref={mainImageInputRef}
+          type="file"
+          onChange={handleMainImageChange}
+          className={styles.hiddenInput}
+        />
+      </div>
+
       {(mainImage || storedMainImage) && (
         <div className={styles.mainImageWrapper}>
           <img
@@ -153,18 +154,21 @@ const Partners = () => {
         </div>
       )}
 
-      {/* ✅ Логотипы партнеров */}
+      {/* ✅ Logos Upload */}
       <label>Partners Logos:</label>
-      <input
-        ref={logosInputRef}
-        className={styles.imageUpload}
-        type="file"
-        multiple
-        onChange={handleLogosChange}
-        aria-label="Choose Files"
-      />
+      <div className={styles.fileInputWrapper}>
+        <button className={styles.uploadButton} onClick={() => logosInputRef.current?.click()}>Choose Files</button>
+        <span>{logosFileNames}</span>
+        <input
+          ref={logosInputRef}
+          type="file"
+          multiple
+          onChange={handleLogosChange}
+          className={styles.hiddenInput}
+        />
+      </div>
+
       <div className={styles.partnerList}>
-        {/* ✅ Сохранённые логотипы */}
         {storedLogos.map((logo, idx) => (
           <div key={`stored-${idx}`} className={styles.partnerCard}>
             <img src={`http://localhost:8080${logo}`} alt={`Logo ${idx + 1}`} className={styles.partnerImage} />
@@ -172,7 +176,6 @@ const Partners = () => {
           </div>
         ))}
 
-        {/* ✅ Новые логотипы (предпросмотр) */}
         {logos.map((file, idx) => (
           <div key={`new-${idx}`} className={`${styles.partnerCard} ${styles.previewCard}`}>
             <img src={URL.createObjectURL(file)} alt={`New Logo ${idx + 1}`} className={styles.partnerImage} />

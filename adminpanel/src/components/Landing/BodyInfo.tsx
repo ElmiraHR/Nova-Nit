@@ -44,21 +44,32 @@ const BodyInfo = () => {
   };
 
   const handleSubmit = async () => {
-    const payload = {
-      body_title_en: bodyTitleEN,
-      body_title_me: bodyTitleME,
-      body_info_en: bodyTextEN,
-      body_info_me: bodyTextME,
-      section1_en: sections[0].en,
-      section1_me: sections[0].me,
-      section2_en: sections[1].en,
-      section2_me: sections[1].me,
-      section3_en: sections[2].en,
-      section3_me: sections[2].me,
-    };
-
     try {
-      await updatePage(slug, payload);
+      // ✅ Получаем текущие данные страницы
+      const currentData = await fetchPage(slug);
+
+      // ✅ Обновляем только нужные поля
+      const updatedData = {
+        ...currentData,
+        body_title_en: bodyTitleEN,
+        body_title_me: bodyTitleME,
+        body_info_en: bodyTextEN,
+        body_info_me: bodyTextME,
+        section1_en: sections[0].en,
+        section1_me: sections[0].me,
+        section2_en: sections[1].en,
+        section2_me: sections[1].me,
+        section3_en: sections[2].en,
+        section3_me: sections[2].me,
+      };
+
+      const formData = new FormData();
+      Object.keys(updatedData).forEach((key) => {
+        const value = updatedData[key as keyof typeof updatedData] || '';
+        formData.append(key, Array.isArray(value) ? JSON.stringify(value) : value);
+      });
+
+      await updatePage(slug, updatedData);
       setNotification('Changes saved successfully!');
       setTimeout(() => setNotification(''), 3000);
     } catch (error) {
@@ -73,7 +84,6 @@ const BodyInfo = () => {
 
       {notification && <div className={styles.notification}>{notification}</div>}
 
-      {/* Заголовок */}
       <label>Body Title (EN):</label>
       <input
         className={styles.inputField}
@@ -88,7 +98,6 @@ const BodyInfo = () => {
         onChange={(e) => setBodyTitleME(e.target.value)}
       />
 
-      {/* Текст */}
       <label>Body Text (EN):</label>
       <textarea
         className={styles.textareaField}
@@ -103,7 +112,6 @@ const BodyInfo = () => {
         onChange={(e) => setBodyTextME(e.target.value)}
       />
 
-      {/* Секции */}
       {sections.map((section, index) => (
         <div key={index} className={styles.sectionBlock}>
           <h3>Section {index + 1}</h3>
