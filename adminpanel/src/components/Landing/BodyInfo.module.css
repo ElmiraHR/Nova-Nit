@@ -1,56 +1,66 @@
 /* ✅ Контейнер Body Info */
 .bodyInfoContainer {
-    padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-  }
-  
-  /* ✅ Заголовок */
-  .sectionTitle {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  
-  /* ✅ Карточки для каждого блока */
-  .infoBlock {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 15px;
-    background-color: #fff;
-  }
-  
-  /* ✅ Инпуты и текстареа */
-  .inputField,
-  .textareaField {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .textareaField {
-    height: 100px;
-    resize: vertical;
-  }
-  
-  /* ✅ Кнопка Сохранить */
-  .saveButton {
-    background-color: #28a745;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .saveButton:hover {
-    background-color: #218838;
-  }
-  
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+}
+
+/* ✅ Заголовок */
+.sectionTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* ✅ Карточки для каждого блока */
+.infoBlock {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px 15px;
+  background-color: #fff;
+  margin-bottom: 5px;
+}
+
+/* ✅ Инпуты и текстареа */
+.inputField,
+.textareaField {
+  width: 95%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+.textareaField{
+
+  height: 180px;
+  resize: vertical;
+}
+.textareaFieldSection {
+  width: 95%;
+  resize: vertical;
+  min-height: 50px;
+}
+
+/* ✅ Лейблы */
+.label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+/* ✅ Кнопка Сохранить */
+.saveButton {
+  background-color: #28a745;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.saveButton:hover {
+  background-color: #218838;
+}

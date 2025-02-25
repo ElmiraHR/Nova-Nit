@@ -47,3 +47,5 @@ $routes->get('images/(:any)', function($filename) {
     }
 });
 
+$routes->put('/api/pages/bodyinfo/(:segment)', 'PageController::updateBodyInfo/$1');
+$routes->post('/api/pages/partners/(:segment)', 'PageController::updatePartners/$1');
