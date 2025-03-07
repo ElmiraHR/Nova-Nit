@@ -1,0 +1,52 @@
+.landingBannerBox {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Прижимаем картинку вправо */
+    width: 100%;
+    height: 880px;
+    position: relative;
+    margin-top: 79.5px;
+}
+
+.landingBannerBox_textSide {
+    width: 784px;
+    max-height: 720px;
+    background: #F7F7F5;
+    border-radius: 5px;
+    padding: 102px 42px;
+    position: relative;
+    z-index: 2;
+    margin-right: -217px; /* Небольшое перекрытие изображения */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.landingBannerBox_textSide p {
+font-size: 32px;
+line-height: 39px;
+font-family: 'Roboto', sans-serif;
+text-align: left;
+font-weight: 400;
+color: #2b3242;
+}
+.landingBannerBox_textSide button {
+    margin-top: 150px;
+}
+
+.landingBannerBox_imgSide {
+    flex: 0 0 58.2%; /* Картинка занимает больше места */
+    width: 791px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.landingBannerBox_imgSide > img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.landingBannerBox_imgSide button {
+    position: absolute;
+    bottom: 150px;
+    right: auto;
+}
