@@ -10,10 +10,12 @@ import Partners from './pages/partners/Partners';
 import GetInvolved from './pages/getInvolved/GetInvolved';
 import ContactUs from './pages/contact/Contact';
 import Volunteer from './pages/volunteer/Volunteer';
+import { LanguageProvider } from './context/LanguageContext';
 import FAQ from './pages/faq/FAQ';
 
 const App: React.FC = () => {
   return (
+    <LanguageProvider>
     <Router>
       <div className="app">
         <Header />
@@ -32,6 +34,7 @@ const App: React.FC = () => {
         <Footer />
       </div>
     </Router>
+    </LanguageProvider>
   );
 };
 
