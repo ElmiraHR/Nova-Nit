@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// ✅ Используем переменную API_URL из .env
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+// ✅ Используем переменную API_URL из .env или локальный сервер по умолчанию
+export const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
 export interface PageData {
   title_en?: string;
@@ -10,6 +10,7 @@ export interface PageData {
   text_me?: string;
   image_path?: string;
   mission_image_path?: string;
+  how_work_image_path?: string;
 
   // ✅ Hero Banner
   hero_title_en?: string;
@@ -39,19 +40,23 @@ export interface PageData {
   partners_logos?: string[]; // ✅ добавляем массив логотипов
 }
 
-
+// ✅ Получение страницы по slug
 export const fetchPage = async (slug: string): Promise<PageData> => {
   const response = await axios.get<PageData>(`${API_URL}/api/pages/${slug}`);
   const data = response.data;
 
-  // Добавляем базовый URL для изображения, если нужно
+  // ✅ Добавляем базовый URL для изображений, если нужно
   if (data.hero_image_path && !/^https?:\/\//.test(data.hero_image_path)) {
     data.hero_image_path = `${API_URL}${data.hero_image_path}`;
+  }
+  if (data.how_work_image_path && !/^https?:\/\//.test(data.how_work_image_path)) {
+    data.how_work_image_path = `${API_URL}${data.how_work_image_path}`;
   }
 
   return data;
 };
 
+// ✅ Обновление страницы
 export const updatePage = async (slug: string, data: PageData, imageFile?: File): Promise<PageData> => {
   const formData = new FormData();
 
@@ -96,8 +101,8 @@ export const updatePage = async (slug: string, data: PageData, imageFile?: File)
     throw error;
   }
 };
-// Предполагается, что это конец файла pageService.ts
 
+// ✅ Обновление Mission
 export const updateMission = async (slug: string, formData: FormData): Promise<PageData> => {
   try {
     console.log("Отправляем formData:", formData);
@@ -113,6 +118,28 @@ export const updateMission = async (slug: string, formData: FormData): Promise<P
     throw error;
   }
 };
+
+// ✅ Обновление How Does Work (фикс пути)
+export const updateHowDoesWork = async (formData: FormData): Promise<PageData> => {
+  try {
+    console.log("✅ Отправляем formData:", formData);
+
+    // 🛠️ Убедись, что путь API соответствует реальному маршруту на сервере
+    const response = await axios.post<PageData>(`${API_URL}/api/howdoeswork`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    console.log("✅ Ответ сервера:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Ошибка при обновлении How Does Work:', error);
+    throw error;
+  }
+};
+
+// ✅ Обновление Partners
 export const updatePartners = async (slug: string, data: PageData, imageFile?: File, logoFiles?: File[]): Promise<PageData> => {
   const formData = new FormData();
 
@@ -143,7 +170,4 @@ export const updatePartners = async (slug: string, data: PageData, imageFile?: F
     console.error('Error updating partners data', error);
     throw error;
   }
-
-
-  
 };

@@ -70,10 +70,20 @@ const Sidebar = () => {
         {/* ✅ Ссылка на Mission */}
         <li>
           <NavLink
-            to="/adminpanel/mission/mission" // Обновленный путь для Mission
+            to="/adminpanel/mission/mission"
             className={({ isActive }) => (isActive ? styles.active : '')}
           >
             Mission
+          </NavLink>
+        </li>
+
+        {/* ✅ Добавляем ссылку на HowDoesWork */}
+        <li>
+          <NavLink
+            to="/adminpanel/howdoeswork"
+            className={({ isActive }) => (isActive ? styles.active : '')}
+          >
+            HowDoesWork
           </NavLink>
         </li>
       </ul>

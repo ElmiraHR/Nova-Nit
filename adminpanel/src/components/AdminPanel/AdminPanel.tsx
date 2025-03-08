@@ -4,7 +4,8 @@ import Sidebar from '../Sidebar/Sidebar';
 import HeroBanner from '../Landing/HeroBanner';
 import BodyInfo from '../Landing/BodyInfo';
 import Partners from '../Landing/Partners';
-import Mission from '../Mission/Mission'; // Импортируем компонент Mission
+import Mission from '../Mission/Mission';
+import HowDoesWork from '../HowDoesWork/HowDoesWork'; // ✅ Импортируем новый компонент
 import styles from './AdminPanel.module.css';
 
 const AdminPanel = () => {
@@ -20,6 +21,7 @@ const AdminPanel = () => {
           <Route path="/landing/body-info" element={isAuthenticated ? <BodyInfo /> : <Navigate to="/login" />} />
           <Route path="/landing/partners" element={isAuthenticated ? <Partners /> : <Navigate to="/login" />} />
           <Route path="/mission/mission" element={isAuthenticated ? <Mission /> : <Navigate to="/login" />} />
+          <Route path="/howdoeswork" element={isAuthenticated ? <HowDoesWork /> : <Navigate to="/login" />} /> {/* ✅ Новый роут */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

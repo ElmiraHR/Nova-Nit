@@ -61,3 +61,14 @@ $routes->group('api', function($routes) {
     // Удаление миссии
     $routes->delete('mission/(:segment)', 'MissionController::deleteMission/$1');
 });
+$routes->group('api', function($routes) {
+    // Получение данных
+    $routes->get('howdoeswork', 'HowDoesWorkController::getHowDoesWork');
+
+    // Обновление
+    $routes->post('howdoeswork', 'HowDoesWorkController::updateHowDoesWork/howdoeswork');
+    $routes->put('howdoeswork', 'HowDoesWorkController::updateHowDoesWork/howdoeswork');
+
+    // Удаление
+    $routes->delete('howdoeswork', 'HowDoesWorkController::deleteHowDoesWork/howdoeswork');
+});

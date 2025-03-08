@@ -29,23 +29,28 @@ class PageController extends ResourceController
         $db = \Config\Database::connect();
         $request = \Config\Services::request();
     
-        // Проверка наличия JSON или FormData
+        // ✅ Проверяем JSON или FormData
         $data = $request->getPost();
         if (empty($data)) {
             $data = $request->getJSON(true);
         }
     
-        // Проверка на наличие файла
+        // ✅ Проверяем загруженный файл
         $file = $request->getFile('image');
     
-        // Если файл был загружен
         if ($file && $file->isValid() && !$file->hasMoved()) {
             $newName = $file->getRandomName();
             $file->move(FCPATH . '../admin-backend/images/', $newName);
-            $data['hero_image_path'] = '/images/' . $newName;
+    
+            // ✅ Проверяем, какой именно раздел обновляется
+            if ($slug === 'howdoeswork') {
+                $data['how_work_image_path'] = '/images/' . $newName; // Фикс для How Does Work
+            } else {
+                $data['hero_image_path'] = '/images/' . $newName; // Для остальных страниц
+            }
         }
     
-        // Обновляем данные в БД
+        // ✅ Обновляем данные в БД
         $builder = $db->table('pages');
         $builder->where('slug', $slug);
         $builder->update($data);
