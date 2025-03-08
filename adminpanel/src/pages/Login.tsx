@@ -17,10 +17,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // ✅ Используем API_URL из .env
+      // Используем API_URL из .env
       const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
-      // ✅ Отправляем запрос на логин с использованием динамического API_URL
+      // Отправляем запрос на логин
       const response = await axios.post<LoginResponse>(`${API_URL}/api/login`, {
         username,
         password,
@@ -29,10 +29,10 @@ const Login = () => {
       const data = response.data;
 
       if (data.status === 'success') {
-        // ✅ Сохраняем статус логина
+        // Сохраняем статус логина
         localStorage.setItem('isLoggedIn', 'true');
 
-        // ✅ Перенаправление в админпанель
+        // Перенаправление в админпанель
         navigate('/adminpanel');
       } else {
         setError(data.message || 'Invalid credentials');

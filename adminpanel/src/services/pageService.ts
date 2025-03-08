@@ -9,6 +9,7 @@ export interface PageData {
   text_en?: string;
   text_me?: string;
   image_path?: string;
+  mission_image_path?: string;
 
   // ✅ Hero Banner
   hero_title_en?: string;
@@ -95,8 +96,23 @@ export const updatePage = async (slug: string, data: PageData, imageFile?: File)
     throw error;
   }
 };
+// Предполагается, что это конец файла pageService.ts
 
-
+export const updateMission = async (slug: string, formData: FormData): Promise<PageData> => {
+  try {
+    console.log("Отправляем formData:", formData);
+    const response = await axios.post<PageData>(`${API_URL}/api/mission/${slug}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    console.log("Ответ сервера:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Ошибка при обновлении миссии:', error);
+    throw error;
+  }
+};
 export const updatePartners = async (slug: string, data: PageData, imageFile?: File, logoFiles?: File[]): Promise<PageData> => {
   const formData = new FormData();
 
@@ -127,4 +143,7 @@ export const updatePartners = async (slug: string, data: PageData, imageFile?: F
     console.error('Error updating partners data', error);
     throw error;
   }
+
+
+  
 };

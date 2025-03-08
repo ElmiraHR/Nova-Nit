@@ -4,18 +4,22 @@ import Sidebar from '../Sidebar/Sidebar';
 import HeroBanner from '../Landing/HeroBanner';
 import BodyInfo from '../Landing/BodyInfo';
 import Partners from '../Landing/Partners';
+import Mission from '../Mission/Mission'; // Импортируем компонент Mission
 import styles from './AdminPanel.module.css';
 
 const AdminPanel = () => {
+  const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true';
+
   return (
     <div className={styles.adminPanel}>
       <Sidebar />
       <div className={styles.mainContent}>
         <Routes>
           <Route path="/" element={<h2>Welcome to Admin Panel</h2>} />
-          <Route path="/landing/hero-banner" element={<HeroBanner />} />
-          <Route path="/landing/body-info" element={<BodyInfo />} />
-          <Route path="/landing/partners" element={<Partners />} />
+          <Route path="/landing/hero-banner" element={isAuthenticated ? <HeroBanner /> : <Navigate to="/login" />} />
+          <Route path="/landing/body-info" element={isAuthenticated ? <BodyInfo /> : <Navigate to="/login" />} />
+          <Route path="/landing/partners" element={isAuthenticated ? <Partners /> : <Navigate to="/login" />} />
+          <Route path="/mission/mission" element={isAuthenticated ? <Mission /> : <Navigate to="/login" />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

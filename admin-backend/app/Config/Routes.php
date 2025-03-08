@@ -49,3 +49,15 @@ $routes->get('images/(:any)', function($filename) {
 
 $routes->put('/api/pages/bodyinfo/(:segment)', 'PageController::updateBodyInfo/$1');
 $routes->post('/api/pages/partners/(:segment)', 'PageController::updatePartners/$1');
+
+$routes->group('api', function($routes) {
+    // Получение миссии
+    $routes->get('mission/(:segment)', 'MissionController::getMission/$1');
+
+    // Обновление миссии
+    $routes->post('mission/(:segment)', 'MissionController::updateMission/$1');
+    $routes->put('mission/(:segment)', 'MissionController::updateMission/$1');
+
+    // Удаление миссии
+    $routes->delete('mission/(:segment)', 'MissionController::deleteMission/$1');
+});

@@ -6,7 +6,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [showLandingSubmenu, setShowLandingSubmenu] = useState(false);
 
-  const pages = ['Mission', 'HowDoesItWork', 'Partners', 'GetInvolved', 'Contact', 'Volunteer', 'FAQ'];
+  const pages = ['HowDoesItWork', 'Partners', 'GetInvolved', 'Contact', 'Volunteer', 'FAQ'];
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
@@ -66,6 +66,16 @@ const Sidebar = () => {
             </NavLink>
           </li>
         ))}
+
+        {/* ✅ Ссылка на Mission */}
+        <li>
+          <NavLink
+            to="/adminpanel/mission/mission" // Обновленный путь для Mission
+            className={({ isActive }) => (isActive ? styles.active : '')}
+          >
+            Mission
+          </NavLink>
+        </li>
       </ul>
 
       {/* ✅ Кнопка логаута */}
