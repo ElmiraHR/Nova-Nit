@@ -3,16 +3,17 @@ import styled from 'styled-components';
 import s from './Landing.module.css';
 import { fetchPage } from '../../services/pageService';
 import { useLanguage } from '../../context/LanguageContext';
-import logo from '../../assets/nova-nit-logo.svg';
+import lightLogo from '../../assets/nova-nit-logo.svg';
+import darkLogo from '../../assets/nova nit-dark-logo.svg';
 
 const Hero = styled.section`
-  background: #E3E1DC;
+  background: var(--main-bg);
   padding: 1rem 2rem 8rem 2rem;
   text-align: center;
 `;
 
 const HeroTitle = styled.h1`
-  color: #2b3242;
+  color: var(--text-in-boxes);
   font-family: 'Roboto', sans-serif;
   font-size: clamp(20px, 3.265vw, 47px);
   line-height: clamp(34px, 6.5vw, 74px);
@@ -21,13 +22,22 @@ const HeroTitle = styled.h1`
   margin-bottom: 1rem;
 `;
 
+const HeroText = styled.p`
+  color: var(--text-in-boxes);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: clamp(24px, 3vw, 40px);
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+  font-weight: 400;
+`;
+
 const HeroButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  background: #3F4D61;
-  color: #ffffff;
+  background: var(--button-bg);
+  color: var(--button-text);
   width: clamp(181px, 23.5vw, 334px);
   height: clamp(50px, 7vw, 80px);
   padding: 0;
@@ -38,12 +48,13 @@ const HeroButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: #2b3242;
+    background: var(--text-in-boxes);
   }
 `;
 
 const Landing: React.FC = () => {
   const { language } = useLanguage();
+  const [theme, setTheme] = useState(document.documentElement.getAttribute('data-theme') || 'light');
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [storedImagePath, setStoredImagePath] = useState<string | null>(null);
@@ -61,7 +72,6 @@ const Landing: React.FC = () => {
     const loadPageData = async () => {
       try {
         const pageData = await fetchPage('landing');
-        console.log('Полученные данные:', pageData);
 
         setTitle(language === 'EN' ? pageData.hero_title_en || '' : pageData.hero_title_me || '');
         setText(language === 'EN' ? pageData.hero_text_en || '' : pageData.hero_text_me || '');
@@ -86,7 +96,6 @@ const Landing: React.FC = () => {
           }
         }
 
-        console.log('Парсинг логотипов:', parsedLogos);
         setStoredLogos(parsedLogos);
 
         // Проверяем секции
@@ -104,19 +113,31 @@ const Landing: React.FC = () => {
     loadPageData();
   }, [language]);
 
-  const baseURL = 'http://localhost:8080';  // Базовый URL для логотипов и изображений
+  // Следим за изменением темы и обновляем логотип
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const newTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      setTheme(newTheme);
+    });
+
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const baseURL = 'http://localhost:8080'; // Базовый URL для логотипов и изображений
 
   return (
     <Hero>
       <div className={s.landingLogo}>
-        <img src={logo} alt="logo" />
+        <img src={theme === 'dark' ? darkLogo : lightLogo} alt="logo" />
       </div>
 
       {/* Основной баннер */}
       <div className={s.landingBannerBox}>
         <div className={s.landingBannerBox_textSide}>
           <HeroTitle>{title}</HeroTitle>
-          <p>{text}</p>
+          <HeroText>{text}</HeroText>
           <HeroButton>Get Involved</HeroButton>
         </div>
         <div className={s.landingBannerBox_imgSide}>
@@ -128,7 +149,7 @@ const Landing: React.FC = () => {
       {/* Блок информации */}
       <div className={s.landingBodyBox}>
         <h2>{bodyTitle}</h2>
-        <p>{bodyText}</p>
+        <HeroText>{bodyText}</HeroText>
         <HeroButton>Get Involved</HeroButton>
       </div>
 
@@ -155,7 +176,7 @@ const Landing: React.FC = () => {
               storedLogos.map((file, idx) => (
                 <div key={idx}>
                   <img
-                    src={`${baseURL}${file}`}  // Добавляем базовый URL
+                    src={`${baseURL}${file}`} // Добавляем базовый URL
                     alt={`Partner Logo ${idx}`}
                     onError={(e) => (e.currentTarget.style.display = 'none')}
                   />
@@ -166,7 +187,7 @@ const Landing: React.FC = () => {
             )}
           </div>
 
-          <p>{infoPartners}</p>
+          <HeroText>{infoPartners}</HeroText>
           <HeroButton>Get Involved</HeroButton>
         </div>
       </div>

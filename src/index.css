@@ -12,9 +12,34 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  background-color: var(--main-bg);
+  color: var(--text-in-boxes);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+:root {
+  --main-bg: #E3E1DC;
+  --button-bg: #3F4D61;
+  --footer-bg: #BABFC6; /* Фон футера в светлой теме */
+  --text-boxes: #F7F7F5;
+  --text-in-boxes: #2B3442;
+  --button-text: #ECEBE7;
+  --header-bg: var(--main-bg); /* Хедер использует общий фон */
+  --text-color: #2B3442; 
+}
+
+[data-theme="dark"] {
+  --main-bg: #171C23;
+  --button-bg: #E3E1DC;
+  --footer-bg: #2B3442; /* Фон футера в темной теме */
+  --text-boxes: #3F4D61;
+  --text-in-boxes: #ECEBE7;
+  --button-text: #2B3442;
+  --header-bg: var(--main-bg); /* Хедер использует общий фон */
+  --text-color: #ECEBE7;
 }

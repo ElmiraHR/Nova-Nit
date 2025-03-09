@@ -21,7 +21,7 @@ body {
 
 .landingBannerBox_textSide {
     width: 45rem;
-    background: #F7F7F5;
+    background: var(--text-boxes);;
     border-radius: 5px;
     padding: 0 42px;
     padding-top: clamp(50px, 7.5vw, 102px);
@@ -38,7 +38,7 @@ body {
     font-family: 'Roboto', sans-serif;
     text-align: left;
     font-weight: 400;
-    color: #2b3242;
+    color: var(--text-in-boxes);
     margin: 0;
 }
 
@@ -93,7 +93,7 @@ body {
     font-family: 'Roboto', sans-serif;
     text-align: left;
     font-weight: 400;
-    color: #2b3242;
+    color: var(--text-in-boxes);
 }
 
 .landingBodyBox button {
