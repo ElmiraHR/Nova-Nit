@@ -1,0 +1,146 @@
+/* ✅ Контейнер */
+.howDoesWorkContainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+  
+/* ✅ Заголовок */
+.sectionTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+  
+/* ✅ Инпуты */
+.inputField,
+.textareaField {
+    width: 98%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+  
+.textareaField {
+    min-height: 100px;
+}
+  
+/* ✅ Файловый input */
+.fileInputWrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+  
+.uploadButton {
+    background-color: #44596e;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.uploadButton:hover {
+    background-color: #739dc9;
+}
+  
+.fileInputWrapper span {
+    font-size: 14px;
+    color: #555;
+}
+  
+.hiddenInput {
+    display: none;
+}
+  
+/* ✅ Картинка */
+.mainImageWrapper {
+    position: relative;
+    max-width: 400px;
+    margin-top: 10px;
+}
+  
+.mainImage, .previewMainImage {
+    width: 100%;
+    border-radius: 8px;
+}
+  
+.previewMainImage {
+    opacity: 0.5;
+    border: 2px dashed #999;
+}
+  
+/* ✅ Сообщение о замене */
+.replaceMessage {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #d9534f;
+}
+  
+.cancelButton {
+    background-color: #f0ad4e;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+  
+.cancelButton:hover {
+    background-color: #ec971f;
+}
+  
+/* ✅ Уведомление */
+.notification {
+    background-color: #e7f3fe;
+    border: 1px solid #b3d8ff;
+    color: #31708f;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+  
+/* ✅ Кнопка Сохранить */
+.saveButton {
+    background-color: #44596e;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.saveButton:hover {
+    background-color: #739dc9;
+}
+.previewMainImage {
+    opacity: 0.5;
+    border: 2px dashed #999;
+}
+
+.replaceMessage {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #d9534f;
+}
+
+.cancelButton {
+    background-color: #f0ad4e;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.cancelButton:hover {
+    background-color: #ec971f;
+}
