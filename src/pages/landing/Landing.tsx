@@ -7,28 +7,36 @@ import logo from '../../assets/nova-nit-logo.svg';
 
 const Hero = styled.section`
   background: #E3E1DC;
-  padding: 4rem 2rem;
+  padding: 1rem 2rem 8rem 2rem;
   text-align: center;
 `;
 
 const HeroTitle = styled.h1`
   color: #2b3242;
   font-family: 'Roboto', sans-serif;
-  font-size: 47px;
-  line-height: 74px;
+  font-size: clamp(20px, 3.265vw, 47px);
+  line-height: clamp(34px, 6.5vw, 74px);
   font-weight: 400;
   text-align: left;
   margin-bottom: 1rem;
 `;
 
 const HeroButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
   background: #3F4D61;
   color: #ffffff;
-  padding: 0.5rem 1.5rem;
+  width: clamp(181px, 23.5vw, 334px);
+  height: clamp(50px, 7vw, 80px);
+  padding: 0;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 700;
   cursor: pointer;
+
   &:hover {
     background: #2b3242;
   }
@@ -40,26 +48,71 @@ const Landing: React.FC = () => {
   const [text, setText] = useState('');
   const [storedImagePath, setStoredImagePath] = useState<string | null>(null);
 
+  const [bodyTitle, setBodyTitle] = useState('');
+  const [bodyText, setBodyText] = useState('');
+  const [sections, setSections] = useState<{ en: string; me: string }[]>([]);
+
+  const [titlePartners, setTitlePartners] = useState('');
+  const [infoPartners, setInfoPartners] = useState('');
+  const [storedMainImage, setStoredMainImage] = useState('');
+  const [storedLogos, setStoredLogos] = useState<string[]>([]);
+
   useEffect(() => {
     const loadPageData = async () => {
       try {
         const pageData = await fetchPage('landing');
+        console.log('Полученные данные:', pageData);
+
         setTitle(language === 'EN' ? pageData.hero_title_en || '' : pageData.hero_title_me || '');
         setText(language === 'EN' ? pageData.hero_text_en || '' : pageData.hero_text_me || '');
         setStoredImagePath(pageData.hero_image_path || pageData.image_path || null);
+
+        setBodyTitle(language === 'EN' ? pageData.body_title_en || '' : pageData.body_title_me || '');
+        setBodyText(language === 'EN' ? pageData.body_info_en || '' : pageData.body_info_me || '');
+
+        setTitlePartners(language === 'EN' ? pageData.partners_title_en || '' : pageData.partners_title_me || '');
+        setInfoPartners(language === 'EN' ? pageData.partners_info_en || '' : pageData.partners_info_me || '');
+        setStoredMainImage(pageData.partners_image_path || '');
+
+        // Парсим partners_logos
+        let parsedLogos: string[] = [];
+        if (Array.isArray(pageData.partners_logos)) {
+          parsedLogos = pageData.partners_logos;
+        } else if (typeof pageData.partners_logos === 'string') {
+          try {
+            parsedLogos = JSON.parse(pageData.partners_logos);
+          } catch (error) {
+            console.error('Ошибка парсинга partners_logos:', error);
+          }
+        }
+
+        console.log('Парсинг логотипов:', parsedLogos);
+        setStoredLogos(parsedLogos);
+
+        // Проверяем секции
+        const sectionsData = [
+          { en: pageData.section1_en || 'Нет данных', me: pageData.section1_me || 'Nema podataka' },
+          { en: pageData.section2_en || 'Нет данных', me: pageData.section2_me || 'Nema podataka' },
+          { en: pageData.section3_en || 'Нет данных', me: pageData.section3_me || 'Nema podataka' },
+        ];
+        setSections(sectionsData);
       } catch (error) {
-        console.error('Error loading page data:', error);
+        console.error('Ошибка загрузки данных:', error);
       }
     };
 
     loadPageData();
   }, [language]);
 
+  const baseURL = 'http://localhost:8080';  // Базовый URL для логотипов и изображений
+
   return (
     <Hero>
-      <div>
+      <div className={s.landingLogo}>
         <img src={logo} alt="logo" />
       </div>
+
+      {/* Основной баннер */}
       <div className={s.landingBannerBox}>
         <div className={s.landingBannerBox_textSide}>
           <HeroTitle>{title}</HeroTitle>
@@ -68,6 +121,52 @@ const Landing: React.FC = () => {
         </div>
         <div className={s.landingBannerBox_imgSide}>
           {storedImagePath && <img src={storedImagePath} alt="banner" />}
+          <HeroButton>Learn More</HeroButton>
+        </div>
+      </div>
+
+      {/* Блок информации */}
+      <div className={s.landingBodyBox}>
+        <h2>{bodyTitle}</h2>
+        <p>{bodyText}</p>
+        <HeroButton>Get Involved</HeroButton>
+      </div>
+
+      {/* Секции */}
+      <div className={s.landingBodyBox_section}>
+        {sections.map((sec, index) => (
+          <div className={s.landingBodyBox_sectionBox} key={index}>
+            <h3>{language === 'EN' ? sec.en : sec.me}</h3>
+          </div>
+        ))}
+      </div>
+
+      {/* Партнеры */}
+      <div className={s.landingPartnersBox}>
+        <div className={s.landingPartnersBox_imgSide}>
+          {storedMainImage && <img src={`${baseURL}${storedMainImage}`} alt="photo" />}
+        </div>
+        <div className={s.landingPartnersBox_textSide}>
+          <h2>{titlePartners}</h2>
+
+          {/* Логотипы партнеров */}
+          <div className={s.landingPartnersLogos}>
+            {storedLogos.length > 0 ? (
+              storedLogos.map((file, idx) => (
+                <div key={idx}>
+                  <img
+                    src={`${baseURL}${file}`}  // Добавляем базовый URL
+                    alt={`Partner Logo ${idx}`}
+                    onError={(e) => (e.currentTarget.style.display = 'none')}
+                  />
+                </div>
+              ))
+            ) : (
+              <p>No partners available.</p>
+            )}
+          </div>
+
+          <p>{infoPartners}</p>
           <HeroButton>Get Involved</HeroButton>
         </div>
       </div>

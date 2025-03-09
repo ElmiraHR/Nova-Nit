@@ -1,52 +1,319 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 350px;
+}
+
+.landingLogo>img {
+    width: clamp(200px, 30vw, 342px);
+}
+
 .landingBannerBox {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Прижимаем картинку вправо */
+    justify-content: flex-end;
+    /* Прижимаем картинку вправо */
     width: 100%;
-    height: 880px;
+    /* height: 100%; */
     position: relative;
     margin-top: 79.5px;
 }
 
 .landingBannerBox_textSide {
-    width: 784px;
-    max-height: 720px;
+    width: 45rem;
     background: #F7F7F5;
     border-radius: 5px;
-    padding: 102px 42px;
-    position: relative;
+    padding: 0 42px;
+    padding-top: clamp(50px, 7.5vw, 102px);
+    padding-bottom: clamp(150px, 20vw, 351px);
     z-index: 2;
-    margin-right: -217px; /* Небольшое перекрытие изображения */
+    margin-right: -15.8%;
+    /* Небольшое перекрытие изображения */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .landingBannerBox_textSide p {
-font-size: 32px;
-line-height: 39px;
-font-family: 'Roboto', sans-serif;
-text-align: left;
-font-weight: 400;
-color: #2b3242;
+    font-size: clamp(18px, 2.5vw, 32px);
+    line-height: clamp(22px, 3.3vw, 39px);
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+    font-weight: 400;
+    color: #2b3242;
+    margin: 0;
 }
+
 .landingBannerBox_textSide button {
-    margin-top: 150px;
+    position: absolute;
+    bottom: 20%;
+    left: 15%;
 }
 
 .landingBannerBox_imgSide {
-    flex: 0 0 58.2%; /* Картинка занимает больше места */
+    flex: 0 0 58.2%;
+    /* Картинка занимает больше места */
+    width: 791px;
+    display: flex;
+    justify-content: center;
+}
+
+.landingBannerBox_imgSide>img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.landingBannerBox_imgSide button {
+    position: absolute;
+    bottom: 20%;
+    right: auto;
+    z-index: 3;
+}
+
+.landingBodyBox {
+    text-align: left;
+    margin: 0 auto;
+    padding: 80px 0 39px;
+    padding-left: clamp(70px, 8vw, 114px);
+    padding-right: clamp(70px, 8vw, 114px);
+}
+
+
+.landingBodyBox h2 {
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: clamp(24px, 3vw, 40px);
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+}
+
+.landingBodyBox p {
+    /* width: 1132px; */
+    margin: 0 auto;
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: clamp(24px, 3vw, 40px);
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+    font-weight: 400;
+    color: #2b3242;
+}
+
+.landingBodyBox button {
+    margin: 63px 0 80px;
+}
+
+
+.landingBodyBox_section {
+    margin: 0 auto;
+    width: 84%;
+    border-top: 2.5px solid #2b3242;
+    border-bottom: 2.5px solid #2b3242;
+    padding: 78px 0 78px;
+    display: flex;
+    justify-content: center;
+    gap: 93px;
+}
+
+.landingBodyBox_sectionBox {
+    width: 292px;
+}
+
+
+
+.landingPartnersBox {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* Прижимаем картинку влево */
+    width: 100%;
+    position: relative;
+    margin-top: 79.5px;
+}
+
+.landingPartnersBox_textSide {
+    width: 45rem;
+    background: #F7F7F5;
+    border-radius: 5px;
+    padding: 0 42px;
+    padding-top: clamp(50px, 6vw, 68px);
+    padding-bottom: clamp(50px, 6vw, 73px);
+    position: relative;
+    z-index: 2;
+    margin-left: -8.3%;
+    /* Небольшое перекрытие изображения */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.landingPartnersBox_textSide h2 {
+    text-align: center;
+    color: #2b3242;
+    font-family: 'Roboto', sans-serif;
+    font-size: clamp(20px, 3.265vw, 47px);
+    line-height: clamp(34px, 6.5vw, 74px);
+    font-weight: 400;
+    margin-bottom: 1rem;
+    width: clamp(240px, 33vw, 450px);
+    margin: 0 auto;
+}
+
+.landingPartnersLogos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: clamp(200px, 20vw, 216px);
+    margin: 40px auto 60px;
+}
+
+.landingPartnersBox_textSide p {
+    width: clamp(240px, 33vw, 445px);
+    margin: 0 auto;
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: clamp(22px, 3.3vw, 40px);
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-weight: 400;
+    color: #2b3242;
+}
+
+.landingPartnersBox_textSide button {
+    margin-top: clamp(45px, 5.7vw, 82px);
+}
+
+.landingPartnersBox_imgSide {
+    flex: 0 0 58.2%;
+    /* Картинка занимает больше места */
     width: 791px;
     position: relative;
     display: flex;
     justify-content: center;
 }
 
-.landingBannerBox_imgSide > img {
+.landingPartnersBox_imgSide>img {
     width: 100%;
     height: auto;
     object-fit: cover;
 }
-.landingBannerBox_imgSide button {
+
+.landingPartnersBox_imgSide button {
     position: absolute;
     bottom: 150px;
     right: auto;
+}
+
+
+@media (max-width: 768px) {
+    .landingBannerBox {
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+
+    .landingBannerBox_imgSide {
+        flex: 1;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .landingBannerBox_imgSide>img {
+        width: 100%;
+        height: clamp(174px, 50vw, 674px);
+        object-fit: cover;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .landingBannerBox_textSide {
+        flex: 1;
+        width: 100%;
+        border-radius: 0 0 20px 20px;
+        z-index: 2;
+        margin: 0 auto;
+        padding: 0;
+        /* Небольшое перекрытие изображения */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .landingBannerBox_textSide h1 {
+        text-align: center;
+        font-size: clamp(24px, 4vw, 47px);
+        line-height: clamp(34px, 6.5vw, 74px);
+        padding: 0 42px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .landingBannerBox_textSide p {
+        text-align: center;
+        padding: 0 15px 180px;
+    }
+
+    .landingBannerBox_textSide button {
+        position: relative;
+        left: auto;
+        margin: 0 auto;
+        bottom: 115px;
+    }
+
+
+    .landingBannerBox_imgSide button {
+
+        bottom: 37px;
+    }
+
+    .landingBodyBox {
+        padding: 80px 18px 39px;
+    }
+
+    .landingBodyBox button {
+        margin: 63px auto 80px;
+    }
+
+    .landingPartnersBox {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .landingPartnersBox_imgSide {
+        flex: 1;
+        width: 100%;
+        overflow: hidden;
+    }
+    .landingPartnersBox_imgSide>img {
+        border-radius: 20px 20px 0 0;
+
+    }
+    .landingPartnersBox_textSide {
+        flex: 1;
+        width: 100%;
+        border-radius: 0 0 20px 20px;
+        z-index: 2;
+        margin: 0 auto;
+        padding: 0;
+        /* Небольшое перекрытие изображения */
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+    }
+
+    .landingPartnersBox_textSide h2 {
+        font-size: clamp(24px, 4vw, 47px);
+        line-height: clamp(34px, 6.5vw, 74px);
+        padding: 28px 42px 0;
+        width: 70%;
+    }
+    .landingPartnersBox_textSide p {
+        font-size: clamp(16px, 2vw, 24px);
+        line-height: clamp(24px, 3.3vw, 40px);
+        width: 70%;
+    }
+    .landingPartnersBox_textSide button {
+        margin-bottom: 42px;
+
+    }
+
+}
+
+
+@media (max-width: 576px) {
+    .landingBodyBox_section {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+        padding: 30px 0 30px;
+    }
 }
