@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import s from './Landing.module.css';
 import { fetchPage } from '../../services/pageService';
 import { useLanguage } from '../../context/LanguageContext';
-import lightLogo from '../../assets/nova-nit-logo.svg';
-import darkLogo from '../../assets/nova nit-dark-logo.svg';
 
 const Hero = styled.section`
   background: var(--main-bg);
@@ -54,7 +52,6 @@ const HeroButton = styled.button`
 
 const Landing: React.FC = () => {
   const { language } = useLanguage();
-  const [theme, setTheme] = useState(document.documentElement.getAttribute('data-theme') || 'light');
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [storedImagePath, setStoredImagePath] = useState<string | null>(null);
@@ -113,26 +110,10 @@ const Landing: React.FC = () => {
     loadPageData();
   }, [language]);
 
-  // Следим за изменением темы и обновляем логотип
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      const newTheme = document.documentElement.getAttribute('data-theme') || 'light';
-      setTheme(newTheme);
-    });
-
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
-    return () => observer.disconnect();
-  }, []);
-
   const baseURL = 'http://localhost:8080'; // Базовый URL для логотипов и изображений
 
   return (
     <Hero>
-      <div className={s.landingLogo}>
-        <img src={theme === 'dark' ? darkLogo : lightLogo} alt="logo" />
-      </div>
-
       {/* Основной баннер */}
       <div className={s.landingBannerBox}>
         <div className={s.landingBannerBox_textSide}>

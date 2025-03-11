@@ -12,6 +12,7 @@ import ContactUs from './pages/contact/Contact';
 import Volunteer from './pages/volunteer/Volunteer';
 import { LanguageProvider } from './context/LanguageContext';
 import FAQ from './pages/faq/FAQ';
+import Logo from './components/logo/Logo';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
       <div className="app">
         <Header />
         <main>
+          <Logo/>
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/mission" element={<Mission />} />
