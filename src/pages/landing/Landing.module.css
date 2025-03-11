@@ -4,10 +4,6 @@ body {
     min-width: 350px;
 }
 
-.landingLogo>img {
-    width: clamp(200px, 30vw, 342px);
-}
-
 .landingBannerBox {
     display: flex;
     align-items: center;
@@ -21,7 +17,7 @@ body {
 
 .landingBannerBox_textSide {
     width: 45rem;
-    background: var(--text-boxes);;
+    background: var(--text-boxes);
     border-radius: 5px;
     padding: 0 42px;
     padding-top: clamp(50px, 7.5vw, 102px);
@@ -130,7 +126,7 @@ body {
 
 .landingPartnersBox_textSide {
     width: 45rem;
-    background: #F7F7F5;
+    background: var(--text-boxes);
     border-radius: 5px;
     padding: 0 42px;
     padding-top: clamp(50px, 6vw, 68px);
@@ -144,7 +140,7 @@ body {
 
 .landingPartnersBox_textSide h2 {
     text-align: center;
-    color: #2b3242;
+    color: var(--text-in-boxes);
     font-family: 'Roboto', sans-serif;
     font-size: clamp(20px, 3.265vw, 47px);
     line-height: clamp(34px, 6.5vw, 74px);
@@ -170,7 +166,7 @@ body {
     font-family: 'Roboto', sans-serif;
     text-align: center;
     font-weight: 400;
-    color: #2b3242;
+    color: var(--text-in-boxes);
 }
 
 .landingPartnersBox_textSide button {

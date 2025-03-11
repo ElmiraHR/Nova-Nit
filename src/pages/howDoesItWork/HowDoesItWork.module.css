@@ -1,40 +1,103 @@
-/* src/pages/HowDoesItWork/HowDoesItWork.module.css */
 .howDoesItWork {
-    background: #ffffff;
-    padding: 4rem 2rem;
-    text-align: center;
-  }
-  
-  .title {
-    color: #333333;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 36px;
-    margin-bottom: 2rem;
-  }
-  
-  .steps {
-    display: flex;
-    flex-wrap: wrap;
+  padding: 0 2rem 8rem 2rem;
+  text-align: center;
+}
+
+.howDoesItWork h2 {
+  font-size: clamp(24px, 3.6vw, 44px);
+  margin-top: clamp(44px, 7vw, 80px);
+}
+
+.howDoesItWork_Box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* Прижимаем картинку вправо */
+  width: 100%;
+  position: relative;
+  margin-top: clamp(16px, 7vw, 79.5px);
+}
+
+.howDoesItWork_ContentBox {
+  background: var(--text-boxes);
+  border-radius: 5px;
+  padding: 0 42px 0 70px;
+  padding-top: clamp(50px, 6vw, 68px);
+  padding-bottom: clamp(50px, 6vw, 73px);
+  position: relative;
+  z-index: 2;
+  margin-right: -8.3%;
+  /* Небольшое перекрытие изображения */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.howDoesItWork_ContentBox p {
+  width: clamp(240px, 33vw, 445px);
+  margin: 0 auto;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: clamp(22px, 3.3vw, 40px);
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+  font-weight: 400;
+  color: var(--text-in-boxes);
+}
+
+.howDoesItWork_ContentBox button {
+margin-top: 80px;
+}
+
+.howDoesItWork_ImgBox {
+  flex: 0 0 58.2%;
+  /* Картинка занимает больше места */
+  width: 791px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.howDoesItWork_ImgBox>img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+
+  .howDoesItWork_Box {
+    flex-direction: column-reverse;
     justify-content: center;
-    gap: 2rem;
-  }
-  
-  .step {
-    background: #f5f5f5;
-    padding: 1.5rem;
-    border-radius: 8px;
-    width: 300px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .step h2 {
-    color: #2E7D32;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 24px;
-  }
-  
-  .step p {
-    color: #333333;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-size: 16px;
-  }
+}
+
+.howDoesItWork_ImgBox  {
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+}
+.howDoesItWork_ImgBox >img {
+    border-radius: 20px 20px 0 0;
+
+}
+.howDoesItWork_ContentBox  {
+    flex: 1;
+    width: 100%;
+    border-radius: 0 0 20px 20px;
+    z-index: 2;
+    margin: 0 auto;
+    padding: 0;
+    /* Небольшое перекрытие изображения */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.howDoesItWork_ContentBox p {
+    font-size: clamp(16px, 2vw, 24px);
+    line-height: clamp(24px, 3.3vw, 40px);
+    padding: 0 42px;
+    width: 75%;
+    margin-top: 36px;
+}
+.howDoesItWork_ContentBox button {
+    margin: 38px auto 56px;
+
+}
+}

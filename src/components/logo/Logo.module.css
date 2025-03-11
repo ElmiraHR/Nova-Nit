@@ -1,0 +1,8 @@
+.landingLogo {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.landingLogo>img {
+    width: clamp(200px, 30vw, 342px);
+}

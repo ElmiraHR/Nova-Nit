@@ -1,23 +1,179 @@
-// src/pages/HowDoesItWork/HowDoesItWork.tsx
-import React from 'react';
-import styles from './HowDoesItWork.module.css';
+// import s from './HowDoesItWork.module.css';
+// import styled from 'styled-components';
+// import React, { useEffect, useState } from 'react';
+// import { fetchPage } from '../../services/pageService';
+// import { useLanguage } from '../../context/LanguageContext';
+
+// const HowDoesItWorkButton = styled.button`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin: 0 auto;
+//   background: var(--button-bg);
+//   color: var(--button-text);
+//   width: clamp(181px, 23.5vw, 334px);
+//   height: clamp(50px, 7vw, 80px);
+//   padding: 0;
+//   border: none;
+//   border-radius: 4px;
+//   font-size: clamp(18px, 2vw, 24px);
+//   font-weight: 700;
+//   cursor: pointer;
+
+//   &:hover {
+//     background: var(--text-in-boxes);
+//   }
+// `;
+
+// const HowDoesItWork: React.FC = () => {
+//   const { language } = useLanguage();
+//   const [title, setTitle] = useState('');
+//   const [text, setText] = useState('');
+//   const [storedImagePath, setStoredImagePath] = useState<string | null>(null);
+
+//   const baseURL = 'http://localhost:8080'; // Базовый URL для изображений
+
+//   useEffect(() => {
+//     const loadPageData = async () => {
+//       try {
+//         const pageData = await fetchPage('howdoeswork');
+//         console.log('Данные страницы:', pageData); // Логируем API-ответ
+
+//         setTitle(language === 'EN' ? pageData.title_en || '' : pageData.title_me || '');
+//         setText(language === 'EN' ? pageData.text_en || '' : pageData.text_me || '');
+
+//         // Проверяем, есть ли путь к изображению
+//         if (pageData.how_work_image_path) {
+//           const fullImagePath = `${baseURL}${pageData.how_work_image_path}`;
+//           setStoredImagePath(fullImagePath);
+//           console.log('Путь к изображению:', fullImagePath);
+//         } else {
+//           console.warn('Путь к изображению отсутствует');
+//         }
+//       } catch (error) {
+//         console.error('Ошибка загрузки данных:', error);
+//       }
+//     };
+
+//     loadPageData();
+//   }, [language]);
+
+//   return (
+//     <section className={s.howDoesItWork}>
+//       <h2 className={s.howDoesItWork_title}>{title}</h2>
+//       <div className={s.howDoesItWork_Box}>
+//         <div className={s.howDoesItWork_ContentBox}>
+//           <p className={s.howDoesItWork_Content}>{text}</p>
+//           <HowDoesItWorkButton>Get Involved</HowDoesItWorkButton>
+//         </div>
+//         <div className={s.howDoesItWork_ImgBox}>
+//           {storedImagePath ? (
+//             <img src={storedImagePath} alt="How It Works" onError={(e) => (e.currentTarget.style.display = 'none')} />
+//           ) : (
+//             <p>Изображение недоступно</p>
+//           )}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default HowDoesItWork;
+
+
+import s from './HowDoesItWork.module.css';
+import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import { fetchPage } from '../../services/pageService';
+import { useLanguage } from '../../context/LanguageContext';
+
+const HowDoesItWorkButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  background: var(--button-bg);
+  color: var(--button-text);
+  width: clamp(181px, 23.5vw, 334px);
+  height: clamp(50px, 7vw, 80px);
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--text-in-boxes);
+  }
+`;
 
 const HowDoesItWork: React.FC = () => {
+  const { language } = useLanguage();
+  const [title, setTitle] = useState('');
+  const [text, setText] = useState('');
+  const [storedImagePath, setStoredImagePath] = useState<string | null>(null);
+
+  const baseURL = 'http://localhost:8080'; // Базовый URL для изображений
+
+  useEffect(() => {
+    const loadPageData = async () => {
+      try {
+        const pageData = await fetchPage('howdoeswork');
+        console.log('📌 API-ответ:', pageData);
+
+        setTitle(language === 'EN' ? pageData.title_en || '' : pageData.title_me || '');
+        setText(language === 'EN' ? pageData.text_en || '' : pageData.text_me || '');
+
+        // Проверка пути к изображению
+        if (pageData.how_work_image_path) {
+          let imagePath = pageData.how_work_image_path;
+
+          // Проверяем, начинается ли путь с `/`
+          if (!imagePath.startsWith('http') && !imagePath.startsWith('/')) {
+            console.warn('⚠️ Неправильный путь:', imagePath);
+          }
+
+          // Добавляем baseURL, если путь начинается с `/`
+          if (imagePath.startsWith('/')) {
+            imagePath = `${baseURL}${imagePath}`;
+          }
+
+          setStoredImagePath(imagePath);
+          console.log('✅ Итоговый путь к изображению:', imagePath);
+        } else {
+          console.warn('⚠️ Путь к изображению отсутствует');
+          setStoredImagePath(null);
+        }
+      } catch (error) {
+        console.error('❌ Ошибка загрузки данных:', error);
+      }
+    };
+
+    loadPageData();
+  }, [language]);
+
   return (
-    <section className={styles.howDoesItWork}>
-      <h1 className={styles.title}>How Does It Work?</h1>
-      <div className={styles.steps}>
-        <div className={styles.step}>
-          <h2>Step 1: Donate</h2>
-          <p>Contribute to our cause by donating food or funds.</p>
+    <section className={s.howDoesItWork}>
+      <h2 className={s.howDoesItWork_title}>{title}</h2>
+      <div className={s.howDoesItWork_Box}>
+        <div className={s.howDoesItWork_ContentBox}>
+          <p className={s.howDoesItWork_Content}>{text}</p>
+          <HowDoesItWorkButton>Get Involved</HowDoesItWorkButton>
         </div>
-        <div className={styles.step}>
-          <h2>Step 2: Distribution</h2>
-          <p>We distribute resources to communities in need.</p>
-        </div>
-        <div className={styles.step}>
-          <h2>Step 3: Impact</h2>
-          <p>Make a lasting difference in people's lives.</p>
+        <div className={s.howDoesItWork_ImgBox}>
+          {storedImagePath ? (
+            <img 
+              src={storedImagePath} 
+              alt="How It Works"
+              onError={(e) => {
+                console.error('❌ Ошибка загрузки изображения:', storedImagePath);
+                e.currentTarget.style.display = 'none';
+              }} 
+            />
+          ) : (
+            <p>⚠️ Изображение недоступно</p>
+          )}
         </div>
       </div>
     </section>
