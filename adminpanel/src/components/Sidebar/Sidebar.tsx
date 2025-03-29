@@ -6,7 +6,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [showLandingSubmenu, setShowLandingSubmenu] = useState(false);
 
-  const pages = ['HowDoesItWork', 'Partners', 'GetInvolved', 'Contact', 'Volunteer', 'FAQ'];
+  const pages = [ 'GetInvolved', 'Contact', 'Volunteer', 'FAQ'];
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
@@ -86,6 +86,17 @@ const Sidebar = () => {
             HowDoesWork
           </NavLink>
         </li>
+        <li>
+      <NavLink
+       to="/adminpanel/partners"
+       className={({ isActive }) => (isActive ? styles.active : '')}
+       >
+       Partners
+      </NavLink>
+      </li>
+
+
+
       </ul>
 
       {/* ✅ Кнопка логаута */}

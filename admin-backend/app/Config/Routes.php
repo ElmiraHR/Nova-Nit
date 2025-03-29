@@ -72,3 +72,28 @@ $routes->group('api', function($routes) {
     // Удаление
     $routes->delete('howdoeswork', 'HowDoesWorkController::deleteHowDoesWork/howdoeswork');
 });
+
+
+$routes->group('api', function($routes) {
+    // ✅ Получение данных страницы партнёров (верхняя часть)
+    $routes->get('partners', 'Partners::index');
+
+    // ✅ Обновление верхней части страницы (тексты, заголовки, баннер)
+    $routes->post('partners/page/update/(:num)', 'Partners::updatePage/$1');
+
+    // ✅ Добавить партнёра
+    $routes->post('partners/create', 'Partners::createPartner');
+
+    // ✅ Обновить партнёра
+    $routes->post('partners/update/(:num)', 'Partners::updatePartner/$1');
+
+    // ✅ Удалить партнёра
+    $routes->delete('partners/delete/(:num)', 'Partners::deletePartner/$1');
+});
+$routes->get('images/(:any)', function ($fileName) {
+    $path = FCPATH . '../admin-backend/images/' . $fileName;
+    if (file_exists($path)) {
+        return \CodeIgniter\HTTP\Response::download($path, null)->setFileName($fileName)->setContentType(mime_content_type($path));
+    }
+    return \CodeIgniter\HTTP\Response::setStatusCode(404);
+});

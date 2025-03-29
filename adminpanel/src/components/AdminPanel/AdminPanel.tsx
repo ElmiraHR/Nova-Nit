@@ -5,8 +5,10 @@ import HeroBanner from '../Landing/HeroBanner';
 import BodyInfo from '../Landing/BodyInfo';
 import Partners from '../Landing/Partners';
 import Mission from '../Mission/Mission';
+import PartnersPage from '../Partners/PartnersPage';
 import HowDoesWork from '../HowDoesWork/HowDoesWork'; // ✅ Импортируем новый компонент
 import styles from './AdminPanel.module.css';
+
 
 const AdminPanel = () => {
   const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true';
@@ -22,6 +24,7 @@ const AdminPanel = () => {
           <Route path="/landing/partners" element={isAuthenticated ? <Partners /> : <Navigate to="/login" />} />
           <Route path="/mission/mission" element={isAuthenticated ? <Mission /> : <Navigate to="/login" />} />
           <Route path="/howdoeswork" element={isAuthenticated ? <HowDoesWork /> : <Navigate to="/login" />} /> {/* ✅ Новый роут */}
+          <Route path="/partners" element={<PartnersPage />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

@@ -1,0 +1,122 @@
+.container {
+    padding: 20px;
+    font-family: sans-serif;
+  }
+  
+  .sectionTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
+  .inputField {
+    width: 95%;
+    padding: 8px;
+    margin: 5px 0;
+  }
+  
+  .textareaField {
+    width: 95%;
+    height: 80px;
+    padding: 8px;
+    margin: 5px 0;
+    resize: vertical;
+  }
+  
+  .imagePreview {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    margin-top: 10px;
+  }
+  
+  .saveButton,
+  .addButton,
+  .deleteButton {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .saveButton{
+    margin: 0 20px;
+  }
+  .deleteButton {
+    background-color: #cc3333;
+  }
+  
+  .partnerItem {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+  }
+  
+  .pageSection {
+    margin-bottom: 40px;
+  }
+  
+  .notification {
+    margin-bottom: 10px;
+    color: green;
+  }
+  
+  .fileInputWrapper{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .uploadButton {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+    margin-right: 10px;
+  }
+  
+  .uploadButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .fileInputWrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .logoPreviewBlock {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .logoPreview {
+    height: 50px;
+    border-radius: 6px;
+  }
+  
+  .cancelButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .cancelButton:hover {
+    background-color: #b52a37;
+  }
+  
+ 

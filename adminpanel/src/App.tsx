@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/Login';
 import AdminPanel from './components/AdminPanel/AdminPanel';
 
+
 const App = () => {
   const isAuthenticated = localStorage.getItem('isLoggedIn') === 'true';
 
