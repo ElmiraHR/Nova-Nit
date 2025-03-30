@@ -97,3 +97,11 @@ $routes->get('images/(:any)', function ($fileName) {
     }
     return \CodeIgniter\HTTP\Response::setStatusCode(404);
 });
+
+$routes->group('api/getinvolved', function($routes) {
+    $routes->get('/', 'GetInvolvedImageController::index');
+    $routes->post('upload', 'GetInvolvedImageController::upload');
+    $routes->delete('(:num)', 'GetInvolvedImageController::delete/$1');
+});
+
+

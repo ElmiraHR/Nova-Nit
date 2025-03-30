@@ -6,7 +6,9 @@ import BodyInfo from '../Landing/BodyInfo';
 import Partners from '../Landing/Partners';
 import Mission from '../Mission/Mission';
 import PartnersPage from '../Partners/PartnersPage';
-import HowDoesWork from '../HowDoesWork/HowDoesWork'; // ✅ Импортируем новый компонент
+import HowDoesWork from '../HowDoesWork/HowDoesWork'; 
+import GetInvolved from '../GetInvolved/GetInvolved';
+
 import styles from './AdminPanel.module.css';
 
 
@@ -25,6 +27,7 @@ const AdminPanel = () => {
           <Route path="/mission/mission" element={isAuthenticated ? <Mission /> : <Navigate to="/login" />} />
           <Route path="/howdoeswork" element={isAuthenticated ? <HowDoesWork /> : <Navigate to="/login" />} /> {/* ✅ Новый роут */}
           <Route path="/partners" element={<PartnersPage />} />
+          <Route path="/getinvolved" element={isAuthenticated ? <GetInvolved /> : <Navigate to="/login" />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

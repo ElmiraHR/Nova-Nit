@@ -94,8 +94,14 @@ const Sidebar = () => {
        Partners
       </NavLink>
       </li>
-
-
+      <li>
+     <NavLink
+       to="/adminpanel/getinvolved"
+       className={({ isActive }) => (isActive ? styles.activeLink : '')}
+      >
+       Get Involved
+      </NavLink>
+      </li>
 
       </ul>
 

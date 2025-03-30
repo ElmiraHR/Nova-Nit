@@ -1,0 +1,81 @@
+.container {
+  padding: 20px;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.notification {
+  margin-bottom: 10px;
+  color: green;
+  font-weight: bold;
+}
+
+.uploadSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.uploadButton,
+.saveButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.saveButton {
+  background-color: #28a745;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.imageGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.imageItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75px;
+  margin-bottom: 10px;
+}
+
+.image {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.preview {
+  opacity: 0.4;
+  border: 2px dashed #ccc;
+}
+
+.deleteButton {
+  margin-top: 6px;
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
