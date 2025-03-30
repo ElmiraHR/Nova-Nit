@@ -114,3 +114,8 @@ $routes->group('api', function($routes) {
     $routes->get('all-images', 'AllImagesController::index');
     $routes->delete('all-images/(:any)', 'AllImagesController::delete/$1');
 });
+
+$routes->group('api', function($routes) {
+    $routes->get('faq-image', 'FaqImageController::index');
+    $routes->post('faq-image/upload', 'FaqImageController::upload');
+});

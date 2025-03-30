@@ -6,7 +6,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [showLandingSubmenu, setShowLandingSubmenu] = useState(false);
 
-  const pages = [ 'Volunteer', 'FAQ'];
+  const pages = [ 'Volunteer'];
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
@@ -103,11 +103,27 @@ const Sidebar = () => {
       </NavLink>
       </li>
       <li>
-    <NavLink to="/adminpanel/contact">Contact Us</NavLink>
+    <NavLink to="/adminpanel/contact" 
+    className={({ isActive }) => (isActive ? styles.activeLink : '')}>
+      Contact Us
+      </NavLink>
       </li>
       <li>
-    <NavLink to="/adminpanel/allimages">All Images</NavLink>
+     <NavLink
+       to="/adminpanel/faq"
+       className={({ isActive }) => (isActive ? styles.activeLink : '')}
+      >
+       FAQ image
+      </NavLink>
       </li>
+
+      <li>
+    <NavLink to="/adminpanel/allimages" 
+    className={({ isActive }) => (isActive ? styles.activeLink : '')}>
+      All Images
+      </NavLink>
+      </li>
+   
 
 
       </ul>
