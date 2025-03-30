@@ -119,3 +119,19 @@ $routes->group('api', function($routes) {
     $routes->get('faq-image', 'FaqImageController::index');
     $routes->post('faq-image/upload', 'FaqImageController::upload');
 });
+
+$routes->group('api/volunteer', function($routes) {
+    $routes->get('/', 'VolunteerController::index');
+    $routes->post('page/update/(:num)', 'VolunteerController::updatePage/$1');
+    $routes->post('create', 'VolunteerController::createVolunteer');
+    $routes->post('update/(:num)', 'VolunteerController::updateVolunteer/$1');
+    $routes->delete('delete/(:num)', 'VolunteerController::deleteVolunteer/$1');
+    $routes->post('volunteer/update', 'VolunteerController::update');
+    $routes->post('update', 'VolunteerController::update');
+    $routes->post('api/volunteer/update', 'VolunteerController::update');
+    $routes->post('api/volunteer/update/(:num)', 'VolunteerController::updateVolunteer/$1');
+
+
+
+});
+

@@ -71,7 +71,7 @@ const Sidebar = () => {
         <li>
           <NavLink
             to="/adminpanel/mission/mission"
-            className={({ isActive }) => (isActive ? styles.active : '')}
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
           >
             Mission
           </NavLink>
@@ -81,7 +81,7 @@ const Sidebar = () => {
         <li>
           <NavLink
             to="/adminpanel/howdoeswork"
-            className={({ isActive }) => (isActive ? styles.active : '')}
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
           >
             HowDoesWork
           </NavLink>
@@ -89,7 +89,7 @@ const Sidebar = () => {
         <li>
       <NavLink
        to="/adminpanel/partners"
-       className={({ isActive }) => (isActive ? styles.active : '')}
+       className={({ isActive }) => (isActive ? styles.activeLink : '')}
        >
        Partners
       </NavLink>
@@ -116,6 +116,10 @@ const Sidebar = () => {
        FAQ image
       </NavLink>
       </li>
+      <li>
+    <NavLink to="/adminpanel/volunteer"  className={({ isActive }) => (isActive ? styles.activeLink : '')}>Volunteer with Us</NavLink>
+       </li>
+
 
       <li>
     <NavLink to="/adminpanel/allimages" 

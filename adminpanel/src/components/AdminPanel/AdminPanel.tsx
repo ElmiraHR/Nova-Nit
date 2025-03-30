@@ -11,6 +11,7 @@ import GetInvolved from '../GetInvolved/GetInvolved';
 import ContactUs from '../ContactUs/ContactUs'; 
 import AllImages from '../AllImages/AllImages'; 
 import FAQ from '../FAQ/FAQ';
+import VolunteerPage from '../Volunteer/VolunteerPage';
 
 import styles from './AdminPanel.module.css';
 
@@ -32,6 +33,7 @@ const AdminPanel = () => {
           <Route path="/partners" element={isAuthenticated ? <PartnersPage />: <Navigate to="/login" />} />
           <Route path="/getinvolved" element={isAuthenticated ? <GetInvolved /> : <Navigate to="/login" />} />
           <Route path="/contact" element={isAuthenticated ? <ContactUs />: <Navigate to="/login" />} />
+          <Route path="/volunteer" element={<VolunteerPage />} />
           <Route path="/allimages" element={isAuthenticated ? <AllImages />: <Navigate to="/login" />} />
           <Route path="/faq" element={isAuthenticated ? <FAQ /> : <Navigate to="/login" />} />
           <Route path="*" element={<Navigate to="/" />} />
