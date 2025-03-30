@@ -9,6 +9,7 @@ import PartnersPage from '../Partners/PartnersPage';
 import HowDoesWork from '../HowDoesWork/HowDoesWork'; 
 import GetInvolved from '../GetInvolved/GetInvolved';
 import ContactUs from '../ContactUs/ContactUs'; 
+import AllImages from '../AllImages/AllImages'; 
 
 import styles from './AdminPanel.module.css';
 
@@ -30,6 +31,8 @@ const AdminPanel = () => {
           <Route path="/partners" element={<PartnersPage />} />
           <Route path="/getinvolved" element={isAuthenticated ? <GetInvolved /> : <Navigate to="/login" />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/allimages" element={<AllImages />} />
+
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>

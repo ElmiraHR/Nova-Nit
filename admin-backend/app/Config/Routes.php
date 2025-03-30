@@ -109,3 +109,8 @@ $routes->group('api/contact-image', function($routes) {
     $routes->get('/', 'ContactImageController::index');
     $routes->post('upload', 'ContactImageController::upload');
 });
+
+$routes->group('api', function($routes) {
+    $routes->get('all-images', 'AllImagesController::index');
+    $routes->delete('all-images/(:any)', 'AllImagesController::delete/$1');
+});

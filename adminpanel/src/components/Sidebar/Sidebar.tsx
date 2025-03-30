@@ -6,7 +6,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [showLandingSubmenu, setShowLandingSubmenu] = useState(false);
 
-  const pages = [ 'GetInvolved', 'Contact', 'Volunteer', 'FAQ'];
+  const pages = [ 'Volunteer', 'FAQ'];
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
@@ -104,6 +104,9 @@ const Sidebar = () => {
       </li>
       <li>
     <NavLink to="/adminpanel/contact">Contact Us</NavLink>
+      </li>
+      <li>
+    <NavLink to="/adminpanel/allimages">All Images</NavLink>
       </li>
 
 
