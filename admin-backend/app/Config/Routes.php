@@ -105,3 +105,7 @@ $routes->group('api/getinvolved', function($routes) {
 });
 
 
+$routes->group('api/contact-image', function($routes) {
+    $routes->get('/', 'ContactImageController::index');
+    $routes->post('upload', 'ContactImageController::upload');
+});

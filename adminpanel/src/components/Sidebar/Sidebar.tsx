@@ -102,6 +102,10 @@ const Sidebar = () => {
        Get Involved
       </NavLink>
       </li>
+      <li>
+    <NavLink to="/adminpanel/contact">Contact Us</NavLink>
+      </li>
+
 
       </ul>
 
