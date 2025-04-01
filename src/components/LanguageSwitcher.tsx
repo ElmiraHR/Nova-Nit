@@ -9,6 +9,11 @@ const SwitcherWrapper = styled.div`
   gap: 10px; /* Отступы между кнопками */
   margin: 1rem 0;
   width: fit-content;
+
+  @media (max-width: 1200px) {
+    position: absolute;
+    left: 25px;
+  }
 `;
 
 const LanguageButton = styled.button<{ $active?: boolean }>`
@@ -21,6 +26,7 @@ const LanguageButton = styled.button<{ $active?: boolean }>`
   transition: background 0.3s;
   width: fit-content;
   text-align: center; /* Центрируем текст на кнопке */
+  font-size: clamp(16px, 1.5vw, 20px);
 `;
 
 const LanguageSwitcher: React.FC = () => {

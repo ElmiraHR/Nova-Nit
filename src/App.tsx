@@ -33,8 +33,9 @@ const App: React.FC = () => {
             <Route path="/faq" element={<FAQ />} />
           </Routes>
         </main>
-        <Footer />
-      </div>
+
+      </div>        
+      <Footer />
     </Router>
     </LanguageProvider>
   );

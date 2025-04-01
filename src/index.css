@@ -17,6 +17,12 @@ body {
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
+.app {
+  min-width: 350px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -30,7 +36,8 @@ code {
   --text-in-boxes: #2B3442;
   --button-text: #ECEBE7;
   --header-bg: var(--main-bg); /* Хедер использует общий фон */
-  --text-color: #2B3442; 
+  --text-color: #2B3442;
+  --blur-bg: #e3e1dc7e;
 }
 
 [data-theme="dark"] {
@@ -42,4 +49,5 @@ code {
   --button-text: #2B3442;
   --header-bg: var(--main-bg); /* Хедер использует общий фон */
   --text-color: #ECEBE7;
+  --blur-bg: #171c237c;
 }

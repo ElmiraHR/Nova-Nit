@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import LanguageSwitcher from '../LanguageSwitcher';
 import styled from 'styled-components';
+import DonateButton from '../donateButton/DonateButton';
+import SocialLinks from '../../components/socialLinks/SocialLinks';
+import BurgerMenu from '../../components/burgerMenu/BurgerMenu';
 
 const Nav = styled.nav`
-  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  background: var(--blur-bg);
   padding: 1rem;
   display: flex;
   align-items: center;
+  position: sticky;
+  top:0;
+  z-index: 5;
   justify-content: space-between;
+      @media (max-width: 1200px) {
+    justify-content: end;
+  }
 `;
 
 const NavLinks = styled.div`
@@ -20,9 +30,18 @@ const NavLink = styled.a`
   color: var(--text-in-boxes);
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
+  transition: border-bottom 0.3s ease;
+  padding: 4px 0;
+  font-weight: 600;
+  font-size: clamp(16px, 1.5vw, 20px);
   &:hover {
-   
-    text-decoration: underline;
+    border-bottom: 2px solid var(--text-in-boxes);
+  }
+        @media (min-width: 1200px) {
+    display: flex;
+  }
+  @media (max-width: 1200px) {
+    display: none;
   }
 `;
 
@@ -41,8 +60,8 @@ const ThemeSwitcher = styled.button`
   }
 
   svg {
-    width: 28px;
-    height: 28px;
+    width: 48px;
+    height: 48px;
     fill: var(--text-in-boxes); /* Теперь иконки адаптируются к цвету текста */
   }
 `;
@@ -63,13 +82,14 @@ const Header: React.FC = () => {
     <Nav>
       <LanguageSwitcher />
       <NavLinks>
-        <NavLink href="/">Home</NavLink>
-        <NavLink href="/mission">Mission</NavLink>
-        <NavLink href="/how-does-it-work">How It Works</NavLink>
-        <NavLink href="/partners">Partners</NavLink>
-        <NavLink href="/get-involved">Get Involved</NavLink>
-        <NavLink href="/contact-us">Contact Us</NavLink>
+        <NavLink href="/">HOME</NavLink>
+        <NavLink href="/mission">OUR MISSION</NavLink>
+        <NavLink href="/get-involved">BECOME A CORPORATE PARTNER</NavLink>
+        <NavLink href="/contact-us">CONTACT US</NavLink>
+        <NavLink href="/volunteer">VOLLUNTEER</NavLink>
+        <DonateButton />
       </NavLinks>
+      <SocialLinks size={48} isVisible={false} />
       <ThemeSwitcher onClick={toggleTheme}>
         {theme === 'light' ? (
           // **Луна при светлой теме**
@@ -84,6 +104,7 @@ const Header: React.FC = () => {
           </svg>
         )}
       </ThemeSwitcher>
+      <BurgerMenu />
     </Nav>
   );
 };
