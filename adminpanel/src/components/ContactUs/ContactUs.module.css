@@ -1,0 +1,79 @@
+.container {
+    padding: 30px;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+  }
+  
+  .sectionTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #162144;
+  }
+  
+  .notification {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #00333e;
+    border-left: 4px solid #00b4d8;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  .uploadSection {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .uploadButton,
+  .saveButton {
+    padding: 8px 14px;
+    background-color: #007a99;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .uploadButton:hover,
+  .saveButton:hover {
+    background-color: #009ec4;
+  }
+  
+  .hiddenInput {
+    display: none;
+  }
+  
+  .previewContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .imageBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .imageLabel {
+    font-size: 14px;
+    color: #7d0606;
+    font-style: italic;
+  }
+  
+  .image {
+    max-width: 250px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    object-fit: contain;
+  }
+  
+  .previewing {
+    opacity: 0.4;
+  }
+  

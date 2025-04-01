@@ -97,3 +97,41 @@ $routes->get('images/(:any)', function ($fileName) {
     }
     return \CodeIgniter\HTTP\Response::setStatusCode(404);
 });
+
+$routes->group('api/getinvolved', function($routes) {
+    $routes->get('/', 'GetInvolvedImageController::index');
+    $routes->post('upload', 'GetInvolvedImageController::upload');
+    $routes->delete('(:num)', 'GetInvolvedImageController::delete/$1');
+});
+
+
+$routes->group('api/contact-image', function($routes) {
+    $routes->get('/', 'ContactImageController::index');
+    $routes->post('upload', 'ContactImageController::upload');
+});
+
+$routes->group('api', function($routes) {
+    $routes->get('all-images', 'AllImagesController::index');
+    $routes->delete('all-images/(:any)', 'AllImagesController::delete/$1');
+});
+
+$routes->group('api', function($routes) {
+    $routes->get('faq-image', 'FaqImageController::index');
+    $routes->post('faq-image/upload', 'FaqImageController::upload');
+});
+
+$routes->group('api/volunteer', function($routes) {
+    $routes->get('/', 'VolunteerController::index');
+    $routes->post('page/update/(:num)', 'VolunteerController::updatePage/$1');
+    $routes->post('create', 'VolunteerController::createVolunteer');
+    $routes->post('update/(:num)', 'VolunteerController::updateVolunteer/$1');
+    $routes->delete('delete/(:num)', 'VolunteerController::deleteVolunteer/$1');
+    $routes->post('volunteer/update', 'VolunteerController::update');
+    $routes->post('update', 'VolunteerController::update');
+    $routes->post('api/volunteer/update', 'VolunteerController::update');
+    $routes->post('api/volunteer/update/(:num)', 'VolunteerController::updateVolunteer/$1');
+
+
+
+});
+

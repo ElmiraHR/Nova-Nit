@@ -6,7 +6,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [showLandingSubmenu, setShowLandingSubmenu] = useState(false);
 
-  const pages = [ 'GetInvolved', 'Contact', 'Volunteer', 'FAQ'];
+  const pages = [ 'Volunteer'];
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
@@ -71,7 +71,7 @@ const Sidebar = () => {
         <li>
           <NavLink
             to="/adminpanel/mission/mission"
-            className={({ isActive }) => (isActive ? styles.active : '')}
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
           >
             Mission
           </NavLink>
@@ -81,7 +81,7 @@ const Sidebar = () => {
         <li>
           <NavLink
             to="/adminpanel/howdoeswork"
-            className={({ isActive }) => (isActive ? styles.active : '')}
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
           >
             HowDoesWork
           </NavLink>
@@ -89,12 +89,45 @@ const Sidebar = () => {
         <li>
       <NavLink
        to="/adminpanel/partners"
-       className={({ isActive }) => (isActive ? styles.active : '')}
+       className={({ isActive }) => (isActive ? styles.activeLink : '')}
        >
        Partners
       </NavLink>
       </li>
+      <li>
+     <NavLink
+       to="/adminpanel/getinvolved"
+       className={({ isActive }) => (isActive ? styles.activeLink : '')}
+      >
+       Get Involved
+      </NavLink>
+      </li>
+      <li>
+    <NavLink to="/adminpanel/contact" 
+    className={({ isActive }) => (isActive ? styles.activeLink : '')}>
+      Contact Us
+      </NavLink>
+      </li>
+      <li>
+     <NavLink
+       to="/adminpanel/faq"
+       className={({ isActive }) => (isActive ? styles.activeLink : '')}
+      >
+       FAQ image
+      </NavLink>
+      </li>
+      <li>
+    <NavLink to="/adminpanel/volunteer"  className={({ isActive }) => (isActive ? styles.activeLink : '')}>Volunteer with Us</NavLink>
+       </li>
 
+
+      <li>
+    <NavLink to="/adminpanel/allimages" 
+    className={({ isActive }) => (isActive ? styles.activeLink : '')}>
+      All Images
+      </NavLink>
+      </li>
+   
 
 
       </ul>

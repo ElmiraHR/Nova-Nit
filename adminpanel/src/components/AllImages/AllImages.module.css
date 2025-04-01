@@ -1,0 +1,59 @@
+.container {
+    padding: 30px;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #c4f4ff;
+  }
+  
+  .notification {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #00333e;
+    border-left: 4px solid #00b4d8;
+    font-weight: bold;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 75px);
+    gap: 20px;
+  }
+  
+  .imageItem {
+    text-align: center;
+  }
+  
+  .imageItem img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .date {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 5px;
+  }
+  
+  .deleteButton {
+    margin-top: 5px;
+    background-color: #b30000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .warningText{
+    font-size: 12px;
+    color: #b30000;
+  }

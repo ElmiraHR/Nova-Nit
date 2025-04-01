@@ -1,0 +1,124 @@
+.container {
+    padding: 30px;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+  }
+  
+  .sectionTitle {
+    font-size: 26px;
+    font-weight: bold;
+    color: #101834;
+    margin-bottom: 20px;
+  }
+  
+  .subTitle {
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #244a83;
+  }
+  
+  .notification {
+    padding: 10px;
+    background-color: #004d61;
+    color: white;
+    border-left: 4px solid #00b4d8;
+    margin-bottom: 20px;
+  }
+  
+  .inputField,
+  .textareaField {
+    width: 95%;
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #0e1a2b;
+    color: #fff;
+  }
+  .textareaField{
+    height: 100px;
+  }
+  .imageBlock,
+  .volunteerCard {
+    margin: 10px 0;
+    border: 1px solid #2c3e50;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fbfbfb;
+  }
+  
+  .previewImage,
+  .volunteerImage {
+    height: 100px;
+    margin-top: 10px;
+    border-radius: 6px;
+    display: flex;
+  }
+  
+  .saveButton,
+  .addButton,
+  .deleteButton {
+    padding: 8px 14px;
+    margin: 10px 10px 10px 0;
+    background-color: #007a99;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .deleteButton {
+    background-color: #992f2f;
+  }
+  
+  .saveButton:hover,
+  .addButton:hover,
+  .deleteButton:hover {
+    background-color: #009ec4;
+  }
+  .sectionBox {
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  .uploadButton {
+    background-color: #007a99;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .hiddenInput {
+    display: none;
+  }
+  
+  .label {
+    font-size: 12px;
+    display: block;
+    color: #101834;
+  }
+  .disabledButton {
+    background-color: #555 !important;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+  }
+  
+  .previewText {
+    white-space: pre-wrap;
+    color: #fff;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .formattedText {
+    white-space: pre-wrap;
+    line-height: 1.6;
+  }
+  
+  
