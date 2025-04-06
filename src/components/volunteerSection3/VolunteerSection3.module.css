@@ -1,55 +1,48 @@
-.contactContainer {
+.volunteerSection3 {
     padding: 0px clamp(35px, 9vw, 102px) clamp(60px, 12vw, 132px);
 }
-.contactContainer h2 {
-    font-size: clamp(24px, 4.4vw, 44px);
-    margin-top: clamp(44px, 7vw, 80px);
-    margin-bottom: 34px;
-}
-.contact {
+.volunteerSection3Box {
     display: flex;
     justify-content: space-between;
     gap: 3%;
 }
-
-.contact span {
-    width: 50%;
-}
-
-.contact_imgBox {
+.volunteerSection3ImgBox {
     width: clamp(300px, 38vw, 500px);
     height: clamp(540px, 62vw, 740px);
     overflow: hidden;
     border-radius: 15px;
 }
-
-.contact img {
+.volunteerSection3ImgBox img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+.volunteerSection3Box span {
+    width: 50%;
+}
 
 @media (max-width: 992px) {
-    .contactContainer h2 {
-        text-align: center;
-    }
-    .contact {
-        flex-direction: column-reverse;
+
+    .volunteerSection3Box {
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 40px;
     }
-    .contact span {
+    .volunteerSection3Box span {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
-    .contact_imgBox {
+    .volunteerSection3ImgBox {
         width: 100%;
         max-width: 566px;
-        height: clamp(10rem, 50vw, 20rem);
+        height: clamp(13.5rem, 57vw, 25rem);
         overflow: hidden;
+    }
+    .volunteerSection3ImgBox img {
+        object-fit: contain;
     }
 }

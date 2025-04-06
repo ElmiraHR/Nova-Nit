@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
           </div>
           <div className={s.footer_thirdSocial}>
             <h3>Follow us</h3>
-            <SocialLinks size={94} />
+            <SocialLinks size={94} instagramUrl="https://www.instagram.com" facebookUrl="https://www.facebook.com"/>
           </div>
         </div>
       </div>

@@ -1,40 +1,140 @@
-/* src/pages/Partners/Partners.module.css */
 .partners {
-    background: #f5f5f5;
-    padding: 4rem 2rem;
-    text-align: center;
-  }
-  
-  .title {
-    color: #333333;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 36px;
-    margin-bottom: 2rem;
-  }
-  
-  .partnerList {
-    display: flex;
-    flex-wrap: wrap;
+  padding: 0 2rem 8rem 2rem;
+  text-align: center;
+}
+
+.partners h2 {
+  font-size: clamp(24px, 3.6vw, 44px);
+  margin-top: clamp(44px, 7vw, 80px);
+}
+
+.partners_Box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* Прижимаем картинку вправо */
+  width: 100%;
+  position: relative;
+  margin-top: clamp(16px, 7vw, 79.5px);
+}
+
+.partners_ContentBox {
+  background: var(--text-boxes);
+  border-radius: 5px;
+  padding: 0 42px 0 70px;
+  padding-top: clamp(50px, 6vw, 68px);
+  padding-bottom: clamp(50px, 6vw, 73px);
+  position: relative;
+  z-index: 2;
+  margin-right: -8.3%;
+  /* Небольшое перекрытие изображения */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.partners_ContentBox p {
+  width: clamp(240px, 33vw, 445px);
+  margin: 0 auto;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: clamp(22px, 3.3vw, 40px);
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+  font-weight: 400;
+  color: var(--text-in-boxes);
+}
+
+.partners_ContentBox button {
+margin-top: 80px;
+}
+
+.partners_ImgBox {
+  flex: 0 0 58.2%;
+  /* Картинка занимает больше места */
+  width: 791px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.partners_ImgBox>img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.partners_list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+}
+
+.partners_title {
+  margin-bottom: 61px;
+}
+
+.partner_item {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(32px, 7vw, 80px) clamp(40px, 7vw, 80px) clamp(33px, 7.5vw, 88px);
+  height: fit-content;
+  gap: 40px;
+  background: var(--text-boxes);
+  border-radius: 5px;
+}
+.partner_item h3 {
+  font-size: clamp(24px, 3.6vw, 44px);
+}
+.partner_item img {
+  max-height: clamp(120px,20vw, 220px);
+  max-width: clamp(200px, 50vw, 515px);
+}
+.partner_item p {
+  font-size: clamp(18px, 2vw, 24px);
+}
+.partner_item svg {
+  height: clamp(45px, 7vw, 78px);
+}
+@media (max-width: 768px) {
+
+  .partners_Box {
+    flex-direction: column-reverse;
     justify-content: center;
-    gap: 2rem;
-  }
-  
-  .partner {
-    background: #ffffff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 200px;
-  }
-  
-  .partnerLogo {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-  }
-  
-  .partner p {
-    color: #333333;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-size: 16px;
-  }
+}
+
+.partners_ImgBox  {
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+}
+.partners_ImgBox >img {
+    border-radius: 20px 20px 0 0;
+
+}
+.partners_ContentBox  {
+    flex: 1;
+    width: 100%;
+    border-radius: 0 0 20px 20px;
+    z-index: 2;
+    margin: 0 auto;
+    padding: 0;
+    /* Небольшое перекрытие изображения */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.partners_ContentBox p {
+    font-size: clamp(16px, 2vw, 24px);
+    line-height: clamp(24px, 3.3vw, 40px);
+    padding: 0 42px;
+    width: 75%;
+    margin-top: 36px;
+}
+.partners_ContentBox button {
+    margin: 38px auto 56px;
+
+}
+}

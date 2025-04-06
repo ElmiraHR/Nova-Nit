@@ -1,0 +1,5 @@
+.volunteer>h2 {
+    font-size: clamp(24px, 4.8vw, 44px);
+    margin-top: clamp(44px, 7vw, 80px);
+    text-align: center;
+}

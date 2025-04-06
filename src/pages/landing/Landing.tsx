@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import s from './Landing.module.css';
-import { fetchPage } from '../../services/pageService';
-import { useLanguage } from '../../context/LanguageContext';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import s from "./Landing.module.css";
+import { fetchPage } from "../../services/pageService";
+import { useLanguage } from "../../context/LanguageContext";
 
 const Hero = styled.section`
   background: var(--main-bg);
@@ -12,7 +13,7 @@ const Hero = styled.section`
 
 const HeroTitle = styled.h1`
   color: var(--text-in-boxes);
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: clamp(20px, 3.265vw, 47px);
   line-height: clamp(34px, 6.5vw, 74px);
   font-weight: 400;
@@ -24,7 +25,7 @@ const HeroText = styled.p`
   color: var(--text-in-boxes);
   font-size: clamp(18px, 2vw, 24px);
   line-height: clamp(24px, 3vw, 40px);
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   text-align: left;
   font-weight: 400;
 `;
@@ -51,66 +52,60 @@ const HeroButton = styled.button`
 `;
 
 const Landing: React.FC = () => {
+  const navigate = useNavigate();
   const { language } = useLanguage();
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
   const [storedImagePath, setStoredImagePath] = useState<string | null>(null);
-
-  const [bodyTitle, setBodyTitle] = useState('');
-  const [bodyText, setBodyText] = useState('');
+  const [bodyTitle, setBodyTitle] = useState("");
+  const [bodyText, setBodyText] = useState("");
   const [sections, setSections] = useState<{ en: string; me: string }[]>([]);
-
-  const [titlePartners, setTitlePartners] = useState('');
-  const [infoPartners, setInfoPartners] = useState('');
-  const [storedMainImage, setStoredMainImage] = useState('');
+  const [titlePartners, setTitlePartners] = useState("");
+  const [infoPartners, setInfoPartners] = useState("");
+  const [storedMainImage, setStoredMainImage] = useState("");
   const [storedLogos, setStoredLogos] = useState<string[]>([]);
 
   useEffect(() => {
     const loadPageData = async () => {
       try {
-        const pageData = await fetchPage('landing');
+        const pageData = await fetchPage("landing");
 
-        setTitle(language === 'EN' ? pageData.hero_title_en || '' : pageData.hero_title_me || '');
-        setText(language === 'EN' ? pageData.hero_text_en || '' : pageData.hero_text_me || '');
+        setTitle(language === "EN" ? pageData.hero_title_en || "" : pageData.hero_title_me || "");
+        setText(language === "EN" ? pageData.hero_text_en || "" : pageData.hero_text_me || "");
         setStoredImagePath(pageData.hero_image_path || pageData.image_path || null);
+        setBodyTitle(language === "EN" ? pageData.body_title_en || "" : pageData.body_title_me || "");
+        setBodyText(language === "EN" ? pageData.body_info_en || "" : pageData.body_info_me || "");
+        setTitlePartners(language === "EN" ? pageData.partners_title_en || "" : pageData.partners_title_me || "");
+        setInfoPartners(language === "EN" ? pageData.partners_info_en || "" : pageData.partners_info_me || "");
+        setStoredMainImage(pageData.partners_image_path || "");
 
-        setBodyTitle(language === 'EN' ? pageData.body_title_en || '' : pageData.body_title_me || '');
-        setBodyText(language === 'EN' ? pageData.body_info_en || '' : pageData.body_info_me || '');
-
-        setTitlePartners(language === 'EN' ? pageData.partners_title_en || '' : pageData.partners_title_me || '');
-        setInfoPartners(language === 'EN' ? pageData.partners_info_en || '' : pageData.partners_info_me || '');
-        setStoredMainImage(pageData.partners_image_path || '');
-
-        // Парсим partners_logos
         let parsedLogos: string[] = [];
         if (Array.isArray(pageData.partners_logos)) {
           parsedLogos = pageData.partners_logos;
-        } else if (typeof pageData.partners_logos === 'string') {
+        } else if (typeof pageData.partners_logos === "string") {
           try {
             parsedLogos = JSON.parse(pageData.partners_logos);
           } catch (error) {
-            console.error('Ошибка парсинга partners_logos:', error);
+            console.error("Ошибка парсинга partners_logos:", error);
           }
         }
-
         setStoredLogos(parsedLogos);
 
-        // Проверяем секции
         const sectionsData = [
-          { en: pageData.section1_en || 'Нет данных', me: pageData.section1_me || 'Nema podataka' },
-          { en: pageData.section2_en || 'Нет данных', me: pageData.section2_me || 'Nema podataka' },
-          { en: pageData.section3_en || 'Нет данных', me: pageData.section3_me || 'Nema podataka' },
+          { en: pageData.section1_en || "Нет данных", me: pageData.section1_me || "Nema podataka" },
+          { en: pageData.section2_en || "Нет данных", me: pageData.section2_me || "Nema podataka" },
+          { en: pageData.section3_en || "Нет данных", me: pageData.section3_me || "Nema podataka" },
         ];
         setSections(sectionsData);
       } catch (error) {
-        console.error('Ошибка загрузки данных:', error);
+        console.error("Ошибка загрузки данных:", error);
       }
     };
 
     loadPageData();
   }, [language]);
 
-  const baseURL = 'http://localhost:8080'; // Базовый URL для логотипов и изображений
+  const baseURL = "http://localhost:8080";
 
   return (
     <Hero>
@@ -119,7 +114,7 @@ const Landing: React.FC = () => {
         <div className={s.landingBannerBox_textSide}>
           <HeroTitle>{title}</HeroTitle>
           <HeroText>{text}</HeroText>
-          <HeroButton>Get Involved</HeroButton>
+          <HeroButton onClick={() => navigate("/get-involved")}>Get Involved</HeroButton>
         </div>
         <div className={s.landingBannerBox_imgSide}>
           {storedImagePath && <img src={storedImagePath} alt="banner" />}
@@ -138,7 +133,7 @@ const Landing: React.FC = () => {
       <div className={s.landingBodyBox_section}>
         {sections.map((sec, index) => (
           <div className={s.landingBodyBox_sectionBox} key={index}>
-            <h3>{language === 'EN' ? sec.en : sec.me}</h3>
+            <h3>{language === "EN" ? sec.en : sec.me}</h3>
           </div>
         ))}
       </div>
@@ -146,7 +141,7 @@ const Landing: React.FC = () => {
       {/* Партнеры */}
       <div className={s.landingPartnersBox}>
         <div className={s.landingPartnersBox_imgSide}>
-          {storedMainImage && <img src={`${baseURL}${storedMainImage}`} alt="photo" />}
+          {storedMainImage && <img src={`${baseURL}${storedMainImage}`} alt="Main banner of the page" />}
         </div>
         <div className={s.landingPartnersBox_textSide}>
           <h2>{titlePartners}</h2>
@@ -157,9 +152,9 @@ const Landing: React.FC = () => {
               storedLogos.map((file, idx) => (
                 <div key={idx}>
                   <img
-                    src={`${baseURL}${file}`} // Добавляем базовый URL
+                    src={`${baseURL}${file}`}
                     alt={`Partner Logo ${idx}`}
-                    onError={(e) => (e.currentTarget.style.display = 'none')}
+                    onError={(e) => (e.currentTarget.style.display = "none")}
                   />
                 </div>
               ))
@@ -169,7 +164,8 @@ const Landing: React.FC = () => {
           </div>
 
           <HeroText>{infoPartners}</HeroText>
-          <HeroButton>Get Involved</HeroButton>
+          {/* Эта кнопка перенаправляет на страницу партнеров */}
+          <HeroButton onClick={() => navigate("/partners")}>Get Involved</HeroButton>
         </div>
       </div>
     </Hero>

@@ -21,19 +21,16 @@
 .howDoesItWork_ContentBox {
   background: var(--text-boxes);
   border-radius: 5px;
-  padding: 0 42px 0 70px;
-  padding-top: clamp(50px, 6vw, 68px);
-  padding-bottom: clamp(50px, 6vw, 73px);
+  padding: clamp(50px, 6vw, 68px) 42px clamp(50px, 6vw, 73px) 70px;
   position: relative;
   z-index: 2;
-  margin-right: -8.3%;
+  margin-right: -11.8%;
   /* Небольшое перекрытие изображения */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .howDoesItWork_ContentBox p {
-  width: clamp(240px, 33vw, 445px);
-  margin: 0 auto;
+  width: clamp(240px, 40vw, 628px);
   font-size: clamp(18px, 2vw, 24px);
   line-height: clamp(22px, 3.3vw, 40px);
   font-family: 'Roboto', sans-serif;
@@ -53,6 +50,7 @@ margin-top: 80px;
   position: relative;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
 .howDoesItWork_ImgBox>img {
@@ -61,7 +59,7 @@ margin-top: 80px;
   object-fit: cover;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
 
   .howDoesItWork_Box {
     flex-direction: column-reverse;
@@ -83,18 +81,18 @@ margin-top: 80px;
     border-radius: 0 0 20px 20px;
     z-index: 2;
     margin: 0 auto;
-    padding: 0;
+    padding: 0px clamp(28px, 5vw, 52px);
     /* Небольшое перекрытие изображения */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 
 }
 
 .howDoesItWork_ContentBox p {
     font-size: clamp(16px, 2vw, 24px);
     line-height: clamp(24px, 3.3vw, 40px);
-    padding: 0 42px;
-    width: 75%;
     margin-top: 36px;
+    width: 100%;
 }
 .howDoesItWork_ContentBox button {
     margin: 38px auto 56px;

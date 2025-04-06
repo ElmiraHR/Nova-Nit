@@ -1,0 +1,47 @@
+.getInvolved {
+    padding: 0 2rem clamp(3rem, 10vw, 8rem) 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.getInvolved h2 {
+    font-size: clamp(24px, 3.6vw, 44px);
+    margin-top: clamp(44px, 7vw, 80px);
+  }
+
+  .getInvolved_cardBox {
+    margin-top: clamp(43px, 11vw, 120px);
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 56px;
+    column-gap: 85px;
+    justify-content: center;
+  }
+
+  .getInvolved_cardItem {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(40px, 7vw, 57px) clamp(32px, 7vw, 75px);
+  height: clamp(383px, 60vw, 665px);
+  gap: 11px;
+  background: var(--text-boxes);
+  border-radius: 5px;
+  max-width: 576px;
+  }
+
+  .getInvolved_cardItem img {
+    width: clamp(75px, 14vw, 150px);
+  }
+
+  .getInvolved_cardItem h3 {
+    font-size: clamp(18px, 2.8vw, 32px);
+  }
+
+  .getInvolved_cardItem p {
+    font-size: clamp(18px, 2.8vw, 32px);
+  }
