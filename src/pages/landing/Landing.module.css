@@ -193,6 +193,15 @@ body {
     bottom: 150px;
     right: auto;
 }
+.landingPartnersLogos {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 216px;
+}
+.landingPartnersLogos img {
+max-width: 129px;
+max-height: 55px;
+}
 
 
 @media (max-width: 768px) {

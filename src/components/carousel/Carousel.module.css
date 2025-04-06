@@ -1,0 +1,28 @@
+.carouselContainer {
+    width: 100%;
+    margin: 0;
+    padding-top: clamp(30px, 12vw, 125px);
+  }
+  
+  .slide {
+    min-width: clamp(200px, 35vw, 400px);
+    height: clamp(200px, 35vw, 400px);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  @media (max-width: 504px) {
+    .slide {
+      min-height: 300px;
+    }
+  }

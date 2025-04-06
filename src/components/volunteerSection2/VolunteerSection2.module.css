@@ -1,0 +1,99 @@
+.volunteerSection2 {
+    padding: 0 2rem 6rem 2rem;
+    text-align: center;
+  }
+  
+  .volunteerSection2 h3 {
+    margin-bottom: 30px;
+    font-size: clamp(18px, 4vw, 24px);
+    text-align: left;
+  }
+  
+  .volunteerSection2Box {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    position: relative;
+    margin-top: clamp(16px, 7vw, 79.5px);
+  }
+  
+  .volunteerSection2ContentBox {
+    background: var(--text-boxes);
+    border-radius: 5px;
+    padding: 0 42px 0 60px;
+    padding-top: clamp(50px, 6vw, 68px);
+    padding-bottom: clamp(50px, 6vw, 73px);
+    position: relative;
+    z-index: 2;
+    margin-right: -11.8%;
+    /* Небольшое перекрытие изображения */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .volunteerSection2ContentBox p {
+    width: clamp(240px, 40vw, 628px);
+    /* margin: 0 auto; */
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: clamp(22px, 3.3vw, 40px);
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+    font-weight: 400;
+    color: var(--text-in-boxes);
+  }
+  
+  
+  .volunteerSection2ImgBox {
+    flex: 0 0 58.2%;
+    /* Картинка занимает больше места */
+    width: 746px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .volunteerSection2ImgBox>img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  @media (max-width: 992px) {
+  
+    .volunteerSection2Box {
+      flex-direction: column-reverse;
+      justify-content: center;
+  }
+  
+  .volunteerSection2ImgBox  {
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+  }
+  .volunteerSection2ImgBox >img {
+      border-radius: 20px 20px 0 0;
+  
+  }
+  .volunteerSection2ContentBox  {
+      flex: 1;
+      border-radius: 0 0 20px 20px;
+      z-index: 2;
+      margin: 0 auto;
+      padding: 36px 28px;
+      /* Небольшое перекрытие изображения */
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  
+  }
+  
+  .volunteerSection2ContentBox p {
+    font-size: clamp(16px, 3vw, 24px);
+    line-height: clamp(24px, 3.3vw, 40px);
+    margin-top: 36px;
+    width: 100%;
+  }
+  .volunteerSection2ContentBox button {
+      margin: 38px auto 56px;
+  
+  }
+  }
