@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import SocialLinks from "../socialLinks/SocialLinks";
 import DonateButton from "../../components/donateButton/DonateButton";
+import { useLanguage } from "../../context/LanguageContext";
 
 const BurgerButton = styled.button`
   background: none;
@@ -97,6 +98,7 @@ const NavLink = styled.a`
 `;
 
 const BurgerMenu: React.FC = () => {
+      const { language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -125,14 +127,14 @@ const BurgerMenu: React.FC = () => {
               </CloseButton>
 
               <NavLinks>
-                <NavLink href="/">HOME</NavLink>
-                <NavLink href="/mission">OUR MISSION</NavLink>
-                <NavLink href="/get-involved">BECOME A CORPORATE PARTNER</NavLink>
-                <NavLink href="/contact-us">CONTACT US</NavLink>
-                <NavLink href="/volunteer">VOLUNTEER</NavLink>
+                <NavLink href="/">{language === "ME" ? 'POČETNA' : 'HOME'}</NavLink>
+                <NavLink href="/mission">{language === "ME" ? 'NAŠA MISIJA' : 'OUR MISSION'}</NavLink>
+                <NavLink href="/partners">{language === "ME" ? 'POSTANITE KORPORATIVNI PARTNER' : 'BECOME A CORPORATE PARTNER'}</NavLink>
+                <NavLink href="/contact-us">{language === "ME" ? 'KONTAKTIRAJTE NAS' : 'CONTACT US'}</NavLink>
+                <NavLink href="/volunteer">{language === "ME" ? 'VOLONTIRAJTE' : 'VOLLUNTEER'}</NavLink>
               </NavLinks>
               <DonateButton />
-              <SocialLinks size={40} isVisible={true} />
+              <SocialLinks size={40} isVisible={true} instagramUrl="https://www.instagram.com" facebookUrl="https://www.facebook.com"/>
             </ModalContent>
           </ModalOverlay>
         )}

@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import DonateButton from '../donateButton/DonateButton';
 import SocialLinks from '../../components/socialLinks/SocialLinks';
 import BurgerMenu from '../../components/burgerMenu/BurgerMenu';
+import { useLanguage } from "../../context/LanguageContext";
 
-const Nav = styled.nav`
-  backdrop-filter: blur(10px);
+const Nav = styled.nav
+`  backdrop-filter: blur(10px);
   background: var(--blur-bg);
   padding: 1rem;
   display: flex;
@@ -17,23 +18,26 @@ const Nav = styled.nav`
   justify-content: space-between;
       @media (max-width: 1200px) {
     justify-content: end;
-  }
-`;
+  }`
+;
 
-const NavLinks = styled.div`
-  display: flex;
+const NavLinks = styled.div
+`  display: flex;
   align-items: center;
-  gap: 1rem;
-`;
+  gap: 0.8rem;
+  padding: 0 14px;
+  `
 
-const NavLink = styled.a`
-  color: var(--text-in-boxes);
+
+const NavLink = styled.a
+`  color: var(--text-in-boxes);
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
   transition: border-bottom 0.3s ease;
   padding: 4px 0;
   font-weight: 600;
-  font-size: clamp(16px, 1.5vw, 20px);
+  font-size: clamp(15px, 1.3vw, 20px);
+  white-space: nowrap;
   &:hover {
     border-bottom: 2px solid var(--text-in-boxes);
   }
@@ -42,11 +46,11 @@ const NavLink = styled.a`
   }
   @media (max-width: 1200px) {
     display: none;
-  }
-`;
+  }`
+;
 
-const ThemeSwitcher = styled.button`
-  background: none;
+const ThemeSwitcher = styled.button
+`  background: none;
   border: none;
   cursor: pointer;
   display: flex;
@@ -63,11 +67,14 @@ const ThemeSwitcher = styled.button`
     width: 48px;
     height: 48px;
     fill: var(--text-in-boxes); /* Теперь иконки адаптируются к цвету текста */
-  }
-`;
+  }`
+;
 
 const Header: React.FC = () => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+    const { language } = useLanguage();
+  const [theme, setTheme] = useState(() =>
+    document.documentElement.getAttribute('data-theme') || 'light'
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -75,21 +82,21 @@ const Header: React.FC = () => {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (
     <Nav>
       <LanguageSwitcher />
       <NavLinks>
-        <NavLink href="/">HOME</NavLink>
-        <NavLink href="/mission">OUR MISSION</NavLink>
-        <NavLink href="/get-involved">BECOME A CORPORATE PARTNER</NavLink>
-        <NavLink href="/contact-us">CONTACT US</NavLink>
-        <NavLink href="/volunteer">VOLLUNTEER</NavLink>
+        <NavLink href="/">{language === "ME" ? 'POČETNA' : 'HOME'}</NavLink>
+        <NavLink href="/mission">{language === "ME" ? 'NAŠA MISIJA' : 'OUR MISSION'}</NavLink>
+        <NavLink href="/partners">{language === "ME" ? 'POSTANITE KORPORATIVNI PARTNER' : 'BECOME A CORPORATE PARTNER'}</NavLink>
+        <NavLink href="/contact-us">{language === "ME" ? 'KONTAKTIRAJTE NAS' : 'CONTACT US'}</NavLink>
+        <NavLink href="/volunteer">{language === "ME" ? 'VOLONTIRAJTE' : 'VOLLUNTEER'}</NavLink>
         <DonateButton />
       </NavLinks>
-      <SocialLinks size={48} isVisible={false} />
+      <SocialLinks size={48} isVisible={false} instagramUrl="https://www.instagram.com" facebookUrl="https://www.facebook.com"/>
       <ThemeSwitcher onClick={toggleTheme}>
         {theme === 'light' ? (
           // **Луна при светлой теме**

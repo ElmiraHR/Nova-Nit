@@ -26,14 +26,13 @@
   padding-bottom: clamp(50px, 6vw, 73px);
   position: relative;
   z-index: 2;
-  margin-right: -8.3%;
+  margin-right: -11.8%;
   /* Небольшое перекрытие изображения */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .partners_ContentBox p {
-  width: clamp(240px, 33vw, 445px);
-  margin: 0 auto;
+  width: clamp(240px, 40vw, 628px);
   font-size: clamp(18px, 2vw, 24px);
   line-height: clamp(22px, 3.3vw, 40px);
   font-family: 'Roboto', sans-serif;
@@ -53,6 +52,7 @@ margin-top: 80px;
   position: relative;
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
 .partners_ImgBox>img {
@@ -93,12 +93,12 @@ margin-top: 80px;
   max-width: clamp(200px, 50vw, 515px);
 }
 .partner_item p {
-  font-size: clamp(18px, 2vw, 24px);
+  font-size: clamp(18px, 2.4vw, 24px);
 }
 .partner_item svg {
   height: clamp(45px, 7vw, 78px);
 }
-@media (max-width: 768px) {
+@media (max-width: 992px) {
 
   .partners_Box {
     flex-direction: column-reverse;
@@ -120,17 +120,16 @@ margin-top: 80px;
     border-radius: 0 0 20px 20px;
     z-index: 2;
     margin: 0 auto;
-    padding: 0;
+    padding: 0px clamp(28px, 5vw, 52px);
     /* Небольшое перекрытие изображения */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
+    box-sizing: border-box;
 }
 
 .partners_ContentBox p {
-    font-size: clamp(16px, 2vw, 24px);
+    font-size: clamp(16px, 2.4vw, 24px);
     line-height: clamp(24px, 3.3vw, 40px);
-    padding: 0 42px;
-    width: 75%;
+    width: 100%;
     margin-top: 36px;
 }
 .partners_ContentBox button {

@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import s from './GetInvolved.module.css';
 import { useLanguage } from "../../context/LanguageContext";
 import styled from "styled-components";
-import donate from "../../assets/donate.svg"
-import adopt from "../../assets/adopt.svg"
-import food from "../../assets/food.svg"
-import volunteer from "../../assets/volunteer.svg"
+import donate from "../../assets/donate.svg";
+import adopt from "../../assets/adopt.svg";
+import food from "../../assets/food.svg";
+import volunteer from "../../assets/volunteer.svg";
+import donate_light from "../../assets/donate_light.svg";
+import adopt_light from "../../assets/adopt_light.svg";
+import food_light from "../../assets/food_light.svg";
+import volunteer_light from "../../assets/volunteer_light.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import { Copy, X } from "lucide-react";
 import Carousel from "../../components/carousel/Carousel";
-
+import { useNavigate } from "react-router-dom";
 
 const GetInvolvedButton = styled.button`
   display: flex;
@@ -98,9 +102,9 @@ const Toast = styled(motion.div)`
 const DonateModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
   const [showToast, setShowToast] = useState(false);
   const requisites = `CKB bank: Nevladino Udruzenje Nova Nit Podgorica, 
-  8 Marta br. 70, Podgorica, 
-  PIB: 02394979 
-  Account Number: 510000000012512167`;
+8 Marta br. 70, Podgorica, 
+PIB: 02394979 
+Account Number: 510000000012512167`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(requisites);
@@ -109,84 +113,120 @@ const DonateModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpe
   };
 
   return (
-    <>
-      <AnimatePresence>
-        {isOpen && (
-          <ModalOverlay
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
+    <AnimatePresence>
+      {isOpen && (
+        <ModalOverlay
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+        >
+          <ModalContent
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
           >
-            <ModalContent
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <CloseButton onClick={onClose}>
-                <X size={20} />
-              </CloseButton>
-              <h3>Donate now</h3>
-              <p style={{ fontSize: "14px", textAlign: "left", whiteSpace: "pre-line", lineHeight: "1.5" }}>
-                {requisites}
-              </p>
-              <CopyButton onClick={copyToClipboard}>
-                <Copy size={20} /> Copy
-              </CopyButton>
+            <CloseButton onClick={onClose}>
+              <X size={20} />
+            </CloseButton>
+            <h3>Donate now</h3>
+            <p style={{ fontSize: "14px", textAlign: "left", whiteSpace: "pre-line", lineHeight: "1.5" }}>
+              {requisites}
+            </p>
+            <CopyButton onClick={copyToClipboard}>
+              <Copy size={20} /> Copy
+            </CopyButton>
 
-              <AnimatePresence>
-                {showToast && (
-                  <Toast
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: -20 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    Successfully copied! ✅
-                  </Toast>
-                )}
-              </AnimatePresence>
-            </ModalContent>
-          </ModalOverlay>
-        )}
-      </AnimatePresence>
-    </>
+            <AnimatePresence>
+              {showToast && (
+                <Toast
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: -20 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  Successfully copied! ✅
+                </Toast>
+              )}
+            </AnimatePresence>
+          </ModalContent>
+        </ModalOverlay>
+      )}
+    </AnimatePresence>
   );
 };
 
 const GetInvolved: React.FC = () => {
-    const { language } = useLanguage();
-      const [isModalOpen, setModalOpen] = useState(false);
+  const { language } = useLanguage();
+  const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [theme, setTheme] = useState('light');
+
+  const updateTheme = () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    setTheme(currentTheme);
+  };
+
+  useEffect(() => {
+    updateTheme();
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className={s.getInvolved}>
       <h2>{language === "ME" ? "4 načina da se uključite u Nova Nit" : "4 ways to get involved with Nova Nit"}</h2>
       <div className={s.getInvolved_cardBox}>
         <div className={s.getInvolved_cardItem}>
-          <img src={donate} alt="donation box, with money" />
+          <img src={theme === 'dark' ? donate_light : donate} alt="donation box, with money" />
           <h3>{language === "ME" ? "Donirajte" : "Make a donation"}</h3>
-          <p>{language === "ME" ? "Svaka donacija je važna! Učinite jednokratni doprinos i pomozite u ishrani drugih." : "Every donation matters! Make a one-time contribution and help feed others."}</p>
-          <GetInvolvedButton onClick={() => setModalOpen(true)}>Donate now</GetInvolvedButton>
+          <p>{language === "ME"
+            ? "Svaka donacija je važna! Učinite jednokratni doprinos i pomozite u ishrani drugih."
+            : "Every donation matters! Make a one-time contribution and help feed others."
+          }</p>
+          <GetInvolvedButton onClick={() => setModalOpen(true)}>
+            {language === "ME" ? 'Donirajte sada' : 'Donate now'}
+          </GetInvolvedButton>
           <DonateModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
         </div>
         <div className={s.getInvolved_cardItem}>
-          <img src={adopt} alt="dedicate" />
+          <img src={theme === 'dark' ? adopt_light : adopt} alt="dedicate" />
           <h3>{language === "ME" ? "Usvojite porodicu" : "Adopt a family"}</h3>
-          <p>{language === "ME" ? "Za samo 30 eura mesečno, možete obezbijediti kontinuiranu prehrambenu podršku lokalnoj porodici." : "For just 30 euros per month, you can provide ongoing food support to a local family."}</p>
-          <GetInvolvedButton onClick={() => setModalOpen(true)}>Donate now</GetInvolvedButton>
+          <p>{language === "ME"
+            ? "Za samo 30 eura mesečno, možete obezbijediti kontinuiranu prehrambenu podršku lokalnoj porodici."
+            : "For just 30 euros per month, you can provide ongoing food support to a local family."
+          }</p>
+          <GetInvolvedButton onClick={() => setModalOpen(true)}>
+            {language === "ME" ? 'Donirajte sada' : 'Donate now'}
+          </GetInvolvedButton>
           <DonateModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
         </div>
         <div className={s.getInvolved_cardItem}>
-          <img src={food} alt="donate food" />
+          <img src={theme === 'dark' ? food_light : food} alt="donate food" />
           <h3>{language === "ME" ? "Donirajte hranu" : "Donate food"}</h3>
-          <p>{language === "ME" ? "Želite da donirate hranu? Kontaktirajte nas da saznate šta je potrebno porodicama kojima pomažemo." : "Want to donate food? Get in touch with us to find out what the families we serve need."}</p>
-          <GetInvolvedButton>Get in touch</GetInvolvedButton>
+          <p>{language === "ME"
+            ? "Želite da donirate hranu? Kontaktirajte nas da saznate šta je potrebno porodicama kojima pomažemo."
+            : "Want to donate food? Get in touch with us to find out what the families we serve need."
+          }</p>
+          <GetInvolvedButton onClick={() => navigate("/contact-us")}>
+            {language === "ME" ? 'Stupi u kontakt' : 'Get in touch'}
+          </GetInvolvedButton>
         </div>
         <div className={s.getInvolved_cardItem}>
-          <img src={volunteer} alt="deliverer of love" />
+          <img src={theme === 'dark' ? volunteer_light : volunteer} alt="deliverer of love" />
           <h3>{language === "ME" ? "Volontirajte s nama" : "Volunteer with us"}</h3>
-          <p>{language === "ME" ? "Saznajte više o prilikama za volontiranje i uključite se u svoju zajednicu!" : "Learn more about volunteer opportunities and get involved in your community!"}</p>
-          <GetInvolvedButton>Get in touch</GetInvolvedButton>
+          <p>{language === "ME"
+            ? "Saznajte više o prilikama za volontiranje i uključite se u svoju zajednicu!"
+            : "Learn more about volunteer opportunities and get involved in your community!"
+          }</p>
+          <GetInvolvedButton onClick={() => navigate("/volunteer")}>
+            {language === "ME" ? 'Stupi u kontakt' : 'Get in touch'}
+          </GetInvolvedButton>
         </div>
       </div>
       <Carousel />

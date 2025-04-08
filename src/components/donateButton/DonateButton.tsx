@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import { Copy, X } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";
 
 const DonButton = styled.button`
   background: var(--text-color);
@@ -84,6 +85,7 @@ const Toast = styled(motion.div)`
 `;
 
 const DonateModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
+  const { language } = useLanguage();
   const [showToast, setShowToast] = useState(false);
   const requisites = `CKB bank: Nevladino Udruzenje Nova Nit Podgorica, 
   8 Marta br. 70, Podgorica, 
@@ -115,12 +117,12 @@ const DonateModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpe
               <CloseButton onClick={onClose}>
                 <X size={20} />
               </CloseButton>
-              <h3>Donate now</h3>
+              <h3>{language === "ME" ? 'Donirajte sada' : 'Donate now'}</h3>
               <p style={{ fontSize: "14px", textAlign: "left", whiteSpace: "pre-line", lineHeight: "1.5" }}>
                 {requisites}
               </p>
               <CopyButton onClick={copyToClipboard}>
-                <Copy size={20} /> Copy
+                <Copy size={20} /> {language === "ME" ? 'Kopiraj' : 'Copy'}
               </CopyButton>
 
               <AnimatePresence>
@@ -131,7 +133,7 @@ const DonateModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpe
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.3 }}
                   >
-                    Successfully copied! ✅
+                    {language === "ME" ? 'Odlično! ✅' : 'Successfully copied! ✅'}
                   </Toast>
                 )}
               </AnimatePresence>
@@ -144,11 +146,12 @@ const DonateModal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpe
 };
 
 const DonateButton = () => {
+      const { language } = useLanguage();
   const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <div>
-      <DonButton onClick={() => setModalOpen(true)}>Donate</DonButton>
+      <DonButton onClick={() => setModalOpen(true)}>{language === "ME" ? 'Donirajte' : 'Donate'}</DonButton>
       <DonateModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );

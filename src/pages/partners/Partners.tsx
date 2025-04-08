@@ -5,6 +5,7 @@ import axios from "axios";
 import { API_URL } from "../../services/pageService";
 import { useLanguage } from "../../context/LanguageContext";
 import SocialLinks from "../../components/socialLinks/SocialLinks";
+import { useNavigate } from "react-router-dom";
 
 const PartnersButton = styled.button`
   display: flex;
@@ -49,6 +50,7 @@ interface Partner {
 
 const Partners: React.FC = () => {
   const { language } = useLanguage();
+    const navigate = useNavigate();
   const [pageData, setPageData] = useState<PartnerPageData | null>(null);
   const [partners, setPartners] = useState<Partner[]>([]);
   const [bannerPreview, setBannerPreview] = useState<string>("");
@@ -128,11 +130,9 @@ const Partners: React.FC = () => {
             {text}
           </p>
           <PartnersButton
-            onClick={() =>
-              document.getElementById("partners-section")?.scrollIntoView({ behavior: "smooth" })
-            }
+            onClick={() => navigate("/contact-us")}
           >
-            {language === "ME" ? "Uključite se" : "Get Involved"}
+            {language === "ME" ? "Kontaktirajte nas" : "Contact us"}
           </PartnersButton>
         </div>
         <div className={s.partners_ImgBox}>

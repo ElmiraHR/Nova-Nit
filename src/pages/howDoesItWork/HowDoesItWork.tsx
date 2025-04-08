@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { fetchPage } from '../../services/pageService';
 import { useLanguage } from '../../context/LanguageContext';
+import { useNavigate } from "react-router-dom";
 
 const HowDoesItWorkButton = styled.button`
   display: flex;
@@ -27,6 +28,7 @@ const HowDoesItWorkButton = styled.button`
 
 const HowDoesItWork: React.FC = () => {
   const { language } = useLanguage();
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [storedImagePath, setStoredImagePath] = useState<string | null>(null);
@@ -37,7 +39,7 @@ const HowDoesItWork: React.FC = () => {
     const loadPageData = async () => {
       try {
         const pageData = await fetchPage('howdoeswork');
-        console.log('📌 API-ответ:', pageData);
+
 
         setTitle(language === 'EN' ? pageData.title_en || '' : pageData.title_me || '');
         setText(language === 'EN' ? pageData.text_en || '' : pageData.text_me || '');
@@ -57,7 +59,6 @@ const HowDoesItWork: React.FC = () => {
           }
 
           setStoredImagePath(imagePath);
-          console.log('✅ Итоговый путь к изображению:', imagePath);
         } else {
           console.warn('⚠️ Путь к изображению отсутствует');
           setStoredImagePath(null);
@@ -76,7 +77,7 @@ const HowDoesItWork: React.FC = () => {
       <div className={s.howDoesItWork_Box}>
         <div className={s.howDoesItWork_ContentBox}>
           <p className={s.howDoesItWork_Content}>{text}</p>
-          <HowDoesItWorkButton>Get Involved</HowDoesItWorkButton>
+          <HowDoesItWorkButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HowDoesItWorkButton>
         </div>
         <div className={s.howDoesItWork_ImgBox}>
           {storedImagePath ? (
@@ -89,7 +90,7 @@ const HowDoesItWork: React.FC = () => {
               }} 
             />
           ) : (
-            <p>⚠️ Изображение недоступно</p>
+            <p>{language === "ME" ? 'Slika nije dostupna' : 'The picture is not available'}</p>
           )}
         </div>
       </div>

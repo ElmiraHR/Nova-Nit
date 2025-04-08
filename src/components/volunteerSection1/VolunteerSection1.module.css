@@ -22,9 +22,7 @@
   .volunteerSection1ContentBox {
     background: var(--text-boxes);
     border-radius: 5px;
-    padding: 0 42px 0 60px;
-    padding-top: clamp(50px, 6vw, 68px);
-    padding-bottom: clamp(50px, 6vw, 73px);
+    padding: clamp(50px, 6vw, 68px) 42px clamp(50px, 6vw, 73px) 70px;
     position: relative;
     z-index: 2;
     margin-left: -11.8%;

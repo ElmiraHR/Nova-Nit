@@ -3,6 +3,8 @@
   margin: 0;
   padding: 0;
 }
+
+
 body {
   margin: 0;
   padding: 0;
@@ -28,7 +30,7 @@ code {
     monospace;
 }
 
-:root {
+:root[data-theme="light"] {
   --main-bg: #E3E1DC;
   --button-bg: #3F4D61;
   --footer-bg: #BABFC6; /* Фон футера в светлой теме */
@@ -40,7 +42,7 @@ code {
   --blur-bg: #e3e1dc7e;
 }
 
-[data-theme="dark"] {
+:root[data-theme="dark"] {
   --main-bg: #171C23;
   --button-bg: #E3E1DC;
   --footer-bg: #2B3442; /* Фон футера в темной теме */

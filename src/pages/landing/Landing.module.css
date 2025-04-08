@@ -47,9 +47,12 @@ body {
 .landingBannerBox_imgSide {
     flex: 0 0 58.2%;
     /* Картинка занимает больше места */
-    width: 791px;
+    width: clamp(410.3px, 78vw, 791px);
+    max-height: clamp(461px, 70vw, 880px);
     display: flex;
     justify-content: center;
+    overflow: hidden;
+    
 }
 
 .landingBannerBox_imgSide>img {
@@ -241,6 +244,7 @@ max-height: 55px;
         padding: 0 42px;
         display: flex;
         justify-content: center;
+        margin-top: 35px;
     }
 
     .landingBannerBox_textSide p {

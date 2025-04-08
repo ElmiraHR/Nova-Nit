@@ -60,13 +60,13 @@ const Accordion: React.FC = () => {
     },
     ME: {
       questions: [
-        { q: "Ко стоји иза Nova Nit?", a: "Nova Nit воде волонтери." },
-        { q: "Шта је у пакету Nova Nit?", a: "Основне намирнице." },
-        { q: "Како бирамо породице за помоћ?", a: "На основу процене потреба." },
-        { q: "Како моја фирма може помоћи?", a: "Можете постати партнер." },
-        { q: "Где могу наћи финансијске извештаје?", a: "На нашем сајту." },
-        { q: "Како могу постати волонтер?", a: "Пријавите се на веб-страници." },
-        { q: "Да ли Nova Nit прима одећу?", a: "Да, примамо коришћену одећу." },
+        { q: "Ko stoji iza Nova Nit?", a: "Nova Nit vode volonteri." },
+        { q: "Šta je u paketu Nova Nit?", a: "Osnovne namirnice." },
+        { q: "Kako biramo porodice za pomoć?", a: "Na osnovu procene potreba." },
+        { q: "Kako moja firma može pomoći?", a: "Možete postati partner." },
+        { q: "Gde mogu naći finansijske izveštaje?", a: "Na našem sajtu." },
+        { q: "Kako mogu postati volonter?", a: "Prijavite se na veb-stranici." },
+        { q: "Da li Nova Nit prima odeću?", a: "Da, primamo korišćenu odeću." },
       ],
     },
   };

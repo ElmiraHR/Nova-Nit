@@ -5,7 +5,7 @@ import axios from 'axios';
 import { API_URL } from '../../services/pageService';
 import styled from 'styled-components';
 import { useLanguage } from '../../context/LanguageContext';
-
+import { useNavigate } from "react-router-dom";
 
 
 const FAQButton = styled.button`
@@ -31,6 +31,7 @@ const FAQButton = styled.button`
 
 const FAQ: React.FC = () => {
   const { language } = useLanguage();
+  const navigate = useNavigate();
   const [image, setImage] = useState<File | null>(null);
   const [storedImage, setStoredImage] = useState('');
 
@@ -73,7 +74,7 @@ const FAQ: React.FC = () => {
       </div>
       <div className={s.faq_buttonBox}>
         <h3>{language === 'EN' ? 'Want to learn more about Nova Nit or get answers to your questions? ' : 'Želite da saznate više o Nova Nit ili da dobijete odgovore na svoja pitanja?'}</h3>
-        <FAQButton>Get in touch here</FAQButton>
+        <FAQButton onClick={() => navigate("/contact-us")}>Get in touch here</FAQButton>
       </div>
     </div>
   );
