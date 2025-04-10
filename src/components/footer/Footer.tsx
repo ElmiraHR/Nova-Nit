@@ -92,25 +92,25 @@ const Footer: React.FC = () => {
                 </div>
               ))
             ) : (
-              <p>No partners available.</p>
+              <p> {language === "ME" ? 'Nema dostupnih partnera.' : 'No partners available.'}</p>
             )}
           </div>
         </div>
         <div className={s.footer_third}>
           <div className={s.footer_thirdLinks}>
             <NavLinks>
-              <NavLink href="/">HOME</NavLink>
-              <NavLink href="/mission">OUR MISSION</NavLink>
-              <NavLink href="/faq">FAQ</NavLink>
-              <NavLink href="/get-involved">BECOME A CORPORATE PARTNER</NavLink>
-              <NavLink href="/contact-us">CONTACT US</NavLink>
-              <NavLink href="/volunteer">VOLUNTEER</NavLink>
+              <NavLink href="/">{language === "ME" ? 'POČETNA' : 'HOME'}</NavLink>
+              <NavLink href="/mission">{language === "ME" ? 'NAŠA MISIJA' : 'OUR MISSION'}</NavLink>
+              <NavLink href="/faq">{language === "ME" ? 'ČESTO POSTAVLJENA PITANJA' : 'FAQ'}</NavLink>
+              <NavLink href="/partners">{language === "ME" ? 'POSTANITE KORPORATIVNI PARTNER' : 'BECOME A CORPORATE PARTNER'}</NavLink>
+              <NavLink href="/contact-us">{language === "ME" ? 'KONTAKTIRAJTE NAS' : 'CONTACT US'}</NavLink>
+              <NavLink href="/volunteer">{language === "ME" ? 'VOLONTIRAJTE' : 'VOLLUNTEER'}</NavLink>
               <DonateButton />
             </NavLinks>
 
           </div>
           <div className={s.footer_thirdSocial}>
-            <h3>Follow us</h3>
+            <h3>{language === "ME" ? 'Prati nas' : 'Follow us'}</h3>
             <SocialLinks size={94} instagramUrl="https://www.instagram.com" facebookUrl="https://www.facebook.com"/>
           </div>
         </div>

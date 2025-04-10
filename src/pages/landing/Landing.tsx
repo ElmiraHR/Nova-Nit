@@ -92,9 +92,9 @@ const Landing: React.FC = () => {
         setStoredLogos(parsedLogos);
 
         const sectionsData = [
-          { en: pageData.section1_en || "Нет данных", me: pageData.section1_me || "Nema podataka" },
-          { en: pageData.section2_en || "Нет данных", me: pageData.section2_me || "Nema podataka" },
-          { en: pageData.section3_en || "Нет данных", me: pageData.section3_me || "Nema podataka" },
+          { en: pageData.section1_en || "No data", me: pageData.section1_me || "Nema podataka" },
+          { en: pageData.section2_en || "No data", me: pageData.section2_me || "Nema podataka" },
+          { en: pageData.section3_en || "No data", me: pageData.section3_me || "Nema podataka" },
         ];
         setSections(sectionsData);
       } catch (error) {
@@ -114,11 +114,11 @@ const Landing: React.FC = () => {
         <div className={s.landingBannerBox_textSide}>
           <HeroTitle>{title}</HeroTitle>
           <HeroText>{text}</HeroText>
-          <HeroButton onClick={() => navigate("/get-involved")}>Get Involved</HeroButton>
+          <HeroButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
         </div>
         <div className={s.landingBannerBox_imgSide}>
           {storedImagePath && <img src={storedImagePath} alt="banner" />}
-          <HeroButton>Learn More</HeroButton>
+          <HeroButton onClick={() => navigate("/how-does-it-work")}>{language === "ME" ? 'Saznaj više' : 'Learn More'}</HeroButton>
         </div>
       </div>
 
@@ -126,7 +126,7 @@ const Landing: React.FC = () => {
       <div className={s.landingBodyBox}>
         <h2>{bodyTitle}</h2>
         <HeroText>{bodyText}</HeroText>
-        <HeroButton>Get Involved</HeroButton>
+        <HeroButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
       </div>
 
       {/* Секции */}
@@ -159,13 +159,13 @@ const Landing: React.FC = () => {
                 </div>
               ))
             ) : (
-              <p>No partners available.</p>
+              <p>{language === "ME" ? 'Nema dostupnih partnera.' : 'No partners available.'}</p>
             )}
           </div>
 
           <HeroText>{infoPartners}</HeroText>
           {/* Эта кнопка перенаправляет на страницу партнеров */}
-          <HeroButton onClick={() => navigate("/partners")}>Get Involved</HeroButton>
+          <HeroButton onClick={() => navigate("/partners")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
         </div>
       </div>
     </Hero>

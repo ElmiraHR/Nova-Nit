@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { fetchPage } from '../../services/pageService';
 import { useLanguage } from '../../context/LanguageContext';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -30,6 +31,7 @@ const MissionButton = styled.button`
 
 const Mission: React.FC = () => {
   const { language } = useLanguage();
+    const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [storedImagePath, setStoredImagePath] = useState<string | null>(null);
@@ -57,11 +59,11 @@ const Mission: React.FC = () => {
       <h2 className={s.missionTitle}>{title}</h2>
       <div className={s.missionBox}>
         <div className={s.missionImgBox}>
-          {storedImagePath && <img src={`${baseURL}${storedImagePath}`} alt="photo" />}
+          {storedImagePath && <img src={`${baseURL}${storedImagePath}`} alt={title} />}
         </div>
         <div className={s.missionContentBox}>
           <p className={s.missionContent}>{text}</p>
-          <MissionButton>Get Involved</MissionButton>
+          <MissionButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</MissionButton>
         </div>
       </div>
     </section>

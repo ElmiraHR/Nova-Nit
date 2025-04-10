@@ -1,33 +1,38 @@
 import lightLogo from '../../assets/nova-nit-logo.svg';
 import darkLogo from '../../assets/nova-nit-dark-logo.svg';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import s from './Logo.module.css'
+import s from './Logo.module.css';
 
 const Logo = () => {
+  const location = useLocation(); // следим за изменением пути
+  const [theme, setTheme] = useState('light');
 
-    const [theme, setTheme] = useState(document.documentElement.getAttribute('data-theme') || 'light');
+  const updateTheme = () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    setTheme(currentTheme);
+  };
 
-    useEffect(() => {
-        const observer = new MutationObserver(() => {
-            const newTheme = document.documentElement.getAttribute('data-theme') || 'light';
-            setTheme(newTheme);
-        });
+  useEffect(() => {
+    updateTheme(); // при монтировании
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    });
+    return () => observer.disconnect();
+  }, []);
 
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  useEffect(() => {
+    updateTheme(); // при смене маршрута тоже проверяем тему
+  }, [location]);
 
-        return () => observer.disconnect();
-    }, []);
+  return (
+    <div className={s.landingLogo}>
+      <img src={theme === 'dark' ? darkLogo : lightLogo} alt="logo" />
+    </div>
+  );
+};
 
-    const baseURL = 'http://localhost:8080'; // Базовый URL для логотипов и изображений
-
-    return (
-
-        <div className={s.landingLogo}>
-            <img src={theme === 'dark' ? darkLogo : lightLogo} alt="logo" />
-        </div>
-
-    )
-}
-
-export default Logo
+export default Logo;
