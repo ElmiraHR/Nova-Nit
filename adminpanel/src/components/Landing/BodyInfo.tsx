@@ -7,6 +7,8 @@ const BodyInfo = () => {
   const [bodyTitleME, setBodyTitleME] = useState('');
   const [bodyTextEN, setBodyTextEN] = useState('');
   const [bodyTextME, setBodyTextME] = useState('');
+  const [bodyTitleLink, setBodyTitleLink] = useState('');
+
   const [sections, setSections] = useState([
     { en: '', me: '' },
     { en: '', me: '' },
@@ -23,6 +25,8 @@ const BodyInfo = () => {
         setBodyTitleME(pageData.body_title_me || '');
         setBodyTextEN(pageData.body_info_en || '');
         setBodyTextME(pageData.body_info_me || '');
+        setBodyTitleLink(pageData.body_title_link || '');
+
         setSections([
           { en: pageData.section1_en || '', me: pageData.section1_me || '' },
           { en: pageData.section2_en || '', me: pageData.section2_me || '' },
@@ -53,6 +57,7 @@ const BodyInfo = () => {
         ...currentData,
         body_title_en: bodyTitleEN,
         body_title_me: bodyTitleME,
+        body_title_link: bodyTitleLink,
         body_info_en: bodyTextEN,
         body_info_me: bodyTextME,
         section1_en: sections[0].en,
@@ -98,12 +103,27 @@ const BodyInfo = () => {
         onChange={(e) => setBodyTitleME(e.target.value)}
       />
 
+      <label>Body Title Link:</label>
+      <input
+       className={styles.inputField}
+       value={bodyTitleLink}
+       onChange={(e) => setBodyTitleLink(e.target.value)}
+      />
+
       <label>Body Text (EN):</label>
       <textarea
         className={styles.textareaField}
         value={bodyTextEN}
         onChange={(e) => setBodyTextEN(e.target.value)}
       />
+
+      <label>Body Title Link:</label>
+      <input
+       className={styles.inputField}
+       value={bodyTitleLink}
+       onChange={(e) => setBodyTitleLink(e.target.value)}
+      />
+
 
       <label>Body Text (ME):</label>
       <textarea

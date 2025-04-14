@@ -22,6 +22,8 @@ export interface PageData {
   // ✅ Body Info
   body_title_en?: string;
   body_title_me?: string;
+  body_title_link?: string;
+
   body_info_en?: string;
   body_info_me?: string;
   section1_en?: string;
@@ -69,6 +71,10 @@ export const updatePage = async (slug: string, data: PageData, imageFile?: File)
   // ✅ Body Info
   formData.append('body_title_en', data.body_title_en || '');
   formData.append('body_title_me', data.body_title_me || '');
+
+  formData.append('body_title_link', data.body_title_link || '');
+
+  
   formData.append('body_info_en', data.body_info_en || '');
   formData.append('body_info_me', data.body_info_me || '');
   formData.append('section1_en', data.section1_en || '');
