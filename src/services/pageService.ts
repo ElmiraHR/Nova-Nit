@@ -6,6 +6,7 @@ export const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 export interface PageData {
   title_en?: string;
   title_me?: string;
+  body_title_link?: string;
   text_en?: string;
   text_me?: string;
   image_path?: string;

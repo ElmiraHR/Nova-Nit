@@ -58,6 +58,7 @@ const Landing: React.FC = () => {
   const [text, setText] = useState("");
   const [storedImagePath, setStoredImagePath] = useState<string | null>(null);
   const [bodyTitle, setBodyTitle] = useState("");
+  const [bodyTitleLink, setBodyTitleLink] = useState('');
   const [bodyText, setBodyText] = useState("");
   const [sections, setSections] = useState<{ en: string; me: string }[]>([]);
   const [titlePartners, setTitlePartners] = useState("");
@@ -74,6 +75,7 @@ const Landing: React.FC = () => {
         setText(language === "EN" ? pageData.hero_text_en || "" : pageData.hero_text_me || "");
         setStoredImagePath(pageData.hero_image_path || pageData.image_path || null);
         setBodyTitle(language === "EN" ? pageData.body_title_en || "" : pageData.body_title_me || "");
+        setBodyTitleLink(pageData.body_title_link || "");
         setBodyText(language === "EN" ? pageData.body_info_en || "" : pageData.body_info_me || "");
         setTitlePartners(language === "EN" ? pageData.partners_title_en || "" : pageData.partners_title_me || "");
         setInfoPartners(language === "EN" ? pageData.partners_info_en || "" : pageData.partners_info_me || "");
@@ -124,7 +126,7 @@ const Landing: React.FC = () => {
 
       {/* Блок информации */}
       <div className={s.landingBodyBox}>
-        <h2>{bodyTitle}</h2>
+        <a href={bodyTitleLink}><h2>{bodyTitle}</h2></a>
         <HeroText>{bodyText}</HeroText>
         <HeroButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
       </div>
