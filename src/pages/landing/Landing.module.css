@@ -75,7 +75,9 @@ body {
     padding-left: clamp(70px, 8vw, 114px);
     padding-right: clamp(70px, 8vw, 114px);
 }
-
+.landingBodyBox>a {
+color: var(--text-in-boxes);
+}
 
 .landingBodyBox h2 {
     font-size: clamp(18px, 2vw, 24px);
