@@ -97,15 +97,14 @@ const Partners: React.FC = () => {
   }, [language]); // useEffect запускается при изменении языка
 
   // Проверим, что данные загружены и правильно выбраны в зависимости от языка
-  const title = pageData ? (language === "ME" ? pageData.title_me : pageData.title_en) : "Загрузка..."; 
-  const text = pageData ? (language === "ME" ? pageData.text_me : pageData.text_en) : "Загрузка..."; 
+  const title = pageData ? (language === "ME" ? pageData.title_me : pageData.title_en) : "Loading..."; 
+  const text = pageData ? (language === "ME" ? pageData.text_me : pageData.text_en) : "Loading..."; 
 
   // Если данные еще не загружены или произошла ошибка
   if (isLoading) {
     return (
       <section className={s.partners}>
-        <h2>Загрузка...</h2>
-        <p>Пожалуйста, подождите, пока мы загружаем информацию.</p>
+        <h2>Loading...</h2>
       </section>
     );
   }
@@ -113,8 +112,7 @@ const Partners: React.FC = () => {
   if (hasError) {
     return (
       <section className={s.partners}>
-        <h2>Ошибка загрузки</h2>
-        <p>Что-то пошло не так. Попробуйте позже.</p>
+        <h2>Loading error</h2>
       </section>
     );
   }
@@ -145,7 +143,7 @@ const Partners: React.FC = () => {
               }}
             />
           ) : (
-            <p>⚠️ Изображение недоступно</p>
+            <p>⚠️ The picture is not available</p>
           )}
         </div>
       </div>
@@ -168,7 +166,7 @@ const Partners: React.FC = () => {
             </div>
           ))
         ) : (
-          <p>❌ Партнёры отсутствуют</p>
+          <p>❌ Partners are not available</p>
         )}
       </div>
     </section>

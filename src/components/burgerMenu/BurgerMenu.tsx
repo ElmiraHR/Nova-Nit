@@ -129,12 +129,12 @@ const BurgerMenu: React.FC = () => {
               <NavLinks>
                 <NavLink href="/">{language === "ME" ? 'POČETNA' : 'HOME'}</NavLink>
                 <NavLink href="/mission">{language === "ME" ? 'NAŠA MISIJA' : 'OUR MISSION'}</NavLink>
-                <NavLink href="/partners">{language === "ME" ? 'POSTANITE KORPORATIVNI PARTNER' : 'BECOME A CORPORATE PARTNER'}</NavLink>
+                <NavLink href="/partners">{language === "ME" ? 'KORPORATIVNI PARTNERI' : 'CORPORATE PARTNERS'}</NavLink>
                 <NavLink href="/contact-us">{language === "ME" ? 'KONTAKTIRAJTE NAS' : 'CONTACT US'}</NavLink>
                 <NavLink href="/volunteer">{language === "ME" ? 'VOLONTIRAJTE' : 'VOLLUNTEER'}</NavLink>
               </NavLinks>
               <DonateButton />
-              <SocialLinks size={40} isVisible={true} instagramUrl="https://www.instagram.com" facebookUrl="https://www.facebook.com"/>
+              <SocialLinks size={40} isVisible={true} instagramUrl="https://www.instagram.com/novanit_pg/" facebookUrl="https://www.facebook.com/NovaNitPG/"/>
             </ModalContent>
           </ModalOverlay>
         )}

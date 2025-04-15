@@ -24,7 +24,7 @@ const Nav = styled.nav
 const NavLinks = styled.div
 `  display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 2rem;
   padding: 0 14px;
   `
 
@@ -91,12 +91,12 @@ const Header: React.FC = () => {
       <NavLinks>
         <NavLink href="/">{language === "ME" ? 'POČETNA' : 'HOME'}</NavLink>
         <NavLink href="/mission">{language === "ME" ? 'NAŠA MISIJA' : 'OUR MISSION'}</NavLink>
-        <NavLink href="/partners">{language === "ME" ? 'POSTANITE KORPORATIVNI PARTNER' : 'BECOME A CORPORATE PARTNER'}</NavLink>
+        <NavLink href="/partners">{language === "ME" ? 'KORPORATIVNI PARTNERI' : 'CORPORATE PARTNERS'}</NavLink>
         <NavLink href="/contact-us">{language === "ME" ? 'KONTAKTIRAJTE NAS' : 'CONTACT US'}</NavLink>
-        <NavLink href="/volunteer">{language === "ME" ? 'VOLONTIRAJTE' : 'VOLLUNTEER'}</NavLink>
+        <NavLink href="/volunteer">{language === "ME" ? 'VOLONTIRAJTE' : 'VOLUNTEER'}</NavLink>
         <DonateButton />
       </NavLinks>
-      <SocialLinks size={48} isVisible={false} instagramUrl="https://www.instagram.com" facebookUrl="https://www.facebook.com"/>
+      <SocialLinks size={48} isVisible={false} instagramUrl="https://www.instagram.com/novanit_pg/" facebookUrl="https://www.facebook.com/NovaNitPG/"/>
       <ThemeSwitcher onClick={toggleTheme}>
         {theme === 'light' ? (
           // **Луна при светлой теме**
