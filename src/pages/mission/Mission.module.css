@@ -43,9 +43,22 @@
 margin-top: 80px;
 }
 
+.missionContent p {
+  margin-bottom: 1em;
+  line-height: 1.6;
+  font-size: clamp(18px, 2vw, 24px);
+  white-space: normal;
+}
+
+.missionContent {
+  white-space: normal;
+}
+
+
 .missionImgBox {
   flex: 0 0 58.2%;
   /* Картинка занимает больше места */
+  
   width: 791px;
   position: relative;
   display: flex;

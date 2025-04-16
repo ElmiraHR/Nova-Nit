@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { fetchPage, updateMission } from '../../services/pageService';
 import styles from './Mission.module.css';
+import RichTextEditor from '../../components/RichTextEditor/RichTextEditor';
 
 const Mission = () => {
   const [titleEN, setTitleEN] = useState('');
@@ -24,8 +25,7 @@ const Mission = () => {
         setTitleME(pageData.title_me || '');
         setTextEN(pageData.text_en || '');
         setTextME(pageData.text_me || '');
-  
-        // ✅ Теперь картинка загружается корректно
+
         if (pageData.mission_image_path) {
           setStoredImagePath(`${process.env.REACT_APP_API_URL || 'http://localhost:8080'}${pageData.mission_image_path}?t=${new Date().getTime()}`);
         }
@@ -34,10 +34,9 @@ const Mission = () => {
         setNotification('Не удалось загрузить данные');
       }
     };
-  
+
     loadPageData();
-  }, [slug]);
-  
+  }, []);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -63,28 +62,24 @@ const Mission = () => {
       formData.append('title_me', titleME);
       formData.append('text_en', textEN);
       formData.append('text_me', textME);
-  
-      // ✅ Если загружена новая картинка, сразу обновляем локальное состояние
+
       if (image) {
         formData.append('image', image);
-        setStoredImagePath(URL.createObjectURL(image)); // Показываем новую картинку сразу
+        setStoredImagePath(URL.createObjectURL(image));
       } else if (storedImagePath) {
         formData.append('mission_image_path', storedImagePath.replace(`${process.env.REACT_APP_API_URL || 'http://localhost:8080'}`, ''));
       }
-  
-      console.log("Отправляем formData:", formData);
-      const response = await updateMission(slug, formData); // ✅ Отправляем данные
-  
-      // ✅ После ответа сервера обновляем путь к картинке с сервера
+
+      const response = await updateMission(slug, formData);
+
       if (response.mission_image_path || response.image_path) {
         setStoredImagePath(`${process.env.REACT_APP_API_URL || 'http://localhost:8080'}${response.mission_image_path || response.image_path}?t=${new Date().getTime()}`);
       }
-  
-      // ✅ Сбрасываем состояние
+
       setImage(null);
       setShowReplaceMessage(false);
       setImageName('No file selected');
-  
+
       setNotification('Изменения сохранены!');
       setTimeout(() => setNotification(''), 3000);
     } catch (error) {
@@ -92,49 +87,38 @@ const Mission = () => {
       setNotification('Ошибка при сохранении');
     }
   };
-  
-  
 
   return (
     <div className={styles.missionContainer}>
       <h2 className={styles.sectionTitle}>Mission</h2>
       {notification && <div className={styles.notification}>{notification}</div>}
+
       <label>Title (English):</label>
-      <input
-        className={styles.inputField}
-        value={titleEN}
-        onChange={(e) => setTitleEN(e.target.value)}
-      />
+      <input className={styles.inputField} value={titleEN} onChange={(e) => setTitleEN(e.target.value)} />
+
       <label>Title (Montenegrin):</label>
-      <input
-        className={styles.inputField}
-        value={titleME}
-        onChange={(e) => setTitleME(e.target.value)}
-      />
+      <input className={styles.inputField} value={titleME} onChange={(e) => setTitleME(e.target.value)} />
+
       <label>Text (English):</label>
-      <textarea
-        className={styles.textareaField}
-        value={textEN}
-        onChange={(e) => setTextEN(e.target.value)}
-      />
+      <div className={styles.textareaField}>
+        <RichTextEditor key={textEN} value={textEN} onChange={setTextEN} />
+      </div>
+
       <label>Text (Montenegrin):</label>
-      <textarea
-        className={styles.textareaField}
-        value={textME}
-        onChange={(e) => setTextME(e.target.value)}
-      />
+      <div className={styles.textareaField}>
+        <RichTextEditor key={textME} value={textME} onChange={setTextME} />
+      </div>
+
       <label>Mission Picture:</label>
       <div className={styles.imageContainer}>
         <div className={styles.fileInputWrapper}>
-          <button className={styles.uploadButton} onClick={() => fileInputRef.current?.click()}>Choose File</button>
+          <button className={styles.uploadButton} onClick={() => fileInputRef.current?.click()}>
+            Choose File
+          </button>
           <span>{imageName}</span>
-          <input
-            ref={fileInputRef}
-            type="file"
-            onChange={handleImageChange}
-            className={styles.hiddenInput}
-          />
+          <input ref={fileInputRef} type="file" onChange={handleImageChange} className={styles.hiddenInput} />
         </div>
+
         {(image || storedImagePath) && (
           <div className={styles.mainImageWrapper}>
             <img
@@ -151,9 +135,8 @@ const Mission = () => {
           </div>
         )}
       </div>
-      <button className={styles.saveButton} onClick={handleSubmit}>
-        Save Changes
-      </button>
+
+      <button className={styles.saveButton} onClick={handleSubmit}>Save Changes</button>
     </div>
   );
 };

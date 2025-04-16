@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",  // ✅ поддержка итераторов и современных конструкций
+    "target": "es2015",
     "lib": [
       "dom",
       "dom.iterable",
@@ -19,9 +19,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "downlevelIteration": true  // ✅ поддержка итерации по FormData и Map
+    "downlevelIteration": true,
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ]
   },
   "include": [
-    "src"
-, "../src/components/carousel"  ]
+    "src",
+    "../src/components/carousel"
+  ]
 }

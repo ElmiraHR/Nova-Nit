@@ -1,0 +1,19 @@
+.richEditorWrapper {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+    background-color: white;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .richEditorWrapper textarea {
+    width: 100%;
+    min-height: 150px;
+    border: none;
+    resize: vertical;
+    outline: none;
+    font-size: 14px;
+    padding: 10px;
+    font-family: inherit;
+  }
+  

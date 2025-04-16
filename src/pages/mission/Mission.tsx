@@ -56,18 +56,25 @@ const Mission: React.FC = () => {
 
   return (
     <section className={s.mission}>
-      <h2 className={s.missionTitle}>{title}</h2>
-      <div className={s.missionBox}>
-        <div className={s.missionImgBox}>
-          {storedImagePath && <img src={`${baseURL}${storedImagePath}`} alt={title} />}
-        </div>
-        <div className={s.missionContentBox}>
-          <p className={s.missionContent}>{text}</p>
-          <MissionButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</MissionButton>
-        </div>
+    <h2 className={s.missionTitle}>{title}</h2>
+    <div className={s.missionBox}>
+      <div className={s.missionImgBox}>
+        {storedImagePath && <img src={`${baseURL}${storedImagePath}`} alt={title} />}
       </div>
-    </section>
+      <div className={s.missionContentBox}>
+        <div
+          className={s.missionContent}
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
+        <MissionButton onClick={() => navigate("/get-involved")}>
+          {language === "ME" ? 'Uključi se' : 'Get Involved'}
+        </MissionButton>
+      </div>
+    </div>
+  </section>
+  
   );
+  
 };
 
 export default Mission;
