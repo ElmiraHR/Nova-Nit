@@ -12,6 +12,8 @@ import ContactUs from '../ContactUs/ContactUs';
 import AllImages from '../AllImages/AllImages'; 
 import FAQ from '../FAQ/FAQ';
 import VolunteerPage from '../Volunteer/VolunteerPage';
+import ChangeLogoPage from '../ChangeLogoPage/ChangeLogoPage';
+
 
 import styles from './AdminPanel.module.css';
 
@@ -35,6 +37,7 @@ const AdminPanel = () => {
           <Route path="/contact" element={isAuthenticated ? <ContactUs />: <Navigate to="/login" />} />
           <Route path="/volunteer" element={<VolunteerPage />} />
           <Route path="/allimages" element={isAuthenticated ? <AllImages />: <Navigate to="/login" />} />
+          <Route path="/change-logo" element={isAuthenticated ? <ChangeLogoPage /> : <Navigate to="/login" />} />
           <Route path="/faq" element={isAuthenticated ? <FAQ /> : <Navigate to="/login" />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

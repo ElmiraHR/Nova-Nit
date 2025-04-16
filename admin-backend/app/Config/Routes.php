@@ -2,6 +2,8 @@
 
 use Config\Database;
 
+$routes->setAutoRoute(false); // Безопасность
+
 // ✅ Проверка БД
 $routes->get('/db-test', 'DbTest::index');
 
@@ -12,7 +14,7 @@ $routes->get('/captcha', 'Login::captcha');
 $routes->get('/login', 'Login::index');
 
 // ✅ API для логина с фронта
-$routes->options('/api/login', 'Login::auth'); // Preflight-запрос для CORS
+$routes->options('/api/login', 'Login::auth');
 $routes->post('/api/login', 'Login::auth');
 
 // ✅ Главная страница админки
@@ -21,22 +23,25 @@ $routes->get('/admin', 'Admin::index');
 // ✅ Выход из системы
 $routes->get('/logout', 'Login::logout');
 
-$routes->setAutoRoute(false); // Безопасность
 
 // ✅ API для страниц
 $routes->group('api', function($routes) {
-    $routes->get('pages', 'Pages::index');                           // Получение всех страниц
-    $routes->get('pages/(:segment)', 'PageController::getPage/$1');   // ✅ Получение конкретной страницы
+    $routes->get('pages', 'Pages::index');
+    $routes->get('pages/(:segment)', 'PageController::getPage/$1');
     $routes->post('pages/(:segment)', 'PageController::updatePage/$1');
-    // ✅ Обновление страницы
+});
+
+$routes->group('api', function($routes) {
+    $routes->get('logo', 'LogoController::getLogo');
+    $routes->post('logo/update', 'LogoController::updateLogo');
 });
 
 // ✅ Обработка OPTIONS-запросов (CORS Preflight)
 $routes->options('api/(:any)', 'Home::options');
 
+// ✅ Отдача изображений
 $routes->get('images/(:any)', function($filename) {
     $path = FCPATH . '../admin-backend/images/' . $filename;
-
     if (file_exists($path)) {
         $mime = mime_content_type($path);
         header("Content-Type: " . $mime);
@@ -46,50 +51,6 @@ $routes->get('images/(:any)', function($filename) {
         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
     }
 });
-
-$routes->put('/api/pages/bodyinfo/(:segment)', 'PageController::updateBodyInfo/$1');
-$routes->post('/api/pages/partners/(:segment)', 'PageController::updatePartners/$1');
-
-$routes->group('api', function($routes) {
-    // Получение миссии
-    $routes->get('mission/(:segment)', 'MissionController::getMission/$1');
-
-    // Обновление миссии
-    $routes->post('mission/(:segment)', 'MissionController::updateMission/$1');
-    $routes->put('mission/(:segment)', 'MissionController::updateMission/$1');
-
-    // Удаление миссии
-    $routes->delete('mission/(:segment)', 'MissionController::deleteMission/$1');
-});
-$routes->group('api', function($routes) {
-    // Получение данных
-    $routes->get('howdoeswork', 'HowDoesWorkController::getHowDoesWork');
-
-    // Обновление
-    $routes->post('howdoeswork', 'HowDoesWorkController::updateHowDoesWork/howdoeswork');
-    $routes->put('howdoeswork', 'HowDoesWorkController::updateHowDoesWork/howdoeswork');
-
-    // Удаление
-    $routes->delete('howdoeswork', 'HowDoesWorkController::deleteHowDoesWork/howdoeswork');
-});
-
-
-$routes->group('api', function($routes) {
-    // ✅ Получение данных страницы партнёров (верхняя часть)
-    $routes->get('partners', 'Partners::index');
-
-    // ✅ Обновление верхней части страницы (тексты, заголовки, баннер)
-    $routes->post('partners/page/update/(:num)', 'Partners::updatePage/$1');
-
-    // ✅ Добавить партнёра
-    $routes->post('partners/create', 'Partners::createPartner');
-
-    // ✅ Обновить партнёра
-    $routes->post('partners/update/(:num)', 'Partners::updatePartner/$1');
-
-    // ✅ Удалить партнёра
-    $routes->delete('partners/delete/(:num)', 'Partners::deletePartner/$1');
-});
 $routes->get('images/(:any)', function ($fileName) {
     $path = FCPATH . '../admin-backend/images/' . $fileName;
     if (file_exists($path)) {
@@ -98,28 +59,61 @@ $routes->get('images/(:any)', function ($fileName) {
     return \CodeIgniter\HTTP\Response::setStatusCode(404);
 });
 
+// ✅ Обновление bodyinfo и partners
+$routes->put('/api/pages/bodyinfo/(:segment)', 'PageController::updateBodyInfo/$1');
+$routes->post('/api/pages/partners/(:segment)', 'PageController::updatePartners/$1');
+
+// ✅ Mission
+$routes->group('api', function($routes) {
+    $routes->get('mission/(:segment)', 'MissionController::getMission/$1');
+    $routes->post('mission/(:segment)', 'MissionController::updateMission/$1');
+    $routes->put('mission/(:segment)', 'MissionController::updateMission/$1');
+    $routes->delete('mission/(:segment)', 'MissionController::deleteMission/$1');
+});
+
+// ✅ HowDoesWork
+$routes->group('api', function($routes) {
+    $routes->get('howdoeswork', 'HowDoesWorkController::getHowDoesWork');
+    $routes->post('howdoeswork', 'HowDoesWorkController::updateHowDoesWork/howdoeswork');
+    $routes->put('howdoeswork', 'HowDoesWorkController::updateHowDoesWork/howdoeswork');
+    $routes->delete('howdoeswork', 'HowDoesWorkController::deleteHowDoesWork/howdoeswork');
+});
+
+// ✅ Partners
+$routes->group('api', function($routes) {
+    $routes->get('partners', 'Partners::index');
+    $routes->post('partners/page/update/(:num)', 'Partners::updatePage/$1');
+    $routes->post('partners/create', 'Partners::createPartner');
+    $routes->post('partners/update/(:num)', 'Partners::updatePartner/$1');
+    $routes->delete('partners/delete/(:num)', 'Partners::deletePartner/$1');
+});
+
+// ✅ Get Involved
 $routes->group('api/getinvolved', function($routes) {
     $routes->get('/', 'GetInvolvedImageController::index');
     $routes->post('upload', 'GetInvolvedImageController::upload');
     $routes->delete('(:num)', 'GetInvolvedImageController::delete/$1');
 });
 
-
+// ✅ Contact Image
 $routes->group('api/contact-image', function($routes) {
     $routes->get('/', 'ContactImageController::index');
     $routes->post('upload', 'ContactImageController::upload');
 });
 
+// ✅ All Images
 $routes->group('api', function($routes) {
     $routes->get('all-images', 'AllImagesController::index');
     $routes->delete('all-images/(:any)', 'AllImagesController::delete/$1');
 });
 
+// ✅ FAQ
 $routes->group('api', function($routes) {
     $routes->get('faq-image', 'FaqImageController::index');
     $routes->post('faq-image/upload', 'FaqImageController::upload');
 });
 
+// ✅ Volunteer
 $routes->group('api/volunteer', function($routes) {
     $routes->get('/', 'VolunteerController::index');
     $routes->post('page/update/(:num)', 'VolunteerController::updatePage/$1');
@@ -130,8 +124,4 @@ $routes->group('api/volunteer', function($routes) {
     $routes->post('update', 'VolunteerController::update');
     $routes->post('api/volunteer/update', 'VolunteerController::update');
     $routes->post('api/volunteer/update/(:num)', 'VolunteerController::updateVolunteer/$1');
-
-
-
 });
-

@@ -1,0 +1,86 @@
+.container {
+  padding: 30px;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #004d61;
+  text-align: center;
+}
+
+.notice {
+  font-size: 18px;
+  font-weight: bold;
+  color: #a72718;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.logoBlock {
+  background-color: #0e1a2b;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 220px;
+  max-width: 250px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logoBlock label {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.previewImage,
+.savedImage {
+  height: 80px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.previewImage {
+  opacity: 0.5;
+}
+
+.uploadButton,
+.chooseButton {
+  background-color: #555;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.uploadButton:hover,
+.chooseButton:hover {
+  background-color: #777;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.notification {
+  margin-top: 20px;
+  background-color: #004d61;
+  padding: 10px;
+  border-left: 4px solid #00b4d8;
+  color: white;
+  text-align: center;
+}

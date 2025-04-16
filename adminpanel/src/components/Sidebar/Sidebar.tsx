@@ -119,17 +119,20 @@ const Sidebar = () => {
       <li>
     <NavLink to="/adminpanel/volunteer"  className={({ isActive }) => (isActive ? styles.activeLink : '')}>Volunteer with Us</NavLink>
        </li>
-
-
       <li>
     <NavLink to="/adminpanel/allimages" 
     className={({ isActive }) => (isActive ? styles.activeLink : '')}>
       All Images
       </NavLink>
       </li>
-   
-
-
+      <li>
+      <NavLink
+       to="/adminpanel/change-logo"
+       className={({ isActive }) => (isActive ? styles.activeLink : '')}
+      >
+      Change Logo
+      </NavLink>
+     </li>
       </ul>
 
       {/* ✅ Кнопка логаута */}
