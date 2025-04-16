@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchPage, updatePage } from '../../services/pageService';
 import styles from './BodyInfo.module.css';
+import RichTextEditor from '../../components/RichTextEditor/RichTextEditor';
 
 const BodyInfo = () => {
   const [bodyTitleEN, setBodyTitleEN] = useState('');
@@ -49,10 +50,8 @@ const BodyInfo = () => {
 
   const handleSubmit = async () => {
     try {
-      // ✅ Получаем текущие данные страницы
       const currentData = await fetchPage(slug);
 
-      // ✅ Обновляем только нужные поля
       const updatedData = {
         ...currentData,
         body_title_en: bodyTitleEN,
@@ -90,64 +89,40 @@ const BodyInfo = () => {
       {notification && <div className={styles.notification}>{notification}</div>}
 
       <label>Body Title (EN):</label>
-      <input
-        className={styles.inputField}
-        value={bodyTitleEN}
-        onChange={(e) => setBodyTitleEN(e.target.value)}
-      />
+      <RichTextEditor value={bodyTitleEN} onChange={setBodyTitleEN} minHeight={50} />
 
       <label>Body Title (ME):</label>
-      <input
-        className={styles.inputField}
-        value={bodyTitleME}
-        onChange={(e) => setBodyTitleME(e.target.value)}
-      />
+      <RichTextEditor value={bodyTitleME} onChange={setBodyTitleME} minHeight={50} />
 
       <label>Body Title Link:</label>
       <input
-       className={styles.inputField}
-       value={bodyTitleLink}
-       onChange={(e) => setBodyTitleLink(e.target.value)}
+        className={styles.inputField}
+        value={bodyTitleLink}
+        onChange={(e) => setBodyTitleLink(e.target.value)}
       />
 
       <label>Body Text (EN):</label>
-      <textarea
-        className={styles.textareaField}
-        value={bodyTextEN}
-        onChange={(e) => setBodyTextEN(e.target.value)}
-      />
-
-      <label>Body Title Link:</label>
-      <input
-       className={styles.inputField}
-       value={bodyTitleLink}
-       onChange={(e) => setBodyTitleLink(e.target.value)}
-      />
-
+      <RichTextEditor value={bodyTextEN} onChange={setBodyTextEN} minHeight={120} />
 
       <label>Body Text (ME):</label>
-      <textarea
-        className={styles.textareaField}
-        value={bodyTextME}
-        onChange={(e) => setBodyTextME(e.target.value)}
-      />
+      <RichTextEditor value={bodyTextME} onChange={setBodyTextME} minHeight={120} />
 
       {sections.map((section, index) => (
         <div key={index} className={styles.sectionBlock}>
           <h3>Section {index + 1}</h3>
 
           <label>Section {index + 1} (EN):</label>
-          <textarea
-            className={styles.textareaFieldSection}
+          <RichTextEditor
             value={section.en}
-            onChange={(e) => handleSectionChange(index, 'en', e.target.value)}
+            onChange={(value) => handleSectionChange(index, 'en', value)}
+            minHeight={100}
           />
 
           <label>Section {index + 1} (ME):</label>
-          <textarea
-            className={styles.textareaFieldSection}
+          <RichTextEditor
             value={section.me}
-            onChange={(e) => handleSectionChange(index, 'me', e.target.value)}
+            onChange={(value) => handleSectionChange(index, 'me', value)}
+            minHeight={100}
           />
         </div>
       ))}

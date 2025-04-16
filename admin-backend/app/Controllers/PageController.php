@@ -92,13 +92,24 @@ public function updatePartners($slug)
     $db = \Config\Database::connect();
     $request = \Config\Services::request();
 
-    // Получаем данные
+    // Получаем данные из формы
     $data = $request->getPost();
     if (empty($data)) {
         $data = $request->getJSON(true);
     }
 
-    // Обработка главного изображения
+    // 🔥 Обработка партнёрских логотипов, которые остались (после удаления)
+    $existingLogos = [];
+
+    $rawLogos = $request->getPost('partners_logos');
+    if (!empty($rawLogos)) {
+        $decoded = json_decode($rawLogos, true);
+        if (is_array($decoded)) {
+            $existingLogos = $decoded;
+        }
+    }
+
+    // ✅ Обработка главного изображения (если есть)
     $file = $request->getFile('image');
     if ($file && $file->isValid() && !$file->hasMoved()) {
         $newName = $file->getRandomName();
@@ -106,21 +117,25 @@ public function updatePartners($slug)
         $data['partners_image_path'] = '/images/' . $newName;
     }
 
-    // Обработка логотипов партнеров
+    // ✅ Обработка новых логотипов
     $logos = $request->getFileMultiple('logos');
-    $logosPaths = [];
+    $newLogos = [];
+
     if ($logos) {
         foreach ($logos as $logo) {
             if ($logo->isValid() && !$logo->hasMoved()) {
                 $logoName = $logo->getRandomName();
                 $logo->move(FCPATH . '../admin-backend/images/', $logoName);
-                $logosPaths[] = '/images/' . $logoName;
+                $newLogos[] = '/images/' . $logoName;
             }
         }
-        $data['partners_logos'] = json_encode($logosPaths);
     }
 
-    // Обновляем данные
+    // 🧠 Итоговый массив: существующие + новые
+    $combinedLogos = array_merge($existingLogos, $newLogos);
+    $data['partners_logos'] = json_encode($combinedLogos);
+
+    // ✅ Обновление записи
     $builder = $db->table('pages');
     $builder->where('slug', $slug);
     $builder->update($data);

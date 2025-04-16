@@ -35,6 +35,20 @@
   gap: 10px;
   margin: 10px 0;
 }
+.editorContainer {
+  width: 98%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #fff;
+  min-height: 80px;
+}
+.textareaField{
+  max-height: 30px;
+}
+
 
 .uploadButton {
   background-color: #44596e;

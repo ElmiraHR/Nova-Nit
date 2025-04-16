@@ -21,7 +21,7 @@ const HeroTitle = styled.h1`
   margin-bottom: 1rem;
 `;
 
-const HeroText = styled.p`
+const HeroText = styled.div`
   color: var(--text-in-boxes);
   font-size: clamp(18px, 2vw, 24px);
   line-height: clamp(24px, 3vw, 40px);
@@ -111,11 +111,10 @@ const Landing: React.FC = () => {
 
   return (
     <Hero>
-      {/* Основной баннер */}
       <div className={s.landingBannerBox}>
         <div className={s.landingBannerBox_textSide}>
-          <HeroTitle>{title}</HeroTitle>
-          <HeroText>{text}</HeroText>
+          <HeroTitle dangerouslySetInnerHTML={{ __html: title }} />
+          <HeroText dangerouslySetInnerHTML={{ __html: text }} />
           <HeroButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
         </div>
         <div className={s.landingBannerBox_imgSide}>
@@ -124,31 +123,27 @@ const Landing: React.FC = () => {
         </div>
       </div>
 
-      {/* Блок информации */}
       <div className={s.landingBodyBox}>
-        <a href={bodyTitleLink}><h2>{bodyTitle}</h2></a>
-        <HeroText>{bodyText}</HeroText>
+        <a href={bodyTitleLink}><h2 dangerouslySetInnerHTML={{ __html: bodyTitle }} /></a>
+        <HeroText dangerouslySetInnerHTML={{ __html: bodyText }} />
         <HeroButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
       </div>
 
-      {/* Секции */}
       <div className={s.landingBodyBox_section}>
         {sections.map((sec, index) => (
           <div className={s.landingBodyBox_sectionBox} key={index}>
-            <h3>{language === "EN" ? sec.en : sec.me}</h3>
+            <h3 dangerouslySetInnerHTML={{ __html: language === "EN" ? sec.en : sec.me }} />
           </div>
         ))}
       </div>
 
-      {/* Партнеры */}
       <div className={s.landingPartnersBox}>
         <div className={s.landingPartnersBox_imgSide}>
           {storedMainImage && <img src={`${baseURL}${storedMainImage}`} alt="Main banner of the page" />}
         </div>
         <div className={s.landingPartnersBox_textSide}>
-          <h2>{titlePartners}</h2>
+          <h2 dangerouslySetInnerHTML={{ __html: titlePartners }} />
 
-          {/* Логотипы партнеров */}
           <div className={s.landingPartnersLogos}>
             {storedLogos.length > 0 ? (
               storedLogos.map((file, idx) => (
@@ -165,8 +160,7 @@ const Landing: React.FC = () => {
             )}
           </div>
 
-          <HeroText>{infoPartners}</HeroText>
-          {/* Эта кнопка перенаправляет на страницу партнеров */}
+          <HeroText dangerouslySetInnerHTML={{ __html: infoPartners }} />
           <HeroButton onClick={() => navigate("/partners")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
         </div>
       </div>

@@ -146,21 +146,31 @@ export const updateHowDoesWork = async (formData: FormData): Promise<PageData> =
 };
 
 // ✅ Обновление Partners
-export const updatePartners = async (slug: string, data: PageData, imageFile?: File, logoFiles?: File[]): Promise<PageData> => {
+export const updatePartners = async (
+  slug: string,
+  data: PageData,
+  imageFile?: File,
+  logoFiles?: File[]
+): Promise<PageData> => {
   const formData = new FormData();
 
-  // Основные данные
+  // ✅ Основные текстовые поля
   formData.append('partners_title_en', data.partners_title_en || '');
   formData.append('partners_title_me', data.partners_title_me || '');
   formData.append('partners_info_en', data.partners_info_en || '');
   formData.append('partners_info_me', data.partners_info_me || '');
 
-  // Главная картинка
+  // ✅ Сохраняем уже существующие лого, оставшиеся после удаления
+  if (data.partners_logos) {
+    formData.append('partners_logos', JSON.stringify(data.partners_logos));
+  }
+
+  // ✅ Главная картинка
   if (imageFile) {
     formData.append('image', imageFile);
   }
 
-  // Логотипы партнеров
+  // ✅ Новые логотипы (если есть)
   if (logoFiles) {
     logoFiles.forEach((file) => {
       formData.append('logos[]', file);
@@ -169,9 +179,11 @@ export const updatePartners = async (slug: string, data: PageData, imageFile?: F
 
   try {
     const response = await axios.post<PageData>(`${API_URL}/api/pages/partners/${slug}`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
-    return response.data; // ✅ возвращаем данные напрямую
+    return response.data;
   } catch (error) {
     console.error('Error updating partners data', error);
     throw error;

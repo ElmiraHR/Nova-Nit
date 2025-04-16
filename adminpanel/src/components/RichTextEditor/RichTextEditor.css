@@ -16,4 +16,20 @@
     padding: 10px;
     font-family: inherit;
   }
+  .editorContainer {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #fff;
+    margin: 10px 0;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Стили контента */
+  .editorContainer .ProseMirror {
+    outline: none;
+    min-height: 100px;
+    line-height: 1.5;
+  }
   

@@ -1,33 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import './RichTextEditor.css';
 
-
-
-import './RichTextEditor.css'; // стили ниже
-
-interface RichTextEditorProps {
+interface Props {
   value: string;
   onChange: (value: string) => void;
+  minHeight?: number;
 }
 
-const RichTextEditor: React.FC<RichTextEditorProps> = ({ value, onChange }) => {
+const RichTextEditor: React.FC<Props> = ({ value, onChange, minHeight = 100 }) => {
   const editor = useEditor({
     extensions: [StarterKit],
-    content: value,
-    onUpdate: ({ editor }: { editor: any }) => {
-        onChange(editor.getHTML());
-      },
-      editorProps: {
-        attributes: {
-          class: 'editorContent',
-        },
+    content: value || '',
+    onUpdate({ editor }: { editor: any }) {
+      onChange(editor.getHTML());
     },
-      
   });
 
+  useEffect(() => {
+    if (editor && value !== editor.getHTML()) {
+      editor.commands.setContent(value || '', false);
+    }
+  }, [value, editor]);
+
   return (
-    <div className="editorContainer">
+    <div className="editorContainer" style={{ minHeight }}>
       <EditorContent editor={editor} />
     </div>
   );

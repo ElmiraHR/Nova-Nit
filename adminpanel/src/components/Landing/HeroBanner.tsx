@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { fetchPage, updatePage } from '../../services/pageService';
 import styles from './HeroBanner.module.css';
+import RichTextEditor from '../../components/RichTextEditor/RichTextEditor';
 
 const HeroBanner = () => {
   const [titleEN, setTitleEN] = useState('');
@@ -46,10 +47,7 @@ const HeroBanner = () => {
     setImage(null);
     setShowReplaceMessage(false);
     setImageName('No file selected');
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const handleSubmit = async () => {
@@ -98,32 +96,16 @@ const HeroBanner = () => {
       {notification && <div className={styles.notification}>{notification}</div>}
 
       <label>Title (English):</label>
-      <input
-        className={styles.inputField}
-        value={titleEN}
-        onChange={(e) => setTitleEN(e.target.value)}
-      />
+      <RichTextEditor value={titleEN} onChange={setTitleEN} minHeight={50} />
 
       <label>Title (Montenegrin):</label>
-      <input
-        className={styles.inputField}
-        value={titleME}
-        onChange={(e) => setTitleME(e.target.value)}
-      />
+      <RichTextEditor value={titleME} onChange={setTitleME} minHeight={50} />
 
       <label>Text (English):</label>
-      <textarea
-        className={styles.textareaField}
-        value={textEN}
-        onChange={(e) => setTextEN(e.target.value)}
-      />
+      <RichTextEditor value={textEN} onChange={setTextEN} minHeight={120} />
 
       <label>Text (Montenegrin):</label>
-      <textarea
-        className={styles.textareaField}
-        value={textME}
-        onChange={(e) => setTextME(e.target.value)}
-      />
+      <RichTextEditor value={textME} onChange={setTextME} minHeight={120} />
 
       <label>Hero Banner Picture:</label>
       <div className={styles.imageContainer}>

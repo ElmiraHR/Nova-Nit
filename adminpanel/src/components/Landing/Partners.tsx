@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { fetchPage, updatePartners } from '../../services/pageService';
 import styles from './Partners.module.css';
+import RichTextEditor from '../../components/RichTextEditor/RichTextEditor';
 
 const Partners = () => {
   const [titleEN, setTitleEN] = useState('');
@@ -14,30 +15,40 @@ const Partners = () => {
   const [notification, setNotification] = useState('');
   const [showReplaceMessage, setShowReplaceMessage] = useState(false);
   const [mainImageName, setMainImageName] = useState('No file selected');
-  const [logosFileNames, setLogosFileNames] = useState('No files selected'); // Добавляем это состояние
+  const [logosFileNames, setLogosFileNames] = useState('No files selected');
 
   const mainImageInputRef = useRef<HTMLInputElement | null>(null);
   const logosInputRef = useRef<HTMLInputElement | null>(null);
 
   const slug = 'landing';
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const pageData = await fetchPage(slug);
-        setTitleEN(pageData.partners_title_en || '');
-        setTitleME(pageData.partners_title_me || '');
-        setInfoEN(pageData.partners_info_en || '');
-        setInfoME(pageData.partners_info_me || '');
-        setStoredMainImage(pageData.partners_image_path || '');
-        setStoredLogos(Array.isArray(pageData.partners_logos) ? pageData.partners_logos : JSON.parse(pageData.partners_logos || '[]'));
-      } catch (error) {
-        console.error('Error loading partners data', error);
-      }
-    };
+  const loadData = async () => {
+    try {
+      const pageData = await fetchPage(slug);
+      setTitleEN(pageData.partners_title_en || '');
+      setTitleME(pageData.partners_title_me || '');
+      setInfoEN(pageData.partners_info_en || '');
+      setInfoME(pageData.partners_info_me || '');
+      setStoredMainImage(pageData.partners_image_path || '');
 
+      const parsed = Array.isArray(pageData.partners_logos)
+        ? pageData.partners_logos
+        : JSON.parse(pageData.partners_logos || '[]');
+      setStoredLogos(parsed);
+    } catch (error) {
+      console.error('Error loading partners data', error);
+    }
+  };
+
+  useEffect(() => {
     loadData();
-  }, [slug]);
+  }, []);
+
+  useEffect(() => {
+    if (notification === 'Changes saved successfully!') {
+      loadData();
+    }
+  }, [notification]);
 
   const handleMainImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -51,45 +62,46 @@ const Partners = () => {
     setMainImage(null);
     setShowReplaceMessage(false);
     setMainImageName('No file selected');
-
-    if (mainImageInputRef.current) {
-      mainImageInputRef.current.value = '';
-    }
+    if (mainImageInputRef.current) mainImageInputRef.current.value = '';
   };
 
   const handleLogosChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files ? Array.from(e.target.files) : [];
     setLogos((prev) => [...prev, ...files]);
-
-    const fileNames = files.map(file => file.name).join(', ') || 'No files selected';
+    const fileNames = files.map((file) => file.name).join(', ') || 'No files selected';
     setLogosFileNames(fileNames);
   };
 
   const handleDeleteStoredLogo = (index: number) => {
-    setStoredLogos((prev) => prev.filter((_, i) => i !== index));
+    setStoredLogos((prev) => {
+      const updated = [...prev];
+      updated.splice(index, 1);
+      return updated;
+    });
   };
 
   const handleDeleteNewLogo = (index: number) => {
     setLogos((prev) => prev.filter((_, i) => i !== index));
-
-    if (logosInputRef.current && logos.length === 1) {
-      logosInputRef.current.value = '';
-    }
+    if (logosInputRef.current && logos.length === 1) logosInputRef.current.value = '';
   };
 
   const handleSubmit = async () => {
-    const payload = {
-      partners_title_en: titleEN,
-      partners_title_me: titleME,
-      partners_info_en: infoEN,
-      partners_info_me: infoME,
-      partners_logos: storedLogos,
-    };
-
     try {
+      const payload = {
+        partners_title_en: titleEN,
+        partners_title_me: titleME,
+        partners_info_en: infoEN,
+        partners_info_me: infoME,
+        partners_logos: storedLogos,
+      };
+
       const response = await updatePartners(slug, payload, mainImage ?? undefined, logos);
-      setStoredMainImage(response.partners_image_path || storedMainImage);
-      setStoredLogos(response.partners_logos || storedLogos);
+
+      setStoredMainImage(response.partners_image_path || '');
+      const updatedLogos = Array.isArray(response.partners_logos)
+        ? response.partners_logos
+        : JSON.parse(response.partners_logos || '[]');
+      setStoredLogos(updatedLogos);
       setLogos([]);
       setMainImage(null);
       setShowReplaceMessage(false);
@@ -114,21 +126,22 @@ const Partners = () => {
       {notification && <div className={styles.notification}>{notification}</div>}
 
       <label>Partners Title (EN):</label>
-      <input className={styles.inputField} value={titleEN} onChange={(e) => setTitleEN(e.target.value)} />
+      <RichTextEditor value={titleEN} onChange={setTitleEN} minHeight={50} />
 
       <label>Partners Title (ME):</label>
-      <input className={styles.inputField} value={titleME} onChange={(e) => setTitleME(e.target.value)} />
+      <RichTextEditor value={titleME} onChange={setTitleME} minHeight={50} />
 
       <label>Partners Info (EN):</label>
-      <textarea className={styles.textareaField} value={infoEN} onChange={(e) => setInfoEN(e.target.value)} />
+      <RichTextEditor value={infoEN} onChange={setInfoEN} minHeight={120} />
 
       <label>Partners Info (ME):</label>
-      <textarea className={styles.textareaField} value={infoME} onChange={(e) => setInfoME(e.target.value)} />
+      <RichTextEditor value={infoME} onChange={setInfoME} minHeight={120} />
 
-      {/* ✅ Main Image Upload */}
       <label>Left Big Picture:</label>
       <div className={styles.fileInputWrapper}>
-        <button className={styles.uploadButton} onClick={() => mainImageInputRef.current?.click()}>Choose File</button>
+        <button className={styles.uploadButton} onClick={() => mainImageInputRef.current?.click()}>
+          Choose File
+        </button>
         <span>{mainImageName}</span>
         <input
           ref={mainImageInputRef}
@@ -148,16 +161,19 @@ const Partners = () => {
           {mainImage && (
             <div className={styles.replaceMessage}>
               Saving this image will replace the current one.
-              <button className={styles.cancelButton} onClick={handleCancelMainImage}>Cancel</button>
+              <button className={styles.cancelButton} onClick={handleCancelMainImage}>
+                Cancel
+              </button>
             </div>
           )}
         </div>
       )}
 
-      {/* ✅ Logos Upload */}
       <label>Partners Logos:</label>
       <div className={styles.fileInputWrapper}>
-        <button className={styles.uploadButton} onClick={() => logosInputRef.current?.click()}>Choose Files</button>
+        <button className={styles.uploadButton} onClick={() => logosInputRef.current?.click()}>
+          Choose Files
+        </button>
         <span>{logosFileNames}</span>
         <input
           ref={logosInputRef}
@@ -171,15 +187,27 @@ const Partners = () => {
       <div className={styles.partnerList}>
         {storedLogos.map((logo, idx) => (
           <div key={`stored-${idx}`} className={styles.partnerCard}>
-            <img src={`http://localhost:8080${logo}`} alt={`Logo ${idx + 1}`} className={styles.partnerImage} />
-            <button className={styles.deleteButton} onClick={() => handleDeleteStoredLogo(idx)}>Delete</button>
+            <img
+              src={`http://localhost:8080${logo}`}
+              alt={`Logo ${idx + 1}`}
+              className={styles.partnerImage}
+            />
+            <button className={styles.deleteButton} onClick={() => handleDeleteStoredLogo(idx)}>
+              Delete
+            </button>
           </div>
         ))}
 
         {logos.map((file, idx) => (
           <div key={`new-${idx}`} className={`${styles.partnerCard} ${styles.previewCard}`}>
-            <img src={URL.createObjectURL(file)} alt={`New Logo ${idx + 1}`} className={styles.partnerImage} />
-            <button className={styles.deleteButton} onClick={() => handleDeleteNewLogo(idx)}>Remove</button>
+            <img
+              src={URL.createObjectURL(file)}
+              alt={`New Logo ${idx + 1}`}
+              className={styles.partnerImage}
+            />
+            <button className={styles.deleteButton} onClick={() => handleDeleteNewLogo(idx)}>
+              Remove
+            </button>
           </div>
         ))}
       </div>
