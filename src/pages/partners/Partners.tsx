@@ -1,11 +1,11 @@
-import s from "./Partners.module.css";
-import styled from "styled-components";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { API_URL } from "../../services/pageService";
-import { useLanguage } from "../../context/LanguageContext";
-import SocialLinks from "../../components/socialLinks/SocialLinks";
-import { useNavigate } from "react-router-dom";
+import s from './Partners.module.css';
+import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { API_URL } from '../../services/pageService';
+import { useLanguage } from '../../context/LanguageContext';
+import SocialLinks from '../../components/socialLinks/SocialLinks';
+import { useNavigate } from 'react-router-dom';
 
 const PartnersButton = styled.button`
   display: flex;
@@ -50,7 +50,7 @@ interface Partner {
 
 const Partners: React.FC = () => {
   const { language } = useLanguage();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [pageData, setPageData] = useState<PartnerPageData | null>(null);
   const [partners, setPartners] = useState<Partner[]>([]);
   const [bannerPreview, setBannerPreview] = useState<string>("");
@@ -60,15 +60,12 @@ const Partners: React.FC = () => {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-
     const fetchData = async () => {
       setIsLoading(true); // Устанавливаем флаг загрузки в true
       setHasError(false); // Сбрасываем ошибку перед новым запросом
 
       try {
-        const res = await axios.get<{ page: PartnerPageData | null; partners: Partner[] }>(
-          `${API_URL}/api/partners`
-        );
+        const res = await axios.get<{ page: PartnerPageData | null; partners: Partner[] }>(`${API_URL}/api/partners`);
 
         if (res.data.page) {
           setPageData(res.data.page);
@@ -120,13 +117,13 @@ const Partners: React.FC = () => {
   return (
     <section className={s.partners}>
       <h2 className={s.partners_title}>
-        {title}
+        {/* Заголовок с использованием dangerouslySetInnerHTML */}
+        <div dangerouslySetInnerHTML={{ __html: title }} />
       </h2>
       <div className={s.partners_Box}>
         <div className={s.partners_ContentBox}>
-          <p className={s.partners_Content}>
-            {text}
-          </p>
+          {/* Текст с использованием dangerouslySetInnerHTML */}
+          <div className={s.partners_Content} dangerouslySetInnerHTML={{ __html: text }} />
           <PartnersButton
             onClick={() => navigate("/contact-us")}
           >
@@ -155,15 +152,20 @@ const Partners: React.FC = () => {
         {partners.length > 0 ? (
           partners.map((partner) => (
             <div key={partner.id} className={s.partner_item}>
-              <h3>{language === "ME" ? partner.name_me : partner.name_en}</h3>
-              <img src={partner.logo} alt={partner.name_en} className={s.partner_logo} />
-              <p>{language === "ME" ? partner.text_me : partner.text_en}</p>
-              <SocialLinks
-                size={78}
-                instagramUrl={partner.instagram_link}
-                facebookUrl={partner.facebook_link}
-              />
-            </div>
+            {/* Отображаем название партнера без HTML тегов */}
+            <h3>{language === "ME" ? partner.name_me.replace(/<\/?p>|<br>/g, '') : partner.name_en.replace(/<\/?p>|<br>/g, '')}</h3>
+            <img src={partner.logo} alt={partner.name_en} className={s.partner_logo} />
+            
+            {/* Текст партнера с использованием dangerouslySetInnerHTML */}
+            <div dangerouslySetInnerHTML={{ __html: language === "ME" ? partner.text_me : partner.text_en }} />
+            
+            <SocialLinks
+              size={78}
+              instagramUrl={partner.instagram_link}
+              facebookUrl={partner.facebook_link}
+            />
+          </div>
+          
           ))
         ) : (
           <p>❌ Partners are not available</p>
