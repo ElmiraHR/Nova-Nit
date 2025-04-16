@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styles from './VolunteerPage.module.css';
 import { API_URL } from '../../services/pageService';
+import RichTextEditor from '../../components/RichTextEditor/RichTextEditor';
 
 interface VolunteerPageSection {
   title_en: string;
@@ -181,7 +182,7 @@ const VolunteerPage: React.FC = () => {
         id: vol.id || responseData.id,
         photo: newPhotoFromServer
           ? `${API_URL}/images/${newPhotoFromServer}`
-          : vol.photo, // не меняем, если не было обновления фото
+          : vol.photo,
         photoFile: null,
         saved: true,
       };
@@ -191,9 +192,6 @@ const VolunteerPage: React.FC = () => {
       setNotification('Error saving volunteer');
     }
   };
-  
-  
-  
 
   return (
     <div className={styles.container}>
@@ -206,13 +204,13 @@ const VolunteerPage: React.FC = () => {
           {idx < 2 && (
             <>
               <label className={styles.label}>Title EN: </label>
-              <input value={sec.title_en} placeholder="Title EN" className={styles.inputField} onChange={(e) => handleSectionChange(idx, 'title_en', e.target.value)} />
+              <RichTextEditor value={sec.title_en} onChange={(val) => handleSectionChange(idx, 'title_en', val)} minHeight={50} />
               <label className={styles.label}>Title ME: </label>
-              <input value={sec.title_me} placeholder="Title ME" className={styles.inputField} onChange={(e) => handleSectionChange(idx, 'title_me', e.target.value)} />
+              <RichTextEditor value={sec.title_me} onChange={(val) => handleSectionChange(idx, 'title_me', val)} minHeight={50} />
               <label className={styles.label}>Text EN: </label>
-              <textarea value={sec.text_en} placeholder="Text EN" className={styles.textareaField} onChange={(e) => handleSectionChange(idx, 'text_en', e.target.value)} />
+              <RichTextEditor value={sec.text_en} onChange={(val) => handleSectionChange(idx, 'text_en', val)} minHeight={120} />
               <label className={styles.label}>Text ME: </label>
-              <textarea value={sec.text_me} placeholder="Text ME" className={styles.textareaField} onChange={(e) => handleSectionChange(idx, 'text_me', e.target.value)} />
+              <RichTextEditor value={sec.text_me} onChange={(val) => handleSectionChange(idx, 'text_me', val)} minHeight={120} />
             </>
           )}
           <button className={styles.uploadButton} onClick={() => fileInputRefs.current[idx]?.click()}>Choose File</button>
@@ -231,9 +229,9 @@ const VolunteerPage: React.FC = () => {
           <label className={styles.label}>Name ME: </label>
           <input value={vol.name_me} placeholder="Name ME" className={styles.inputField} onChange={(e) => handleVolunteerChange(idx, 'name_me', e.target.value)} />
           <label className={styles.label}>Text EN: </label>
-          <textarea value={vol.text_en} placeholder="Text EN" className={styles.textareaField} onChange={(e) => handleVolunteerChange(idx, 'text_en', e.target.value)} />
+          <RichTextEditor value={vol.text_en} onChange={(val) => handleVolunteerChange(idx, 'text_en', val)} minHeight={120} />
           <label className={styles.label}>Text ME: </label>
-          <textarea value={vol.text_me} placeholder="Text ME" className={styles.textareaField} onChange={(e) => handleVolunteerChange(idx, 'text_me', e.target.value)} />
+          <RichTextEditor value={vol.text_me} onChange={(val) => handleVolunteerChange(idx, 'text_me', val)} minHeight={120} />
           <button className={styles.uploadButton} onClick={() => volunteerFileRefs.current[idx]?.click()}>Choose File</button>
           <input type="file" ref={(el) => { volunteerFileRefs.current[idx] = el; }} onChange={(e) => e.target.files && handleVolunteerChange(idx, 'photoFile', e.target.files[0])} className={styles.hiddenInput} />
           {vol.photo && (
@@ -253,7 +251,6 @@ const VolunteerPage: React.FC = () => {
       <button className={styles.addButton} onClick={handleAddVolunteer}>Add Volunteer</button>
     </div>
   );
-
 };
 
 export default VolunteerPage;

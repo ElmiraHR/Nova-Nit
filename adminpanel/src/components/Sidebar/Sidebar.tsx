@@ -6,7 +6,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [showLandingSubmenu, setShowLandingSubmenu] = useState(false);
 
-  const pages = [ 'Volunteer'];
+  const pages = ['Volunteer']; // Удаляем этот массив с дублирующимися ссылками.
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
@@ -55,18 +55,6 @@ const Sidebar = () => {
           )}
         </li>
 
-        {/* ✅ Остальные страницы */}
-        {pages.map((page) => (
-          <li key={page}>
-            <NavLink
-              to={`/adminpanel/${page.toLowerCase()}`}
-              className={({ isActive }) => (isActive ? styles.active : '')}
-            >
-              {page}
-            </NavLink>
-          </li>
-        ))}
-
         {/* ✅ Ссылка на Mission */}
         <li>
           <NavLink
@@ -86,53 +74,72 @@ const Sidebar = () => {
             HowDoesWork
           </NavLink>
         </li>
+
+        {/* ✅ Партнеры */}
         <li>
-      <NavLink
-       to="/adminpanel/partners"
-       className={({ isActive }) => (isActive ? styles.activeLink : '')}
-       >
-       Partners
-      </NavLink>
-      </li>
-      <li>
-     <NavLink
-       to="/adminpanel/getinvolved"
-       className={({ isActive }) => (isActive ? styles.activeLink : '')}
-      >
-       Get Involved
-      </NavLink>
-      </li>
-      <li>
-    <NavLink to="/adminpanel/contact" 
-    className={({ isActive }) => (isActive ? styles.activeLink : '')}>
-      Contact Us
-      </NavLink>
-      </li>
-      <li>
-     <NavLink
-       to="/adminpanel/faq"
-       className={({ isActive }) => (isActive ? styles.activeLink : '')}
-      >
-       FAQ image
-      </NavLink>
-      </li>
-      <li>
-    <NavLink to="/adminpanel/volunteer"  className={({ isActive }) => (isActive ? styles.activeLink : '')}>Volunteer with Us</NavLink>
-       </li>
-      <li>
-    <NavLink to="/adminpanel/allimages" 
-    className={({ isActive }) => (isActive ? styles.activeLink : '')}>
-      All Images
-      </NavLink>
-      </li>
-      <li>
-      <NavLink
-       to="/adminpanel/change-logo"
-       className={({ isActive }) => (isActive ? styles.activeLink : '')}
-      >
-      Change Logo
-      </NavLink>
-     </li>
+          <NavLink
+            to="/adminpanel/partners"
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
+          >
+            Partners
+          </NavLink>
+        </li>
+
+        {/* ✅ Ссылка на Volunteer with Us */}
+        <li>
+          <NavLink
+            to="/adminpanel/volunteer"
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
+          >
+            Volunteer with Us
+          </NavLink>
+        </li>
+
+        {/* ✅ Остальные ссылки */}
+        <li>
+          <NavLink
+            to="/adminpanel/getinvolved"
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
+          >
+            Get Involved
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/adminpanel/contact"
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
+          >
+            Contact Us
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/adminpanel/faq"
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
+          >
+            FAQ image
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/adminpanel/allimages"
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
+          >
+            All Images
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
+            to="/adminpanel/change-logo"
+            className={({ isActive }) => (isActive ? styles.activeLink : '')}
+          >
+            Change Logo
+          </NavLink>
+        </li>
       </ul>
 
       {/* ✅ Кнопка логаута */}
