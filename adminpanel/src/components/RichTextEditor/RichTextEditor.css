@@ -24,13 +24,13 @@
     margin: 10px 0;
     font-size: 16px;
     font-family: 'Arial', sans-serif;
-    width: 70%;
+    width: 90%;
   }
   
   /* Стили контента */
   .editorContainer .ProseMirror {
     outline: none;
-    width: 70%;
+    width: 90%;
     margin-right: 5%;
     line-height: 1.5;
   }

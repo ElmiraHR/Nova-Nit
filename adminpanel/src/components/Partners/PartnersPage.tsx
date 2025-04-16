@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../services/pageService';
 import styles from './PartnerPage.module.css';
+import RichTextEditor from '../../components/RichTextEditor/RichTextEditor'; // Импортируем RichTextEditor
 
 interface PartnerPageData {
   id: number;
@@ -95,7 +96,6 @@ const PartnersPage: React.FC = () => {
       setNotification('Error deleting partner');
     }
   };
-  
 
   const updatePartnerField = <K extends keyof Partner>(index: number, field: K, value: Partner[K]) => {
     const updated = [...partners];
@@ -157,18 +157,15 @@ const PartnersPage: React.FC = () => {
       setNotification('Error saving partners');
     }
   };
-  
-
-
 
   const renderPartnerFields = (partner: Partner, index: number) => {
     const fileInputId = `fileInput-${index}`;
     return (
       <div key={index} className={styles.partnerItem}>
-        <input className={styles.inputField} placeholder="Name (EN)" value={partner.name_en} onChange={(e) => updatePartnerField(index, 'name_en', e.target.value)} />
-        <input className={styles.inputField} placeholder="Name (ME)" value={partner.name_me} onChange={(e) => updatePartnerField(index, 'name_me', e.target.value)} />
-        <textarea className={styles.textareaField} placeholder="Text (EN)" value={partner.text_en} onChange={(e) => updatePartnerField(index, 'text_en', e.target.value)} />
-        <textarea className={styles.textareaField} placeholder="Text (ME)" value={partner.text_me} onChange={(e) => updatePartnerField(index, 'text_me', e.target.value)} />
+        <RichTextEditor value={partner.name_en} onChange={(val) => updatePartnerField(index, 'name_en', val)} minHeight={50} />
+        <RichTextEditor value={partner.name_me} onChange={(val) => updatePartnerField(index, 'name_me', val)} minHeight={50} />
+        <RichTextEditor value={partner.text_en} onChange={(val) => updatePartnerField(index, 'text_en', val)} minHeight={120} />
+        <RichTextEditor value={partner.text_me} onChange={(val) => updatePartnerField(index, 'text_me', val)} minHeight={120} />
 
         <label>Logo:</label>
         <div className={styles.fileInputWrapper}>
@@ -217,13 +214,13 @@ const PartnersPage: React.FC = () => {
       {pageData && (
         <div className={styles.pageSection}>
           <label>Title (EN):</label>
-          <input className={styles.inputField} value={pageData.title_en} onChange={(e) => setPageData({ ...pageData, title_en: e.target.value })} />
+          <RichTextEditor value={pageData.title_en} onChange={(val) => setPageData({ ...pageData, title_en: val })} minHeight={50} />
           <label>Title (ME):</label>
-          <input className={styles.inputField} value={pageData.title_me} onChange={(e) => setPageData({ ...pageData, title_me: e.target.value })} />
+          <RichTextEditor value={pageData.title_me} onChange={(val) => setPageData({ ...pageData, title_me: val })} minHeight={50} />
           <label>Text (EN):</label>
-          <textarea className={styles.textareaField} value={pageData.text_en} onChange={(e) => setPageData({ ...pageData, text_en: e.target.value })} />
+          <RichTextEditor value={pageData.text_en} onChange={(val) => setPageData({ ...pageData, text_en: val })} minHeight={120} />
           <label>Text (ME):</label>
-          <textarea className={styles.textareaField} value={pageData.text_me} onChange={(e) => setPageData({ ...pageData, text_me: e.target.value })} />
+          <RichTextEditor value={pageData.text_me} onChange={(val) => setPageData({ ...pageData, text_me: val })} minHeight={120} />
 
           <label>Banner Image:</label>
           <div className={styles.fileInputWrapper}>
