@@ -5,6 +5,7 @@ import { fetchPage } from '../../services/pageService';
 import { useLanguage } from '../../context/LanguageContext';
 import { useNavigate } from "react-router-dom";
 
+// Кнопка для действия "Get Involved"
 const HowDoesItWorkButton = styled.button`
   display: flex;
   justify-content: center;
@@ -40,7 +41,6 @@ const HowDoesItWork: React.FC = () => {
       try {
         const pageData = await fetchPage('howdoeswork');
 
-
         setTitle(language === 'EN' ? pageData.title_en || '' : pageData.title_me || '');
         setText(language === 'EN' ? pageData.text_en || '' : pageData.text_me || '');
 
@@ -71,23 +71,36 @@ const HowDoesItWork: React.FC = () => {
     loadPageData();
   }, [language]);
 
+  // Отображение текста с сохранением переходов строк и форматирования
+  const renderTextWithLineBreaks = (text: string) => {
+    return (
+      <div
+        className={s.howDoesItWork_Content}
+        dangerouslySetInnerHTML={{ __html: text.replace(/\n/g, '<br/>') }}
+      />
+    );
+  };
+
   return (
     <section className={s.howDoesItWork}>
       <h2 className={s.howDoesItWork_title}>{title}</h2>
       <div className={s.howDoesItWork_Box}>
         <div className={s.howDoesItWork_ContentBox}>
-          <p className={s.howDoesItWork_Content}>{text}</p>
-          <HowDoesItWorkButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HowDoesItWorkButton>
+          {/* Используем функцию для отображения текста с сохранением переходов строк */}
+          {renderTextWithLineBreaks(text)}
+          <HowDoesItWorkButton onClick={() => navigate("/get-involved")}>
+            {language === "ME" ? 'Uključi se' : 'Get Involved'}
+          </HowDoesItWorkButton>
         </div>
         <div className={s.howDoesItWork_ImgBox}>
           {storedImagePath ? (
-            <img 
-              src={storedImagePath} 
+            <img
+              src={storedImagePath}
               alt="How It Works"
               onError={(e) => {
                 console.error('❌ Ошибка загрузки изображения:', storedImagePath);
                 e.currentTarget.style.display = 'none';
-              }} 
+              }}
             />
           ) : (
             <p>{language === "ME" ? 'Slika nije dostupna' : 'The picture is not available'}</p>
