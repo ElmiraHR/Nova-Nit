@@ -16,6 +16,7 @@ const Nav = styled.nav
   top:0;
   z-index: 5;
   justify-content: space-between;
+  margin-bottom: 33px;
       @media (max-width: 1200px) {
     justify-content: end;
   }`
