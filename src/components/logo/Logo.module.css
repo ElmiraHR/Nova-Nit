@@ -4,5 +4,5 @@ justify-content: center;
 align-items: center;
 }
 .landingLogo>img {
-    width: clamp(200px, 30vw, 342px);
+    width: clamp(200px, 50vw, 581px);
 }
