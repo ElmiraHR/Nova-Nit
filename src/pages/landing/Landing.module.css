@@ -154,7 +154,33 @@ color: var(--text-in-boxes);
     width: clamp(240px, 33vw, 450px);
     margin: 0 auto;
 }
-
+.heroTitle {
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.3;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .heroTitleWrapper h1 {
+    font-size: 42px;
+    font-weight: bold;
+    color: #c4f4ff;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 10px;
+  }
+  
+  .heroTitleWrapper h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 20px;
+  }
+  
+  
 .landingPartnersLogos {
     display: flex;
     flex-wrap: wrap;

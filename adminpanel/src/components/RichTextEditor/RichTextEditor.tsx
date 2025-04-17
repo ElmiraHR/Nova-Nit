@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { Editor } from '@tiptap/core';
 import './RichTextEditor.css';
 
 interface Props {
@@ -11,9 +12,13 @@ interface Props {
 
 const RichTextEditor: React.FC<Props> = ({ value, onChange, minHeight = 100 }) => {
   const editor = useEditor({
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit.configure({
+        heading: false, // 🔕 отключаем теги h1, h2, ...
+      }),
+    ],
     content: value || '',
-    onUpdate({ editor }: { editor: any }) {
+    onUpdate({ editor }: { editor: Editor }) {
       onChange(editor.getHTML());
     },
   });

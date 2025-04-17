@@ -113,8 +113,23 @@ const Landing: React.FC = () => {
     <Hero>
       <div className={s.landingBannerBox}>
         <div className={s.landingBannerBox_textSide}>
-          <HeroTitle dangerouslySetInnerHTML={{ __html: title }} />
-          <HeroText dangerouslySetInnerHTML={{ __html: text }} />
+        <h1 className={s.heroTitle}>
+  {title
+    .replace(/<\/p>/g, '</p>\n') // добавим перенос после каждого </p>
+    .replace(/<br\s*\/?>/gi, '\n') // заменим <br> на \n
+    .replace(/<\/?p>/g, '') // удалим все <p> и </p>
+    .split('\n') // разобьём по \n
+    .map((line, idx) => (
+      <React.Fragment key={idx}>
+        {line}
+        <br />
+      </React.Fragment>
+    ))}
+</h1>
+
+
+
+        <HeroText dangerouslySetInnerHTML={{ __html: text }} />
           <HeroButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
         </div>
         <div className={s.landingBannerBox_imgSide}>
