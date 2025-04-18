@@ -37,6 +37,7 @@
   text-align: left;
   font-weight: 400;
   color: var(--text-in-boxes);
+  margin: 16px 0;
 }
 
 .howDoesItWork_ContentBox button {

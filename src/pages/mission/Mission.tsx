@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { fetchPage } from '../../services/pageService';
 import { useLanguage } from '../../context/LanguageContext';
-import { useNavigate } from "react-router-dom";
-
-
+import { useNavigate } from 'react-router-dom';
+import { renderHtmlText } from '../../services/renderHtmlText'; 
 
 const MissionButton = styled.button`
   display: flex;
@@ -31,10 +30,10 @@ const MissionButton = styled.button`
 
 const Mission: React.FC = () => {
   const { language } = useLanguage();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
-  const [storedImagePath, setStoredImagePath] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const loadPageData = async () => {
@@ -43,38 +42,38 @@ const Mission: React.FC = () => {
 
         setTitle(language === 'EN' ? pageData.title_en || '' : pageData.title_me || '');
         setText(language === 'EN' ? pageData.text_en || '' : pageData.text_me || '');
-        setStoredImagePath(pageData.mission_image_path || pageData.mission_image_path || null);
+        setImageUrl(pageData.mission_image_path || null);
       } catch (error) {
         console.error('Ошибка загрузки данных:', error);
       }
     };
 
-    loadPageData(); // Вызов функции должен быть здесь, а не внутри неё
+    loadPageData();
   }, [language]);
 
-  const baseURL = 'http://localhost:8080'; // Базовый URL для изображений
+  const baseURL = 'http://localhost:8080'; // Лучше вынести в env/config
 
   return (
     <section className={s.mission}>
-    <h2 className={s.missionTitle}>{title}</h2>
-    <div className={s.missionBox}>
-      <div className={s.missionImgBox}>
-        {storedImagePath && <img src={`${baseURL}${storedImagePath}`} alt={title} />}
+      <h2 className={s.missionTitle}>{renderHtmlText(title)}</h2>
+
+      <div className={s.missionBox}>
+        <div className={s.missionImgBox}>
+          {imageUrl && <img src={`${baseURL}${imageUrl}`} alt={title} />}
+        </div>
+
+        <div className={s.missionContentBox}>
+          <p className={s.missionContent}>
+            {renderHtmlText(text)}
+          </p>
+
+          <MissionButton onClick={() => navigate("/get-involved")}>
+            {language === "ME" ? 'Uključi se' : 'Get Involved'}
+          </MissionButton>
+        </div>
       </div>
-      <div className={s.missionContentBox}>
-        <div
-          className={s.missionContent}
-          dangerouslySetInnerHTML={{ __html: text }}
-        />
-        <MissionButton onClick={() => navigate("/get-involved")}>
-          {language === "ME" ? 'Uključi se' : 'Get Involved'}
-        </MissionButton>
-      </div>
-    </div>
-  </section>
-  
+    </section>
   );
-  
 };
 
 export default Mission;

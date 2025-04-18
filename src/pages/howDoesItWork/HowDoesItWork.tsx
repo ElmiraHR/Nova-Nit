@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchPage } from '../../services/pageService';
 import { useLanguage } from '../../context/LanguageContext';
 import { useNavigate } from "react-router-dom";
+import { renderHtmlText } from '../../services/renderHtmlText';
 
 // Кнопка для действия "Get Involved"
 const HowDoesItWorkButton = styled.button`
@@ -71,23 +72,13 @@ const HowDoesItWork: React.FC = () => {
     loadPageData();
   }, [language]);
 
-  // Отображение текста с сохранением переходов строк и форматирования
-  const renderTextWithLineBreaks = (text: string) => {
-    return (
-      <div
-        className={s.howDoesItWork_Content}
-        dangerouslySetInnerHTML={{ __html: text.replace(/\n/g, '<br/>') }}
-      />
-    );
-  };
 
   return (
     <section className={s.howDoesItWork}>
-      <h2 className={s.howDoesItWork_title}>{title}</h2>
+      <h2 className={s.howDoesItWork_title}>{renderHtmlText(title)}</h2>
       <div className={s.howDoesItWork_Box}>
         <div className={s.howDoesItWork_ContentBox}>
-          {/* Используем функцию для отображения текста с сохранением переходов строк */}
-          {renderTextWithLineBreaks(text)}
+          <p>{renderHtmlText(text)}</p>
           <HowDoesItWorkButton onClick={() => navigate("/get-involved")}>
             {language === "ME" ? 'Uključi se' : 'Get Involved'}
           </HowDoesItWorkButton>

@@ -35,11 +35,16 @@ interface SocialLinksProps {
 }
 
 const SocialLinks: React.FC<SocialLinksProps> = ({
-  instagramUrl = "#",
-  facebookUrl = "#",
+  instagramUrl,
+  facebookUrl,
   size = 24,
   isVisible = true,
 }) => {
+  // Не рендерим ничего, если обе ссылки отсутствуют
+  if (!instagramUrl && !facebookUrl) {
+    return null;
+  }
+
   return (
     <SocialIconsWrapper $isVisible={isVisible}>
       {instagramUrl && (
@@ -57,4 +62,3 @@ const SocialLinks: React.FC<SocialLinksProps> = ({
 };
 
 export default SocialLinks;
-
