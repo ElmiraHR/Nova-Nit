@@ -4,6 +4,7 @@ import styled from "styled-components";
 import s from "./Landing.module.css";
 import { fetchPage } from "../../services/pageService";
 import { useLanguage } from "../../context/LanguageContext";
+import { renderHtmlText } from "../../services/renderHtmlText";
 
 const Hero = styled.section`
   background: var(--main-bg);
@@ -15,19 +16,33 @@ const HeroTitle = styled.h1`
   color: var(--text-in-boxes);
   font-family: "Roboto", sans-serif;
   font-size: clamp(20px, 3.265vw, 47px);
-  line-height: clamp(34px, 6.5vw, 74px);
+  line-height: clamp(34px, 5vw, 54px);
   font-weight: 400;
   text-align: left;
-  margin-bottom: 1rem;
 `;
 
-const HeroText = styled.div`
+const HeroText = styled.p`
   color: var(--text-in-boxes);
   font-size: clamp(18px, 2vw, 24px);
   line-height: clamp(24px, 3vw, 40px);
   font-family: "Roboto", sans-serif;
   text-align: left;
   font-weight: 400;
+  width: 75%;
+  margin: 0 auto;
+  }
+`;
+const HeroTextPartners = styled.p`
+  color: var(--text-in-boxes);
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: clamp(24px, 3vw, 40px);
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  font-weight: 400;
+  width: 75%;
+  margin: 0 auto;
+  }
+
 `;
 
 const HeroButton = styled.button`
@@ -113,35 +128,28 @@ const Landing: React.FC = () => {
     <Hero>
       <div className={s.landingBannerBox}>
         <div className={s.landingBannerBox_textSide}>
-        <h1 className={s.heroTitle}>
-  {title
-    .replace(/<\/p>/g, '</p>\n') // добавим перенос после каждого </p>
-    .replace(/<br\s*\/?>/gi, '\n') // заменим <br> на \n
-    .replace(/<\/?p>/g, '') // удалим все <p> и </p>
-    .split('\n') // разобьём по \n
-    .map((line, idx) => (
-      <React.Fragment key={idx}>
-        {line}
-        <br />
-      </React.Fragment>
-    ))}
-</h1>
-
-
-
-        <HeroText dangerouslySetInnerHTML={{ __html: text }} />
-          <HeroButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
+          <HeroTitle>{renderHtmlText(title)}</HeroTitle>
+          <HeroText>{renderHtmlText(text)}</HeroText>
+          <HeroButton onClick={() => navigate("/get-involved")}>
+            {language === "ME" ? 'Uključi se' : 'Get Involved'}
+          </HeroButton>
         </div>
         <div className={s.landingBannerBox_imgSide}>
           {storedImagePath && <img src={storedImagePath} alt="banner" />}
-          <HeroButton onClick={() => navigate("/how-does-it-work")}>{language === "ME" ? 'Saznaj više' : 'Learn More'}</HeroButton>
+          <HeroButton onClick={() => navigate("/how-does-it-work")}>
+            {language === "ME" ? 'Saznaj više' : 'Learn More'}
+          </HeroButton>
         </div>
       </div>
 
       <div className={s.landingBodyBox}>
-        <a href={bodyTitleLink}><h2 dangerouslySetInnerHTML={{ __html: bodyTitle }} /></a>
-        <HeroText dangerouslySetInnerHTML={{ __html: bodyText }} />
-        <HeroButton onClick={() => navigate("/get-involved")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
+        <a href={bodyTitleLink}>
+          <h2 dangerouslySetInnerHTML={{ __html: bodyTitle }} />
+        </a>
+        <HeroText>{renderHtmlText(bodyText)}</HeroText>
+        <HeroButton onClick={() => navigate("/get-involved")}>
+          {language === "ME" ? 'Uključi se' : 'Get Involved'}
+        </HeroButton>
       </div>
 
       <div className={s.landingBodyBox_section}>
@@ -158,7 +166,6 @@ const Landing: React.FC = () => {
         </div>
         <div className={s.landingPartnersBox_textSide}>
           <h2 dangerouslySetInnerHTML={{ __html: titlePartners }} />
-
           <div className={s.landingPartnersLogos}>
             {storedLogos.length > 0 ? (
               storedLogos.map((file, idx) => (
@@ -174,9 +181,10 @@ const Landing: React.FC = () => {
               <p>{language === "ME" ? 'Nema dostupnih partnera.' : 'No partners available.'}</p>
             )}
           </div>
-
-          <HeroText dangerouslySetInnerHTML={{ __html: infoPartners }} />
-          <HeroButton onClick={() => navigate("/partners")}>{language === "ME" ? 'Uključi se' : 'Get Involved'}</HeroButton>
+          <HeroTextPartners>{renderHtmlText(infoPartners)}</HeroTextPartners>
+          <HeroButton onClick={() => navigate("/partners")}>
+            {language === "ME" ? 'Uključi se' : 'Get Involved'}
+          </HeroButton>
         </div>
       </div>
     </Hero>

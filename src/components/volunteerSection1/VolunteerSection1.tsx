@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { API_URL } from '../../services/pageService';
+import { renderHtmlText } from "../../services/renderHtmlText"
 
 interface VolunteerPageSection {
   title_en: string;
@@ -51,8 +52,8 @@ const VolunteerSection1: React.FC = () => {
           {section.image_url && <img src={section.image_url} alt="section 1" />}
         </div>
         <div className={s.volunteerSection1ContentBox}>
-          <h3 className={s.volunteerSection1Title}>{title}</h3>
-          <p className={s.volunteerSection1Content}>{text}</p>
+          <h3 className={s.volunteerSection1Title}>{renderHtmlText(title)}</h3>
+          <p className={s.volunteerSection1Content}>{renderHtmlText(text)}</p>
         </div>
       </div>
     </section>

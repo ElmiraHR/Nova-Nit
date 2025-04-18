@@ -39,6 +39,7 @@
   text-align: left;
   font-weight: 400;
   color: var(--text-in-boxes);
+  margin: 16px 0;
 }
 
 .partners_ContentBox button {
@@ -94,6 +95,7 @@ margin-top: 80px;
 }
 .partner_item p {
   font-size: clamp(18px, 2.4vw, 24px);
+  margin: 16px 0;
 }
 .partner_item svg {
   height: clamp(45px, 7vw, 78px);

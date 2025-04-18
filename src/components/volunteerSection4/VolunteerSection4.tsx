@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { API_URL } from '../../services/pageService';
+import { renderHtmlText } from "../../services/renderHtmlText"
 
 interface VolunteerCard {
   id?: number;
@@ -57,10 +58,10 @@ const VolunteerSection4: React.FC = () => {
             </div>
             <div className={s.cardContent}>
               <h3 className={s.cardName}>
-                {language === 'EN' ? volunteer.name_en : volunteer.name_me}
+                {renderHtmlText(language === 'EN' ? volunteer.name_en : volunteer.name_me)}
               </h3>
               <p className={s.cardText}>
-                {language === 'EN' ? volunteer.text_en : volunteer.text_me}
+                {renderHtmlText(language === 'EN' ? volunteer.text_en : volunteer.text_me)}
               </p>
             </div>
           </div>

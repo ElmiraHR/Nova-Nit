@@ -88,7 +88,7 @@ color: var(--text-in-boxes);
 
 .landingBodyBox p {
     /* width: 1132px; */
-    margin: 0 auto;
+    margin: 16px 0;
     font-size: clamp(18px, 2vw, 24px);
     line-height: clamp(24px, 3vw, 40px);
     font-family: 'Roboto', sans-serif;
@@ -278,6 +278,7 @@ max-height: 55px;
     .landingBannerBox_textSide p {
         text-align: center;
         padding: 0 15px 180px;
+        margin: 0 auto;
     }
 
     .landingBannerBox_textSide button {
@@ -295,6 +296,14 @@ max-height: 55px;
 
     .landingBodyBox {
         padding: 80px 18px 39px;
+    }
+    .landingBodyBox h2{
+        margin: 0 auto;
+      margin-bottom: 16px;
+    }
+    .landingBodyBox p {
+        margin: 0 auto;
+        width: 100%;
     }
 
     .landingBodyBox button {

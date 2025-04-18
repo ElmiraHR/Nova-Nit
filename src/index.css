@@ -30,6 +30,7 @@ code {
     monospace;
 }
 
+
 :root[data-theme="light"] {
   --main-bg: #E3E1DC;
   --button-bg: #3F4D61;

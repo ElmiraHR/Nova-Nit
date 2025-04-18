@@ -6,6 +6,7 @@ import { API_URL } from '../../services/pageService';
 import { useLanguage } from '../../context/LanguageContext';
 import SocialLinks from '../../components/socialLinks/SocialLinks';
 import { useNavigate } from 'react-router-dom';
+import { renderHtmlText } from "../../services/renderHtmlText"
 
 const PartnersButton = styled.button`
   display: flex;
@@ -55,14 +56,13 @@ const Partners: React.FC = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
   const [bannerPreview, setBannerPreview] = useState<string>("");
 
-  // Флаг для предотвращения лишних запросов
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true); // Устанавливаем флаг загрузки в true
-      setHasError(false); // Сбрасываем ошибку перед новым запросом
+      setIsLoading(true);
+      setHasError(false);
 
       try {
         const res = await axios.get<{ page: PartnerPageData | null; partners: Partner[] }>(`${API_URL}/api/partners`);
@@ -84,20 +84,18 @@ const Partners: React.FC = () => {
         }
       } catch (err) {
         console.error("❌ Ошибка загрузки данных:", err);
-        setHasError(true); // Устанавливаем флаг ошибки, если запрос не удался
+        setHasError(true);
       } finally {
-        setIsLoading(false); // Вне зависимости от результата, флаг загрузки будет сброшен
+        setIsLoading(false);
       }
     };
 
     fetchData();
-  }, [language]); // useEffect запускается при изменении языка
+  }, [language]);
 
-  // Проверим, что данные загружены и правильно выбраны в зависимости от языка
-  const title = pageData ? (language === "ME" ? pageData.title_me : pageData.title_en) : "Loading..."; 
-  const text = pageData ? (language === "ME" ? pageData.text_me : pageData.text_en) : "Loading..."; 
+  const title = pageData ? (language === "ME" ? pageData.title_me : pageData.title_en) : "Loading...";
+  const text = pageData ? (language === "ME" ? pageData.text_me : pageData.text_en) : "Loading...";
 
-  // Если данные еще не загружены или произошла ошибка
   if (isLoading) {
     return (
       <section className={s.partners}>
@@ -116,62 +114,75 @@ const Partners: React.FC = () => {
 
   return (
     <section className={s.partners}>
-      <h2 className={s.partners_title}>
-        {/* Заголовок с использованием dangerouslySetInnerHTML */}
-        <div dangerouslySetInnerHTML={{ __html: title }} />
-      </h2>
-      <div className={s.partners_Box}>
-        <div className={s.partners_ContentBox}>
-          {/* Текст с использованием dangerouslySetInnerHTML */}
-          <div className={s.partners_Content} dangerouslySetInnerHTML={{ __html: text }} />
-          <PartnersButton
-            onClick={() => navigate("/contact-us")}
-          >
-            {language === "ME" ? "Kontaktirajte nas" : "Contact us"}
-          </PartnersButton>
-        </div>
-        <div className={s.partners_ImgBox}>
-          {bannerPreview ? (
-            <img
-              src={bannerPreview}
-              alt="How It Works"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-          ) : (
-            <p>⚠️ The picture is not available</p>
-          )}
-        </div>
-      </div>
+  <h2 className={s.partners_title}>
+    {renderHtmlText(title)}
+  </h2>
 
-      <h2 className={s.partners_title}>
-        {language === "ME" ? "Hvala svim našim partnerima!" : "Thank you to all of our partners!"}
-      </h2>
-      <div id="partners-section" className={s.partners_list}>
-        {partners.length > 0 ? (
-          partners.map((partner) => (
-            <div key={partner.id} className={s.partner_item}>
-            {/* Отображаем название партнера без HTML тегов */}
-            <h3>{language === "ME" ? partner.name_me.replace(/<\/?p>|<br>/g, '') : partner.name_en.replace(/<\/?p>|<br>/g, '')}</h3>
-            <img src={partner.logo} alt={partner.name_en} className={s.partner_logo} />
-            
-            {/* Текст партнера с использованием dangerouslySetInnerHTML */}
-            <div dangerouslySetInnerHTML={{ __html: language === "ME" ? partner.text_me : partner.text_en }} />
-            
-            <SocialLinks
-              size={78}
-              instagramUrl={partner.instagram_link}
-              facebookUrl={partner.facebook_link}
-            />
+  <div className={s.partners_Box}>
+    <div className={s.partners_ContentBox}>
+      <p className={s.partners_Content}>
+        {renderHtmlText(text)}
+      </p>
+      <PartnersButton onClick={() => navigate("/contact-us")}>
+        {language === "ME" ? "Kontaktirajte nas" : "Contact us"}
+      </PartnersButton>
+    </div>
+    <div className={s.partners_ImgBox}>
+      {bannerPreview ? (
+        <img
+          src={bannerPreview}
+          alt="How It Works"
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+          }}
+        />
+      ) : (
+        <p>⚠️ The picture is not available</p>
+      )}
+    </div>
+  </div>
+
+  <h2 className={s.partners_title}>
+    {language === "ME" ? "Hvala svim našim partnerima!" : "Thank you to all of our partners!"}
+  </h2>
+
+  <div id="partners-section" className={s.partners_list}>
+    {partners.length > 0 ? (
+      partners.map((partner) => {
+        const name = language === "ME" ? partner.name_me : partner.name_en;
+        const textHtml = language === "ME" ? partner.text_me : partner.text_en;
+        const hasSocial = partner.instagram_link || partner.facebook_link;
+        const hasContent = partner.logo || textHtml || hasSocial;
+
+        if (!hasContent) return null;
+
+        return (
+          <div key={partner.id} className={s.partner_item}>
+            <h3>{renderHtmlText(name)}</h3>
+
+            {partner.logo && (
+              <img src={partner.logo} alt={partner.name_en} className={s.partner_logo} />
+            )}
+
+            {textHtml && (
+              <p>{renderHtmlText(textHtml)}</p>
+            )}
+
+            {hasSocial && (
+              <SocialLinks
+                size={78}
+                instagramUrl={partner.instagram_link}
+                facebookUrl={partner.facebook_link}
+              />
+            )}
           </div>
-          
-          ))
-        ) : (
-          <p>❌ Partners are not available</p>
-        )}
-      </div>
-    </section>
+        );
+      })
+    ) : (
+      <p>❌ Partners are not available</p>
+    )}
+  </div>
+</section>
   );
 };
 
