@@ -92,4 +92,49 @@
     background-color: #f44336;
     color: white;
   }
+  .faqBlock {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #2c3e50;
+    border-radius: 10px;
+    background-color: #1a273a;
+  }
+  
+  .inputBlock {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .inputBlock label {
+    margin-bottom: 6px;
+    color: #aaf0ff;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .inputField {
+    padding: 8px;
+    background-color: #0e1a2b;
+    border: 1px solid #ccc;
+    color: #fff;
+    border-radius: 6px;
+  }
+  
+  .textareaField {
+    padding: 8px;
+    background-color: #0e1a2b;
+    border: 1px solid #ccc;
+    color: #fff;
+    border-radius: 6px;
+    min-height: 80px;
+    resize: vertical;
+  }
+  .faqTitle {
+    font-size: 18px;
+    font-weight: bold;
+    color: #c4f4ff;
+    margin-bottom: 15px;
+  }
+  
   

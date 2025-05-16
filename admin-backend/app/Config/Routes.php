@@ -125,3 +125,7 @@ $routes->group('api/volunteer', function($routes) {
     $routes->post('api/volunteer/update', 'VolunteerController::update');
     $routes->post('api/volunteer/update/(:num)', 'VolunteerController::updateVolunteer/$1');
 });
+
+
+$routes->get('api/faq-page', 'FaqPageController::index');
+$routes->post('api/faq-page/update', 'FaqPageController::update');

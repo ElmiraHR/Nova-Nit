@@ -1,24 +1,33 @@
-// 📁 src/components/FAQ/FAQ.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../services/pageService';
 import styles from './FAQ.module.css';
+
+interface FaqImageResponse {
+  image_url: string;
+}
+
+interface FaqItem {
+  id: number;
+  question_en: string;
+  question_me: string;
+  answer_en: string;
+  answer_me: string;
+}
 
 const FAQ: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [storedImage, setStoredImage] = useState('');
   const [imageName, setImageName] = useState('No file selected');
   const [notification, setNotification] = useState('');
+  const [faqList, setFaqList] = useState<FaqItem[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [showReplaceMessage, setShowReplaceMessage] = useState(false);
 
   useEffect(() => {
     fetchImage();
+    fetchFaqs();
   }, []);
-
-  interface FaqImageResponse {
-    image_url: string;
-  }
 
   const fetchImage = async () => {
     try {
@@ -28,6 +37,15 @@ const FAQ: React.FC = () => {
       }
     } catch (error) {
       console.error('Error loading image:', error);
+    }
+  };
+
+  const fetchFaqs = async () => {
+    try {
+      const res = await axios.get<FaqItem[]>(`${API_URL}/api/faq-page`);
+      setFaqList(res.data);
+    } catch (error) {
+      console.error('Error loading FAQ list:', error);
     }
   };
 
@@ -68,9 +86,30 @@ const FAQ: React.FC = () => {
     }
   };
 
+  const handleFaqChange = (index: number, field: keyof FaqItem, value: string) => {
+    const updatedFaqs = [...faqList];
+    updatedFaqs[index] = {
+      ...updatedFaqs[index],
+      [field]: value,
+    };
+    
+    setFaqList(updatedFaqs);
+  };
+
+  const handleSaveFaqs = async () => {
+    try {
+      await axios.post(`${API_URL}/api/faq-page/update`, { faqs: faqList });
+      setNotification('FAQ updated!');
+      setTimeout(() => setNotification(''), 3000);
+    } catch (error) {
+      console.error('FAQ update failed:', error);
+      setNotification('FAQ update failed');
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <h2 className={styles.sectionTitle}>FAQ Image</h2>
+      <h2 className={styles.sectionTitle}>FAQ Image </h2>
       {notification && <div className={styles.notification}>{notification}</div>}
 
       <div className={styles.uploadSection}>
@@ -106,6 +145,50 @@ const FAQ: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* 🔽 РЕДАКТИРОВАНИЕ ВОПРОСОВ */}
+      <h2 className={styles.sectionTitle}>Edit FAQ</h2>
+      {faqList.map((faq, index) => (
+        <div key={faq.id} className={styles.faqBlock}>
+          <div className={styles.inputBlock}>
+            <label>Question (EN) {index + 1}</label>
+            <input
+              type="text"
+              value={faq.question_en}
+              onChange={(e) => handleFaqChange(index, 'question_en', e.target.value)}
+              className={styles.inputField}
+            />
+          </div>
+          <div className={styles.inputBlock}>
+            <label>Question (ME)</label>
+            <input
+              type="text"
+              value={faq.question_me}
+              onChange={(e) => handleFaqChange(index, 'question_me', e.target.value)}
+              className={styles.inputField}
+            />
+          </div>
+          <div className={styles.inputBlock}>
+            <label>Answer (EN)</label>
+            <textarea
+              value={faq.answer_en}
+              onChange={(e) => handleFaqChange(index, 'answer_en', e.target.value)}
+              className={styles.textareaField}
+            />
+          </div>
+          <div className={styles.inputBlock}>
+            <label>Answer (ME)</label>
+            <textarea
+              value={faq.answer_me}
+              onChange={(e) => handleFaqChange(index, 'answer_me', e.target.value)}
+              className={styles.textareaField}
+            />
+          </div>
+        </div>
+      ))}
+      <button className={styles.saveButton} onClick={handleSaveFaqs}>
+        Save FAQ
+      </button>
     </div>
   );
 };
